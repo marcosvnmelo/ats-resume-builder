@@ -1,0 +1,33 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "singleQuote": true,
+  "quoteProps": "consistent",
+  "importOrder": [
+    "<TYPES>",
+    "^(react/(.*)$)|^(react$)",
+    "^@base-ui/(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "<TYPES>^[#](([a-z]|[-])+)?",
+    "^[#](([a-z]|[-])+)?",
+    "<TYPES>^(~|@)/",
+    "^(~|@)/",
+    "",
+    "<TYPES>^([.]{1,2})/",
+    "^([.]{1,2})/"
+  ],
+  "sortPackageJson": false,
+  "sortImports": true,
+  "sortTailwindcss": {
+    "functions": ["cn", "cva", "tva"]
+  },
+  "overrides": [
+    {
+      "files": ["*.tsx", "*.json"],
+      "options": {
+        "printWidth": 80
+      }
+    }
+  ],
+  "ignorePatterns": []
+}

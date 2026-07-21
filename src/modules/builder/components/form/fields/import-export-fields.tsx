@@ -21,6 +21,28 @@ export const ImportExportFields = withBuilderFieldGroup({
         <FieldGroup className="flex-row justify-center *:w-auto">
           <group.Field
             name="file"
+            listeners={{
+              async onChange({ value, fieldApi }) {
+                const file = value;
+
+                if (!file) return;
+
+                const fileContent = await file.text();
+
+                const parsedJson = JSON.parse(fileContent);
+
+                const parsedData = resumeDataSchema.parse(parsedJson);
+
+                fieldApi.form.setFieldValue('personalInformation', {
+                  name: parsedData.name,
+                  position: parsedData.position,
+                  contactInformation: parsedData.contactInformation,
+                  email: parsedData.email,
+                  address: parsedData.address,
+                  profilePicture: parsedData.profilePicture,
+                });
+              },
+            }}
           >
             {(field) => (
               <Field orientation="horizontal">

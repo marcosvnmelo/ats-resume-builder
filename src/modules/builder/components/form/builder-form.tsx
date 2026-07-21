@@ -5,6 +5,7 @@ import { FieldGroup, FieldSeparator } from '@/components/ui/field';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 import { ImportExportFields } from './fields/import-export-fields';
+import { PersonalInformationFields } from './fields/personal-information-fields';
 
 export function BuilderForm() {
   const form = useBuilderForm({
@@ -32,6 +33,10 @@ export function BuilderForm() {
               <FieldGroup>
                 <ImportExportFields form={form} fields="import" />
                 <FieldSeparator />
+                <PersonalInformationFields
+                  form={form}
+                  fields="personalInformation"
+                />
               </FieldGroup>
             </form.AppForm>
           </form>

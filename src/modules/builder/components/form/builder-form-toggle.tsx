@@ -14,7 +14,7 @@ function FormToggle() {
       title={isFormVisible ? 'Hide Form' : 'Show Form'}
       size="icon"
       variant="ghost"
-      className="fixed bottom-5 left-10 print:hidden"
+      className="fixed bottom-5 left-10 rounded-full print:hidden"
       onClick={() => useBuilderStore.getState().toggleFormVisibility()}
     >
       <ArrowLeftCircle

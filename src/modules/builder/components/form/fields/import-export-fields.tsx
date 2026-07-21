@@ -41,6 +41,11 @@ export const ImportExportFields = withBuilderFieldGroup({
                   address: parsedData.address,
                   profilePicture: parsedData.profilePicture,
                 });
+
+                fieldApi.form.setFieldValue(
+                  'socialMedia',
+                  parsedData.socialMedia,
+                );
               },
             }}
           >

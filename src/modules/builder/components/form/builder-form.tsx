@@ -6,6 +6,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 import { ImportExportFields } from './fields/import-export-fields';
 import { PersonalInformationFields } from './fields/personal-information-fields';
+import { SocialMediaFields } from './fields/social-media-fields-array';
 
 export function BuilderForm() {
   const form = useBuilderForm({
@@ -17,7 +18,7 @@ export function BuilderForm() {
 
   return (
     <ScrollArea className="dark md:col-span-4 md:h-screen print:hidden">
-      <Card className="rounded-none">
+      <Card className="min-h-full rounded-none">
         <CardHeader>
           <CardTitle>ATS Resume Builder</CardTitle>
         </CardHeader>
@@ -37,6 +38,8 @@ export function BuilderForm() {
                   form={form}
                   fields="personalInformation"
                 />
+                <FieldSeparator />
+                <SocialMediaFields form={form} />
               </FieldGroup>
             </form.AppForm>
           </form>

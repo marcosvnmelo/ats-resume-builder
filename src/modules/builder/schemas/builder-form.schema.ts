@@ -14,6 +14,7 @@ export const builderFormSchema = z.object({
     address: true,
     profilePicture: true,
   }),
+  socialMedia: resumeDataSchema.shape.socialMedia,
 });
 
 export type BuilderFormInput = z.input<typeof builderFormSchema>;

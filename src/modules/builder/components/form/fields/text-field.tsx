@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 
 interface TextFieldProps {
   id?: string;
+  type?: 'text' | 'email';
   label?: string;
   placeholder?: string;
 }
@@ -22,7 +23,7 @@ export function TextField(props: TextFieldProps) {
       <Input
         id={inputId}
         name={field.name}
-        type="text"
+        type={props.type ?? 'text'}
         placeholder={props.placeholder}
         value={field.state.value}
         onBlur={field.handleBlur}

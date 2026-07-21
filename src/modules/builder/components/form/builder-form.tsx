@@ -4,9 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FieldGroup, FieldSeparator } from '@/components/ui/field';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-import { ImportExportFields } from './fields/import-export-fields';
-import { PersonalInformationFields } from './fields/personal-information-fields';
-import { SocialMediaFields } from './fields/social-media-fields-array';
+import { ImportExportFields } from './groups/import-export-fields';
+import { PersonalInformationFields } from './groups/personal-information-fields';
+import { SocialMediaFields } from './groups/social-media-fields-array';
 
 export function BuilderForm() {
   const form = useBuilderForm({

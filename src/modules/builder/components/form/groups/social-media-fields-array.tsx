@@ -1,19 +1,19 @@
 import { PlusIcon } from 'lucide-react';
 
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
-import { withBuilderForm } from '#builder/hooks/use-builder-form.ts';
+import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
 import { Button } from '@/components/ui/button';
 import { FieldLegend, FieldSet } from '@/components/ui/field';
 
 import { SocialMediaField } from './social-media-fields';
 
-export const SocialMediaFields = withBuilderForm({
-  defaultValues,
-  render: function Render({ form }) {
+export const SocialMediaFields = withBuilderFieldGroup({
+  defaultValues: defaultValues.socialMedia,
+  render: function Render({ group }) {
     return (
       <FieldSet>
         <FieldLegend>Social Medias</FieldLegend>
-        <form.Field name="socialMedia" mode="array">
+        <group.Field name="items" mode="array">
           {(field) =>
             field.state.value.map((socialMedia, i) => (
               <SocialMediaField
@@ -23,13 +23,13 @@ export const SocialMediaFields = withBuilderForm({
               />
             ))
           }
-        </form.Field>
+        </group.Field>
         <Button
           type="button"
           size="icon"
           variant="ghost"
           onClick={() =>
-            form.pushFieldValue('socialMedia', { socialMedia: '', link: '' })
+            group.pushFieldValue('items', { socialMedia: '', link: '' })
           }
         >
           <PlusIcon className="" />

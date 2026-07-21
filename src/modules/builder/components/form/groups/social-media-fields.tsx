@@ -17,13 +17,13 @@ export function SocialMediaField({ index, removeItem }: SocialMediaFieldProps) {
   return (
     <div className="flex gap-3.5">
       <FieldGroup>
-        <form.AppField name={`socialMedia[${index}].socialMedia`}>
+        <form.AppField name={`socialMedia.items[${index}].socialMedia`}>
           {(field) => (
             <field.TextField label="Social Media" placeholder="LinkedIn" />
           )}
         </form.AppField>
 
-        <form.AppField name={`socialMedia[${index}].link`}>
+        <form.AppField name={`socialMedia.items[${index}].link`}>
           {(field) => (
             <field.TextField
               label="Link"

@@ -39,7 +39,7 @@ export function BuilderForm() {
                   fields="personalInformation"
                 />
                 <FieldSeparator />
-                <SocialMediaFields form={form} />
+                <SocialMediaFields form={form} fields="socialMedia" />
               </FieldGroup>
             </form.AppForm>
           </form>

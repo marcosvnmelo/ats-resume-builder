@@ -43,7 +43,7 @@ export const ImportExportFields = withBuilderFieldGroup({
                 });
 
                 fieldApi.form.setFieldValue(
-                  'socialMedia',
+                  'socialMedia.items',
                   parsedData.socialMedia,
                 );
               },

@@ -14,7 +14,9 @@ export const defaultValues: BuilderFormInput = {
     address: '',
     profilePicture: '',
   },
-  socialMedia: [],
+  socialMedia: {
+    items: [],
+  },
 };
 
 export const builderFormOptions = formOptions({

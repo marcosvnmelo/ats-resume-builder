@@ -33,6 +33,9 @@ export const builderFormSchema = z.object({
     title: resumeDataSchema.shape.skills.def.items[0].shape.title,
     items: resumeDataSchema.shape.skills.def.items[0].shape.skills,
   }),
+  languages: z.object({
+    items: resumeDataSchema.shape.languages,
+  }),
 });
 
 export type BuilderFormInput = z.input<typeof builderFormSchema>;

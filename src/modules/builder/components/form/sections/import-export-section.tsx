@@ -72,6 +72,11 @@ export const ImportExportSection = withBuilderFieldGroup({
                   'skills.items',
                   parsedData.skills[0].skills,
                 );
+
+                fieldApi.form.setFieldValue(
+                  'languages.items',
+                  parsedData.languages,
+                );
               },
             }}
           >

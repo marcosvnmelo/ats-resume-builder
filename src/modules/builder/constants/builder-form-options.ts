@@ -33,6 +33,9 @@ export const defaultValues: BuilderFormInput = {
     title: 'Technical Skills',
     items: [],
   },
+  languages: {
+    items: [],
+  },
 };
 
 export const builderFormOptions = formOptions({

@@ -7,6 +7,7 @@ interface TextFieldProps {
   type?: 'text' | 'email';
   label?: string;
   placeholder?: string;
+  fieldClassName?: string;
 }
 
 export function TextField(props: TextFieldProps) {
@@ -17,7 +18,7 @@ export function TextField(props: TextFieldProps) {
   const inputId = props.id ?? field.name;
 
   return (
-    <Field data-invalid={isInvalid}>
+    <Field data-invalid={isInvalid} className={props.fieldClassName}>
       {props.label && <FieldLabel htmlFor={inputId}>{props.label}</FieldLabel>}
 
       <Input

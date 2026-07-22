@@ -36,6 +36,9 @@ export const builderFormSchema = z.object({
   languages: z.object({
     items: resumeDataSchema.shape.languages,
   }),
+  certifications: z.object({
+    items: resumeDataSchema.shape.certifications,
+  }),
 });
 
 export type BuilderFormInput = z.input<typeof builderFormSchema>;

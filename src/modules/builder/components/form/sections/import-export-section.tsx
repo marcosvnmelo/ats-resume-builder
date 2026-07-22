@@ -77,6 +77,11 @@ export const ImportExportSection = withBuilderFieldGroup({
                   'languages.items',
                   parsedData.languages,
                 );
+
+                fieldApi.form.setFieldValue(
+                  'certifications.items',
+                  parsedData.certifications,
+                );
               },
             }}
           >

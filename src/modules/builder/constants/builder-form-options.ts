@@ -36,6 +36,9 @@ export const defaultValues: BuilderFormInput = {
   languages: {
     items: [],
   },
+  certifications: {
+    items: [],
+  },
 };
 
 export const builderFormOptions = formOptions({

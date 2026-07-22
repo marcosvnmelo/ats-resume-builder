@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FieldGroup, FieldSeparator } from '@/components/ui/field';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
+import { CertificationsSection } from './sections/certifications-section';
 import { EducationSection } from './sections/education-section';
 import { ImportExportSection } from './sections/import-export-section';
 import { LanguagesSection } from './sections/languages-section';
@@ -58,6 +59,8 @@ export function BuilderForm() {
                 <SkillsSection form={form} fields="skills" />
                 <FieldSeparator />
                 <LanguagesSection form={form} fields="languages" />
+                <FieldSeparator />
+                <CertificationsSection form={form} fields="certifications" />
               </FieldGroup>
             </form.AppForm>
           </form>

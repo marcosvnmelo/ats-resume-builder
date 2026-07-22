@@ -1,18 +1,19 @@
-import { PlusCircleIcon } from 'lucide-react';
-
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
-import { Button } from '@/components/ui/button';
-import { FieldLegend, FieldSet } from '@/components/ui/field';
 
 import { SocialMediaField } from '../fields/social-media-field';
+import { ArraySectionLayout } from '../shared/array-section-layout';
 
 export const SocialMediaSection = withBuilderFieldGroup({
   defaultValues: defaultValues.socialMedia,
   render: function Render({ group }) {
     return (
-      <FieldSet>
-        <FieldLegend>Social Medias</FieldLegend>
+      <ArraySectionLayout
+        legend="Social Medias"
+        onAddItem={() =>
+          group.pushFieldValue('items', { socialMedia: '', link: '' })
+        }
+      >
         <group.Field name="items" mode="array">
           {(field) =>
             field.state.value.map((socialMedia, i) => (
@@ -24,17 +25,7 @@ export const SocialMediaSection = withBuilderFieldGroup({
             ))
           }
         </group.Field>
-        <Button
-          type="button"
-          size="icon"
-          variant="ghost"
-          onClick={() =>
-            group.pushFieldValue('items', { socialMedia: '', link: '' })
-          }
-        >
-          <PlusCircleIcon />
-        </Button>
-      </FieldSet>
+      </ArraySectionLayout>
     );
   },
 });

@@ -1,9 +1,8 @@
-import { TrashIcon } from 'lucide-react';
-
 import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
 import { useBuilderFormContext } from '#builder/hooks/use-builder-form.ts';
-import { Button } from '@/components/ui/button';
 import { FieldGroup } from '@/components/ui/field';
+
+import { DeleteButton } from '../shared/delete-button';
 
 interface SocialMediaFieldProps {
   index: number;
@@ -33,15 +32,7 @@ export function SocialMediaField({ index, removeItem }: SocialMediaFieldProps) {
         </form.AppField>
       </FieldGroup>
 
-      <Button
-        type="button"
-        size="icon"
-        variant="destructive"
-        className="mt-8"
-        onClick={removeItem}
-      >
-        <TrashIcon />
-      </Button>
+      <DeleteButton className="mt-8" onClick={removeItem} />
     </div>
   );
 }

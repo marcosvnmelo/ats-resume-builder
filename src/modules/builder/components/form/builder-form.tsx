@@ -9,6 +9,7 @@ import { ImportExportSection } from './sections/import-export-section';
 import { PersonalInformationSection } from './sections/personal-information-section';
 import { SocialMediaSection } from './sections/social-media-section-array';
 import { SummarySection } from './sections/summary-section';
+import { WorkExperienceSection } from './sections/work-experience-section';
 
 export function BuilderForm() {
   const form = useBuilderForm({
@@ -46,6 +47,8 @@ export function BuilderForm() {
                 <SummarySection form={form} fields="summary" />
                 <FieldSeparator />
                 <EducationSection form={form} fields="education" />
+                <FieldSeparator />
+                <WorkExperienceSection form={form} fields="workExperience" />
               </FieldGroup>
             </form.AppForm>
           </form>

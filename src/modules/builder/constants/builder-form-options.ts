@@ -23,6 +23,9 @@ export const defaultValues: BuilderFormInput = {
   education: {
     items: [],
   },
+  workExperience: {
+    items: [],
+  },
 };
 
 export const builderFormOptions = formOptions({

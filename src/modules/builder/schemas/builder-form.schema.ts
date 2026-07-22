@@ -23,6 +23,9 @@ export const builderFormSchema = z.object({
   education: z.object({
     items: resumeDataSchema.shape.education,
   }),
+  workExperience: z.object({
+    items: resumeDataSchema.shape.workExperience,
+  }),
 });
 
 export type BuilderFormInput = z.input<typeof builderFormSchema>;

@@ -1,11 +1,11 @@
-import { PlusIcon } from 'lucide-react';
+import { PlusCircleIcon } from 'lucide-react';
 
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
 import { Button } from '@/components/ui/button';
 import { FieldLegend, FieldSet } from '@/components/ui/field';
 
-import { SocialMediaField } from './social-media-fields';
+import { SocialMediaField } from './social-media-field';
 
 export const SocialMediaFields = withBuilderFieldGroup({
   defaultValues: defaultValues.socialMedia,
@@ -32,7 +32,7 @@ export const SocialMediaFields = withBuilderFieldGroup({
             group.pushFieldValue('items', { socialMedia: '', link: '' })
           }
         >
-          <PlusIcon className="" />
+          <PlusCircleIcon />
         </Button>
       </FieldSet>
     );

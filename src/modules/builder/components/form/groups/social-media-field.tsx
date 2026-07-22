@@ -15,7 +15,7 @@ export function SocialMediaField({ index, removeItem }: SocialMediaFieldProps) {
     ...builderFormOptions,
   });
   return (
-    <div className="flex gap-3.5">
+    <div className="flex gap-3">
       <FieldGroup>
         <form.AppField name={`socialMedia.items[${index}].socialMedia`}>
           {(field) => (
@@ -36,8 +36,8 @@ export function SocialMediaField({ index, removeItem }: SocialMediaFieldProps) {
       <Button
         type="button"
         size="icon"
-        variant="ghost"
-        className="self-end"
+        variant="destructive"
+        className="mt-8"
         onClick={removeItem}
       >
         <TrashIcon />

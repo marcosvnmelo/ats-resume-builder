@@ -11,6 +11,7 @@ interface TextFieldProps extends Pick<
 > {
   id?: string;
   label?: string;
+  fieldClassName?: string;
 }
 
 export function TextareaField(props: TextFieldProps) {
@@ -21,7 +22,7 @@ export function TextareaField(props: TextFieldProps) {
   const inputId = props.id ?? field.name;
 
   return (
-    <Field data-invalid={isInvalid}>
+    <Field data-invalid={isInvalid} className={props.fieldClassName}>
       {props.label && <FieldLabel htmlFor={inputId}>{props.label}</FieldLabel>}
 
       <Textarea

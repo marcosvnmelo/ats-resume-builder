@@ -7,7 +7,7 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { Field, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 
-export const ImportExportFields = withBuilderFieldGroup({
+export const ImportExportSection = withBuilderFieldGroup({
   defaultValues: defaultValues.import,
   render: function Render({ group }) {
     function downloadResumeData() {

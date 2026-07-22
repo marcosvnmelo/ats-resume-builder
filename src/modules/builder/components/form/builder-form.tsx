@@ -4,10 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FieldGroup, FieldSeparator } from '@/components/ui/field';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-import { ImportExportFields } from './groups/import-export-fields';
-import { PersonalInformationFields } from './groups/personal-information-fields';
-import { SocialMediaFields } from './groups/social-media-fields-array';
-import { SummaryFields } from './groups/summary-fields';
+import { ImportExportSection } from './sections/import-export-section';
+import { PersonalInformationSection } from './sections/personal-information-section';
+import { SocialMediaSection } from './sections/social-media-section-array';
+import { SummarySection } from './sections/summary-section';
 
 export function BuilderForm() {
   const form = useBuilderForm({
@@ -33,16 +33,16 @@ export function BuilderForm() {
           >
             <form.AppForm>
               <FieldGroup>
-                <ImportExportFields form={form} fields="import" />
+                <ImportExportSection form={form} fields="import" />
                 <FieldSeparator />
-                <PersonalInformationFields
+                <PersonalInformationSection
                   form={form}
                   fields="personalInformation"
                 />
                 <FieldSeparator />
-                <SocialMediaFields form={form} fields="socialMedia" />
+                <SocialMediaSection form={form} fields="socialMedia" />
                 <FieldSeparator />
-                <SummaryFields form={form} fields="summary" />
+                <SummarySection form={form} fields="summary" />
               </FieldGroup>
             </form.AppForm>
           </form>

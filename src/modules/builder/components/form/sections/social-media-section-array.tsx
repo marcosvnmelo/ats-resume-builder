@@ -5,9 +5,9 @@ import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
 import { Button } from '@/components/ui/button';
 import { FieldLegend, FieldSet } from '@/components/ui/field';
 
-import { SocialMediaField } from './social-media-field';
+import { SocialMediaField } from '../fields/social-media-field';
 
-export const SocialMediaFields = withBuilderFieldGroup({
+export const SocialMediaSection = withBuilderFieldGroup({
   defaultValues: defaultValues.socialMedia,
   render: function Render({ group }) {
     return (

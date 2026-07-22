@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 
-export const PersonalInformationFields = withBuilderFieldGroup({
+export const PersonalInformationSection = withBuilderFieldGroup({
   defaultValues: defaultValues.personalInformation,
   render: function Render({ group }) {
     return (

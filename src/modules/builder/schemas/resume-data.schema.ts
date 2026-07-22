@@ -27,7 +27,15 @@ export const resumeDataSchema = z.object({
       endYear: z.string(),
     }),
   ),
-  projects: z.array(z.unknown()),
+  projects: z.array(
+    z.object({
+      name: z.string(),
+      description: z.string(),
+      keyAchievements: z.string(),
+      startYear: z.string(),
+      endYear: z.string(),
+    }),
+  ),
   skills: z.array(z.object({ title: z.string(), skills: z.array(z.string()) })),
   languages: z.array(z.string()),
   certifications: z.array(z.string()),

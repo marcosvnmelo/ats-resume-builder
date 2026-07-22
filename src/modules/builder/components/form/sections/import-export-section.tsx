@@ -58,6 +58,11 @@ export const ImportExportSection = withBuilderFieldGroup({
                   'workExperience.items',
                   parsedData.workExperience,
                 );
+
+                fieldApi.form.setFieldValue(
+                  'projects.items',
+                  parsedData.projects,
+                );
               },
             }}
           >

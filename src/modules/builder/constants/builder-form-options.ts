@@ -26,6 +26,9 @@ export const defaultValues: BuilderFormInput = {
   workExperience: {
     items: [],
   },
+  projects: {
+    items: [],
+  },
 };
 
 export const builderFormOptions = formOptions({

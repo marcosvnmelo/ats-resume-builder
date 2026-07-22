@@ -7,6 +7,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { EducationSection } from './sections/education-section';
 import { ImportExportSection } from './sections/import-export-section';
 import { PersonalInformationSection } from './sections/personal-information-section';
+import { ProjectsSection } from './sections/projects-section';
 import { SocialMediaSection } from './sections/social-media-section-array';
 import { SummarySection } from './sections/summary-section';
 import { WorkExperienceSection } from './sections/work-experience-section';
@@ -49,6 +50,8 @@ export function BuilderForm() {
                 <EducationSection form={form} fields="education" />
                 <FieldSeparator />
                 <WorkExperienceSection form={form} fields="workExperience" />
+                <FieldSeparator />
+                <ProjectsSection form={form} fields="projects" />
               </FieldGroup>
             </form.AppForm>
           </form>

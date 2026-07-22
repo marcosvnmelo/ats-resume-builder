@@ -20,6 +20,9 @@ export const defaultValues: BuilderFormInput = {
   summary: {
     text: '',
   },
+  education: {
+    items: [],
+  },
 };
 
 export const builderFormOptions = formOptions({

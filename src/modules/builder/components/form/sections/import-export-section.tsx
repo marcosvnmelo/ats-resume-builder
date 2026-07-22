@@ -48,6 +48,11 @@ export const ImportExportSection = withBuilderFieldGroup({
                 );
 
                 fieldApi.form.setFieldValue('summary.text', parsedData.summary);
+
+                fieldApi.form.setFieldValue(
+                  'education.items',
+                  parsedData.education,
+                );
               },
             }}
           >

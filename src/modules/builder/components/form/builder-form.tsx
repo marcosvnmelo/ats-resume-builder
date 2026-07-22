@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FieldGroup, FieldSeparator } from '@/components/ui/field';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
+import { EducationSection } from './sections/education-section';
 import { ImportExportSection } from './sections/import-export-section';
 import { PersonalInformationSection } from './sections/personal-information-section';
 import { SocialMediaSection } from './sections/social-media-section-array';
@@ -43,6 +44,8 @@ export function BuilderForm() {
                 <SocialMediaSection form={form} fields="socialMedia" />
                 <FieldSeparator />
                 <SummarySection form={form} fields="summary" />
+                <FieldSeparator />
+                <EducationSection form={form} fields="education" />
               </FieldGroup>
             </form.AppForm>
           </form>

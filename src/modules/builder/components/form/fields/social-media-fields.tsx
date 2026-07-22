@@ -4,12 +4,15 @@ import { FieldGroup } from '@/components/ui/field';
 
 import { DeleteButton } from '../shared/delete-button';
 
-interface SocialMediaFieldProps {
+interface SocialMediaFieldsProps {
   index: number;
   removeItem: () => void;
 }
 
-export function SocialMediaField({ index, removeItem }: SocialMediaFieldProps) {
+export function SocialMediaFields({
+  index,
+  removeItem,
+}: SocialMediaFieldsProps) {
   const form = useBuilderFormContext({
     ...builderFormOptions,
   });

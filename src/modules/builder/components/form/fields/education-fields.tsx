@@ -2,7 +2,7 @@ import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
 import { useBuilderFormContext } from '#builder/hooks/use-builder-form.ts';
 import { FieldGroup } from '@/components/ui/field';
 
-import { DeleteButton } from '../shared/delete-button';
+import { ArrayFieldsLayout } from '../shared/array-fields-layout';
 
 interface EducationFieldProps {
   index: number;
@@ -14,7 +14,7 @@ export function EducationFields({ index, removeItem }: EducationFieldProps) {
     ...builderFormOptions,
   });
   return (
-    <div className="flex gap-3">
+    <ArrayFieldsLayout onRemoveItem={removeItem}>
       <FieldGroup className="grid grid-cols-2">
         <form.AppField name={`education.items[${index}].school`}>
           {(field) => (
@@ -48,8 +48,6 @@ export function EducationFields({ index, removeItem }: EducationFieldProps) {
           )}
         </form.AppField>
       </FieldGroup>
-
-      <DeleteButton className="mt-8" onClick={removeItem} />
-    </div>
+    </ArrayFieldsLayout>
   );
 }

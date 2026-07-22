@@ -2,7 +2,7 @@ import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
 import { useBuilderFormContext } from '#builder/hooks/use-builder-form.ts';
 import { FieldGroup } from '@/components/ui/field';
 
-import { DeleteButton } from '../shared/delete-button';
+import { ArrayFieldsLayout } from '../shared/array-fields-layout';
 
 interface SocialMediaFieldsProps {
   index: number;
@@ -17,7 +17,7 @@ export function SocialMediaFields({
     ...builderFormOptions,
   });
   return (
-    <div className="flex gap-3">
+    <ArrayFieldsLayout onRemoveItem={removeItem}>
       <FieldGroup>
         <form.AppField name={`socialMedia.items[${index}].socialMedia`}>
           {(field) => (
@@ -34,8 +34,6 @@ export function SocialMediaFields({
           )}
         </form.AppField>
       </FieldGroup>
-
-      <DeleteButton className="mt-8" onClick={removeItem} />
-    </div>
+    </ArrayFieldsLayout>
   );
 }

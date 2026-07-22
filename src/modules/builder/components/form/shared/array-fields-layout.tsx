@@ -14,7 +14,7 @@ export function ArrayFieldsLayout(props: ArrayFieldsLayoutProps) {
       {props.children}
 
       <DeleteButton
-        className="absolute top-0 right-0 rounded-tr-(--card-rounding)"
+        className="absolute top-0 right-0 rounded-none rounded-tr-xl rounded-bl-xl"
         onClick={props.onRemoveItem}
       />
     </Card>

@@ -17,6 +17,9 @@ export const defaultValues: BuilderFormInput = {
   socialMedia: {
     items: [],
   },
+  summary: {
+    text: '',
+  },
 };
 
 export const builderFormOptions = formOptions({

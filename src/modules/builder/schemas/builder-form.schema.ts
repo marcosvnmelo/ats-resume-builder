@@ -17,6 +17,9 @@ export const builderFormSchema = z.object({
   socialMedia: z.object({
     items: resumeDataSchema.shape.socialMedia,
   }),
+  summary: z.object({
+    text: resumeDataSchema.shape.summary,
+  }),
 });
 
 export type BuilderFormInput = z.input<typeof builderFormSchema>;

@@ -7,6 +7,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { ImportExportFields } from './groups/import-export-fields';
 import { PersonalInformationFields } from './groups/personal-information-fields';
 import { SocialMediaFields } from './groups/social-media-fields-array';
+import { SummaryFields } from './groups/summary-fields';
 
 export function BuilderForm() {
   const form = useBuilderForm({
@@ -40,6 +41,8 @@ export function BuilderForm() {
                 />
                 <FieldSeparator />
                 <SocialMediaFields form={form} fields="socialMedia" />
+                <FieldSeparator />
+                <SummaryFields form={form} fields="summary" />
               </FieldGroup>
             </form.AppForm>
           </form>

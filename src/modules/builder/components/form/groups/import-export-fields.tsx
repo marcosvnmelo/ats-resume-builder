@@ -46,6 +46,8 @@ export const ImportExportFields = withBuilderFieldGroup({
                   'socialMedia.items',
                   parsedData.socialMedia,
                 );
+
+                fieldApi.form.setFieldValue('summary.text', parsedData.summary);
               },
             }}
           >

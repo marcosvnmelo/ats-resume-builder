@@ -1,5 +1,10 @@
 import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
 import { useBuilderForm } from '#builder/hooks/use-builder-form.ts';
+import {
+  resumeDataSchema,
+  type ResumeData,
+} from '#builder/schemas/resume-data.schema.ts';
+import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FieldGroup, FieldSeparator } from '@/components/ui/field';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -18,8 +23,23 @@ import { WorkExperienceSection } from './sections/work-experience-section';
 export function BuilderForm() {
   const form = useBuilderForm({
     ...builderFormOptions,
-    onSubmit({ value }) {
-      console.log('Submitted', value);
+    listeners: {
+      async onChange({ formApi, fieldApi }) {
+        const isImportFileField = fieldApi.name === 'import.file';
+        if (isImportFileField) {
+          const file = fieldApi.state.value;
+
+          await importResumeDataFromFile(file, formApi);
+
+          updatePreview(formApi);
+          return;
+        }
+
+        if (formApi.state.isValid) {
+          updatePreview(formApi);
+        }
+      },
+      onChangeDebounceMs: 500,
     },
   });
 
@@ -68,4 +88,82 @@ export function BuilderForm() {
       </Card>
     </ScrollArea>
   );
+}
+
+function inferFormApiType() {
+  // oxlint-disable-next-line react-hooks/rules-of-hooks
+  return useBuilderForm(builderFormOptions);
+}
+
+type FormApi = ReturnType<typeof inferFormApiType>;
+
+async function importResumeDataFromFile(
+  file: File | undefined,
+  formApi: Pick<FormApi, 'setFieldValue' | 'validateAllFields'>,
+) {
+  if (!file) return;
+
+  const parsedData = await parseFile(file);
+
+  setValuesFromFile(formApi, parsedData);
+
+  forceUIUpdate(formApi);
+}
+
+async function parseFile(file: File) {
+  const fileContent = await file.text();
+
+  const parsedJson = JSON.parse(fileContent);
+
+  return resumeDataSchema.parse(parsedJson);
+}
+
+function setValuesFromFile(
+  formApi: Pick<FormApi, 'setFieldValue'>,
+  parsedData: ResumeData,
+) {
+  const setFieldOptions = { dontRunListeners: true };
+
+  formApi.setFieldValue(
+    'personalInformation',
+    parsedData.personalInformation,
+    setFieldOptions,
+  );
+
+  formApi.setFieldValue('socialMedia', parsedData.socialMedia, setFieldOptions);
+
+  formApi.setFieldValue('summary', parsedData.summary, setFieldOptions);
+
+  formApi.setFieldValue('education', parsedData.education, setFieldOptions);
+
+  formApi.setFieldValue(
+    'workExperience',
+    parsedData.workExperience,
+    setFieldOptions,
+  );
+
+  formApi.setFieldValue('projects', parsedData.projects, setFieldOptions);
+
+  formApi.setFieldValue('skills', parsedData.skills, setFieldOptions);
+
+  formApi.setFieldValue('languages', parsedData.languages, setFieldOptions);
+
+  formApi.setFieldValue(
+    'certifications',
+    parsedData.certifications,
+    setFieldOptions,
+  );
+}
+
+function forceUIUpdate(formApi: Pick<FormApi, 'validateAllFields'>) {
+  formApi.validateAllFields('change');
+}
+
+function updatePreview(formApi: Pick<FormApi, 'state'>) {
+  const resumeData = {
+    ...formApi.state.values,
+    import: undefined,
+  };
+
+  useBuilderPreviewStore.getState().setResumeData(resumeData);
 }

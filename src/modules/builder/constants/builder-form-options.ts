@@ -45,6 +45,6 @@ export const builderFormOptions = formOptions({
   formId: 'builder-form',
   defaultValues,
   validators: {
-    onSubmit: builderFormSchema,
+    onChange: builderFormSchema,
   },
 });

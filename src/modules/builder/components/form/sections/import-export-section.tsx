@@ -63,6 +63,15 @@ export const ImportExportSection = withBuilderFieldGroup({
                   'projects.items',
                   parsedData.projects,
                 );
+
+                fieldApi.form.setFieldValue(
+                  'skills.title',
+                  parsedData.skills[0].title,
+                );
+                fieldApi.form.setFieldValue(
+                  'skills.items',
+                  parsedData.skills[0].skills,
+                );
               },
             }}
           >

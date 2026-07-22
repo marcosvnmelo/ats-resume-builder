@@ -8,6 +8,7 @@ import { EducationSection } from './sections/education-section';
 import { ImportExportSection } from './sections/import-export-section';
 import { PersonalInformationSection } from './sections/personal-information-section';
 import { ProjectsSection } from './sections/projects-section';
+import { SkillsSection } from './sections/skills-section';
 import { SocialMediaSection } from './sections/social-media-section-array';
 import { SummarySection } from './sections/summary-section';
 import { WorkExperienceSection } from './sections/work-experience-section';
@@ -52,6 +53,8 @@ export function BuilderForm() {
                 <WorkExperienceSection form={form} fields="workExperience" />
                 <FieldSeparator />
                 <ProjectsSection form={form} fields="projects" />
+                <FieldSeparator />
+                <SkillsSection form={form} fields="skills" />
               </FieldGroup>
             </form.AppForm>
           </form>

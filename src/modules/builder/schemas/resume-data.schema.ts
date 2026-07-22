@@ -36,7 +36,7 @@ export const resumeDataSchema = z.object({
       endYear: z.string(),
     }),
   ),
-  skills: z.array(z.object({ title: z.string(), skills: z.array(z.string()) })),
+  skills: z.tuple([z.object({ title: z.string(), skills: z.array(z.string()) })]),
   languages: z.array(z.string()),
   certifications: z.array(z.string()),
 });

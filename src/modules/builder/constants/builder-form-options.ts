@@ -29,6 +29,10 @@ export const defaultValues: BuilderFormInput = {
   projects: {
     items: [],
   },
+  skills: {
+    title: 'Technical Skills',
+    items: [],
+  },
 };
 
 export const builderFormOptions = formOptions({

@@ -1,5 +1,6 @@
 import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
 import { useBuilderForm } from '#builder/hooks/use-builder-form.ts';
+import { builderFormSchema } from '#builder/schemas/builder-form.schema.ts';
 import {
   resumeDataSchema,
   type ResumeData,
@@ -160,10 +161,9 @@ function forceUIUpdate(formApi: Pick<FormApi, 'validateAllFields'>) {
 }
 
 function updatePreview(formApi: Pick<FormApi, 'state'>) {
-  const resumeData = {
-    ...formApi.state.values,
-    import: undefined,
-  };
+  const resumeData = builderFormSchema
+    .omit({ import: true })
+    .parse(formApi.state.values);
 
   useBuilderPreviewStore.getState().setResumeData(resumeData);
 }

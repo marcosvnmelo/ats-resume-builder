@@ -72,9 +72,16 @@ export const PersonalInformationSection = withBuilderFieldGroup({
                     id={field.name}
                     name={field.name}
                     type="file"
-                    accept="image/*"
+                    accept="image/png, image/jpeg"
                     onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={async (e) => {
+                      const file = e.target.files?.item(0);
+                      if (!file) return;
+
+                      const base64 = await convertToBase64(file);
+
+                      field.handleChange(base64);
+                    }}
                     aria-invalid={isInvalid}
                   />
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
@@ -87,3 +94,12 @@ export const PersonalInformationSection = withBuilderFieldGroup({
     );
   },
 });
+
+function convertToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result?.toString() ?? '');
+    reader.onerror = (error) => reject(error);
+  });
+}

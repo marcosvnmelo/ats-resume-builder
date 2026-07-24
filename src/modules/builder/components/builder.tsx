@@ -2,6 +2,7 @@ import { Activity } from 'react';
 
 import { useBuilderStore } from '#builder/stores/use-builder-store.ts';
 
+import { BuilderPrintButton } from './builder-print-button';
 import { BuilderForm } from './form/builder-form';
 import { BuilderFormToggle } from './form/builder-form-toggle';
 import { BuilderPreview } from './preview/builder-preview';
@@ -19,6 +20,7 @@ export function Builder() {
       </div>
 
       <BuilderFormToggle />
+      <BuilderPrintButton />
     </>
   );
 }

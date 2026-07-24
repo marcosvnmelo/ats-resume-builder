@@ -1,6 +1,7 @@
 import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
 import { useBuilderFormContext } from '#builder/hooks/use-builder-form.ts';
 import { FieldGroup } from '@/components/ui/field';
+import { cn } from '@/lib/utils';
 
 import { ArrayFieldsLayout } from '../shared/array-fields-layout';
 
@@ -22,7 +23,7 @@ export function ProjectFields({ index, removeItem }: ProjectFieldsProps) {
             <field.TextField
               label="Project Name"
               placeholder="ATS Resume Builder"
-              fieldClassName="col-span-2"
+              fieldClassName={cn('col-span-2')}
             />
           )}
         </form.AppField>
@@ -32,7 +33,7 @@ export function ProjectFields({ index, removeItem }: ProjectFieldsProps) {
             <field.TextareaField
               label="Description"
               placeholder="ATS Resume Builder is a web application that allows users to create and manage their resumes."
-              fieldClassName="col-span-2 h-32"
+              fieldClassName={cn('col-span-2 h-32')}
             />
           )}
         </form.AppField>
@@ -44,20 +45,20 @@ export function ProjectFields({ index, removeItem }: ProjectFieldsProps) {
               placeholder={
                 'Allow users to create and manage their resumes.\nAllow users to import and export their resumes.'
               }
-              fieldClassName="col-span-2"
+              fieldClassName={cn('col-span-2')}
             />
           )}
         </form.AppField>
 
         <form.AppField name={`projects.items[${index}].startYear`}>
           {(field) => (
-            <field.DateField label="Start Year" fieldClassName="w-full" />
+            <field.DateField label="Start Year" fieldClassName={cn('w-full')} />
           )}
         </form.AppField>
 
         <form.AppField name={`projects.items[${index}].endYear`}>
           {(field) => (
-            <field.DateField label="End Year" fieldClassName="w-full" />
+            <field.DateField label="End Year" fieldClassName={cn('w-full')} />
           )}
         </form.AppField>
       </FieldGroup>

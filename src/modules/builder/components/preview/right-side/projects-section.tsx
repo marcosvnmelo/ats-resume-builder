@@ -1,0 +1,62 @@
+import type { ResumeData } from '#builder/schemas/resume-data.schema.ts';
+import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
+
+import { DateRange } from '../shared/date-range';
+import { ExternalLink } from '../shared/external-link';
+import { SectionContent } from '../shared/section-content';
+import { SectionTitle } from '../shared/section-title';
+
+export function ProjectsSection() {
+  const projects = useBuilderPreviewStore(
+    (state) => state.resumeData.projects.items,
+  );
+
+  const hasProjects = projects.length > 0;
+
+  const title = 'Projects';
+
+  if (!hasProjects) return null;
+
+  return (
+    <div>
+      <SectionTitle>{title}</SectionTitle>
+      {projects.map((item, index) => (
+        <Project key={item.name + index} item={item} />
+      ))}
+    </div>
+  );
+}
+
+interface ProjectProps {
+  item: ResumeData['projects']['items'][number];
+}
+
+function Project({ item }: ProjectProps) {
+  const keyAchievements = item.keyAchievements.split('\n');
+  const hasAchievements = keyAchievements.length > 0;
+
+  return (
+    <div>
+      <div className="flex flex-row justify-between space-y-1">
+        <SectionContent className="font-bold">{item.name}</SectionContent>
+        <DateRange startYear={item.startYear} endYear={item.endYear} />
+      </div>
+
+      <SectionContent
+        className="text-sm"
+        render={<ExternalLink href={item.link} />}
+      >
+        {item.link}
+      </SectionContent>
+      <SectionContent>{item.description}</SectionContent>
+
+      {hasAchievements && (
+        <SectionContent render={<ul />} className="list-disc ps-3.5">
+          {keyAchievements.map((achievement, index) => (
+            <li key={achievement + index}>{achievement}</li>
+          ))}
+        </SectionContent>
+      )}
+    </div>
+  );
+}

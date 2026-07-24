@@ -31,6 +31,7 @@ export const resumeDataSchemaV0 = z
     projects: z.array(
       z.object({
         name: z.string(),
+        link: z.string(),
         description: z.string(),
         keyAchievements: z.string(),
         startYear: z.string(),

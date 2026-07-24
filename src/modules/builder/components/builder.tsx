@@ -4,6 +4,7 @@ import { useBuilderStore } from '#builder/stores/use-builder-store.ts';
 
 import { BuilderForm } from './form/builder-form';
 import { BuilderFormToggle } from './form/builder-form-toggle';
+import { BuilderPreview } from './preview/builder-preview';
 
 export function Builder() {
   const isFormVisible = useBuilderStore((state) => state.isFormVisible);
@@ -20,8 +21,4 @@ export function Builder() {
       <BuilderFormToggle />
     </>
   );
-}
-
-function BuilderPreview() {
-  return <div className="md:col-span-6">Builder Preview</div>;
 }

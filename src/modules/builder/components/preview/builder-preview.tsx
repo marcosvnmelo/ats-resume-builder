@@ -4,7 +4,7 @@ import { RightSide } from './right-side/right-side';
 
 export function BuilderPreview() {
   return (
-    <div className="overflow-y-visible p-6 md:col-span-6 md:h-screen md:overflow-y-scroll print:p-0">
+    <div className="light bg-background text-foreground overflow-y-visible p-6 md:col-span-6 md:h-screen md:overflow-y-scroll print:p-0">
       <div className="a4">
         <Header />
         <hr className="my-2 border-dashed" />

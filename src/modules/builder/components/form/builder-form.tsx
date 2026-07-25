@@ -46,7 +46,7 @@ export function BuilderForm() {
 
   return (
     <ScrollArea className="md:col-span-4 md:h-screen print:hidden">
-      <Card className="min-h-full rounded-none">
+      <Card className="m-(--card-spacing)">
         <CardHeader>
           <CardTitle>ATS Resume Builder</CardTitle>
         </CardHeader>

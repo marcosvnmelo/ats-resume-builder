@@ -6,6 +6,7 @@ export const builderFormSchema = resumeDataSchemaV1.omit({ v: true }).extend({
   import: z.object({
     file: z.file().mime('application/json').nullable(),
   }),
+  personalInformation: resumeDataSchemaV1.shape.personalInformation.required({ title: true }),
 });
 
 export type BuilderFormInput = z.input<typeof builderFormSchema>;

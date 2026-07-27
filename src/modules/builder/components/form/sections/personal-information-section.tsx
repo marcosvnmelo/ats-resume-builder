@@ -5,7 +5,6 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-  FieldLegend,
   FieldSet,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
@@ -15,15 +14,18 @@ export const PersonalInformationSection = withBuilderFieldGroup({
   render: function Render({ group }) {
     return (
       <FieldSet>
-        <FieldLegend>Personal Information</FieldLegend>
+        <group.AppField name="title">
+          {(field) => <field.TitleField />}
+        </group.AppField>
+
         <FieldGroup className="grid md:grid-cols-2">
-          <group.AppField name="name">
+          <group.AppField name="data.name">
             {(field) => (
               <field.TextField label="Full Name" placeholder="MARCUS HALL" />
             )}
           </group.AppField>
 
-          <group.AppField name="position">
+          <group.AppField name="data.position">
             {(field) => (
               <field.TextField
                 label="Job Title"
@@ -32,7 +34,7 @@ export const PersonalInformationSection = withBuilderFieldGroup({
             )}
           </group.AppField>
 
-          <group.AppField name="contactInformation">
+          <group.AppField name="data.contactInformation">
             {(field) => (
               <field.TextField
                 label="Contact Information"
@@ -41,7 +43,7 @@ export const PersonalInformationSection = withBuilderFieldGroup({
             )}
           </group.AppField>
 
-          <group.AppField name="email">
+          <group.AppField name="data.email">
             {(field) => (
               <field.TextField
                 type="email"
@@ -51,7 +53,7 @@ export const PersonalInformationSection = withBuilderFieldGroup({
             )}
           </group.AppField>
 
-          <group.AppField name="address">
+          <group.AppField name="data.address">
             {(field) => (
               <field.TextField
                 label="Address"
@@ -60,7 +62,7 @@ export const PersonalInformationSection = withBuilderFieldGroup({
             )}
           </group.AppField>
 
-          <group.Field name="profilePicture">
+          <group.Field name="data.profilePicture">
             {(field) => {
               const isInvalid =
                 field.state.meta.isTouched && !field.state.meta.isValid;

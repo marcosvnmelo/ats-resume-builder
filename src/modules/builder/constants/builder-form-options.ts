@@ -1,18 +1,22 @@
 import { formOptions } from '@tanstack/react-form';
 
 import { builderFormSchema, type BuilderFormInput } from '#builder/schemas/builder-form.schema.ts';
+import { resumeDataSchemaV1 } from '#builder/schemas/resume-data.schema.ts';
 
 export const defaultValues: BuilderFormInput = {
   import: {
     file: null,
   },
   personalInformation: {
-    name: '',
-    position: '',
-    contactInformation: '',
-    email: '',
-    address: '',
-    profilePicture: '',
+    title: resumeDataSchemaV1.shape.personalInformation.shape.title.def.defaultValue,
+    data: {
+      name: '',
+      position: '',
+      contactInformation: '',
+      email: '',
+      address: '',
+      profilePicture: '',
+    },
   },
   socialMedia: {
     items: [],

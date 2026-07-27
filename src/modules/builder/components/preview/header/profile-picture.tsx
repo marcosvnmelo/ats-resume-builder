@@ -2,7 +2,7 @@ import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-stor
 
 export function ProfilePicture() {
   const profilePicture = useBuilderPreviewStore(
-    (state) => state.resumeData.personalInformation.profilePicture,
+    (state) => state.resumeData.personalInformation.data.profilePicture,
   );
 
   const hasProfilePicture = profilePicture.length > 0;

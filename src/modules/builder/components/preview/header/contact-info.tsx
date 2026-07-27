@@ -7,15 +7,15 @@ const linkClassName = cn('inline-flex items-center gap-1');
 
 export function ContactInfo() {
   const phone = useBuilderPreviewStore(
-    (state) => state.resumeData.personalInformation.contactInformation,
+    (state) => state.resumeData.personalInformation.data.contactInformation,
   );
 
   const email = useBuilderPreviewStore(
-    (state) => state.resumeData.personalInformation.email,
+    (state) => state.resumeData.personalInformation.data.email,
   );
 
   const address = useBuilderPreviewStore(
-    (state) => state.resumeData.personalInformation.address,
+    (state) => state.resumeData.personalInformation.data.address,
   );
 
   const hasPhone = phone.length > 0;

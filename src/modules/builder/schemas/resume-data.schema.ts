@@ -45,12 +45,14 @@ export const resumeDataSchemaV0 = z
   .transform((data) => ({
     v: 1,
     personalInformation: {
-      name: data.name,
-      position: data.position,
-      contactInformation: data.contactInformation,
-      email: data.email,
-      address: data.address,
-      profilePicture: data.profilePicture,
+      data: {
+        name: data.name,
+        position: data.position,
+        contactInformation: data.contactInformation,
+        email: data.email,
+        address: data.address,
+        profilePicture: data.profilePicture,
+      },
     },
     socialMedia: {
       items: data.socialMedia,
@@ -81,13 +83,16 @@ export const resumeDataSchemaV0 = z
 
 export const resumeDataSchemaV1 = z.object({
   v: z.literal(1),
-  personalInformation: resumeDataSchemaV0.def.in.pick({
-    name: true,
-    position: true,
-    contactInformation: true,
-    email: true,
-    address: true,
-    profilePicture: true,
+  personalInformation: z.object({
+    title: z.string().default('Personal Information'),
+    data: resumeDataSchemaV0.def.in.pick({
+      name: true,
+      position: true,
+      contactInformation: true,
+      email: true,
+      address: true,
+      profilePicture: true,
+    }),
   }),
   socialMedia: z.object({
     items: resumeDataSchemaV0.def.in.shape.socialMedia,

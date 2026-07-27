@@ -2,11 +2,11 @@ import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-stor
 
 export function NameAndPosition() {
   const name = useBuilderPreviewStore(
-    (state) => state.resumeData.personalInformation.name,
+    (state) => state.resumeData.personalInformation.data.name,
   );
 
   const position = useBuilderPreviewStore(
-    (state) => state.resumeData.personalInformation.position,
+    (state) => state.resumeData.personalInformation.data.position,
   );
 
   return (

@@ -9,9 +9,7 @@ import {
   type ResumeData,
 } from '#builder/schemas/resume-data.schema.ts';
 import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FieldGroup, FieldSeparator } from '@/components/ui/field';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 import { CertificationsSection } from './sections/certifications-section';
 import { EducationSection } from './sections/education-section';
@@ -48,49 +46,40 @@ export function BuilderForm() {
   });
 
   return (
-    <ScrollArea className="md:col-span-4 md:h-screen print:hidden">
-      <Card className="m-(--card-spacing)">
-        <CardHeader>
-          <CardTitle>ATS Resume Builder</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              form.handleSubmit();
-            }}
-          >
-            <form.AppForm>
-              <SeparatedSections>
-                <ImportExportSection form={form} fields="import" />
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
+    >
+      <form.AppForm>
+        <SeparatedSections>
+          <ImportExportSection form={form} fields="import" />
 
-                <PersonalInformationSection
-                  form={form}
-                  fields="personalInformation"
-                />
+          <PersonalInformationSection
+            form={form}
+            fields="personalInformation"
+          />
 
-                <SocialMediaSection form={form} fields="socialMedia" />
+          <SocialMediaSection form={form} fields="socialMedia" />
 
-                <SummarySection form={form} fields="summary" />
+          <SummarySection form={form} fields="summary" />
 
-                <EducationSection form={form} fields="education" />
+          <EducationSection form={form} fields="education" />
 
-                <WorkExperienceSection form={form} fields="workExperience" />
+          <WorkExperienceSection form={form} fields="workExperience" />
 
-                <ProjectsSection form={form} fields="projects" />
+          <ProjectsSection form={form} fields="projects" />
 
-                <SkillsSection form={form} fields="skills" />
+          <SkillsSection form={form} fields="skills" />
 
-                <LanguagesSection form={form} fields="languages" />
+          <LanguagesSection form={form} fields="languages" />
 
-                <CertificationsSection form={form} fields="certifications" />
-              </SeparatedSections>
-            </form.AppForm>
-          </form>
-        </CardContent>
-      </Card>
-    </ScrollArea>
+          <CertificationsSection form={form} fields="certifications" />
+        </SeparatedSections>
+      </form.AppForm>
+    </form>
   );
 }
 

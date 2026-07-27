@@ -16,7 +16,7 @@ export const PersonalInformationSection = withBuilderFieldGroup({
     return (
       <FieldSet>
         <FieldLegend>Personal Information</FieldLegend>
-        <FieldGroup className="grid grid-cols-2">
+        <FieldGroup className="grid md:grid-cols-2">
           <group.AppField name="name">
             {(field) => (
               <field.TextField label="Full Name" placeholder="MARCUS HALL" />

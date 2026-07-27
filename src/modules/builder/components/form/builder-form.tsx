@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
 import { useBuilderForm } from '#builder/hooks/use-builder-form.ts';
 import { builderFormSchema } from '#builder/schemas/builder-form.schema.ts';
@@ -59,30 +61,30 @@ export function BuilderForm() {
             }}
           >
             <form.AppForm>
-              <FieldGroup>
+              <SeparatedSections>
                 <ImportExportSection form={form} fields="import" />
-                <FieldSeparator />
+
                 <PersonalInformationSection
                   form={form}
                   fields="personalInformation"
                 />
-                <FieldSeparator />
+
                 <SocialMediaSection form={form} fields="socialMedia" />
-                <FieldSeparator />
+
                 <SummarySection form={form} fields="summary" />
-                <FieldSeparator />
+
                 <EducationSection form={form} fields="education" />
-                <FieldSeparator />
+
                 <WorkExperienceSection form={form} fields="workExperience" />
-                <FieldSeparator />
+
                 <ProjectsSection form={form} fields="projects" />
-                <FieldSeparator />
+
                 <SkillsSection form={form} fields="skills" />
-                <FieldSeparator />
+
                 <LanguagesSection form={form} fields="languages" />
-                <FieldSeparator />
+
                 <CertificationsSection form={form} fields="certifications" />
-              </FieldGroup>
+              </SeparatedSections>
             </form.AppForm>
           </form>
         </CardContent>
@@ -166,4 +168,26 @@ function updatePreview(formApi: Pick<FormApi, 'state'>) {
     .parse(formApi.state.values);
 
   useBuilderPreviewStore.getState().setResumeData(resumeData);
+}
+
+interface SeparatedSectionsProps {
+  children: React.ReactNode;
+}
+
+function SeparatedSections(props: SeparatedSectionsProps) {
+  const sections = React.Children.map(props.children, (child, index) => {
+    const isLastChild =
+      Array.isArray(props.children) && index === props.children.length - 1;
+
+    if (isLastChild) return child;
+
+    return (
+      <>
+        {child}
+        <FieldSeparator />
+      </>
+    );
+  });
+
+  return <FieldGroup>{sections}</FieldGroup>;
 }

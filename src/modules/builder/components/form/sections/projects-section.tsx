@@ -13,6 +13,7 @@ export const ProjectsSection = withBuilderFieldGroup({
         onAddItem={() =>
           group.pushFieldValue('items', {
             name: '',
+            link: '',
             description: '',
             keyAchievements: '',
             startYear: '',

@@ -5,6 +5,9 @@ import { SectionContent } from '../shared/section-content';
 import { SectionTitle } from '../shared/section-title';
 
 export function EducationSection() {
+  const title = useBuilderPreviewStore(
+    (state) => state.resumeData.education.title,
+  );
   const education = useBuilderPreviewStore(
     (state) => state.resumeData.education.items,
   );
@@ -15,7 +18,7 @@ export function EducationSection() {
 
   return (
     <div>
-      <SectionTitle>Education</SectionTitle>
+      <SectionTitle>{title}</SectionTitle>
       {education.map((item, index) => (
         <div key={index} className="mb-1">
           <SectionContent className="font-bold">{item.degree}</SectionContent>

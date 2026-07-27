@@ -6,13 +6,14 @@ import { SectionContent } from '../shared/section-content';
 import { SectionTitle } from '../shared/section-title';
 
 export function WorkExperienceSection() {
+  const title = useBuilderPreviewStore(
+    (state) => state.resumeData.workExperience.title,
+  );
   const workExperiences = useBuilderPreviewStore(
     (state) => state.resumeData.workExperience.items,
   );
 
   const hasWorkExperiences = workExperiences.length > 0;
-
-  const title = 'Work Experience';
 
   if (!hasWorkExperiences) return null;
 

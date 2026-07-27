@@ -4,11 +4,12 @@ import { SectionContent } from '../shared/section-content';
 import { SectionTitle } from '../shared/section-title';
 
 export function LanguagesSection() {
+  const title = useBuilderPreviewStore(
+    (state) => state.resumeData.languages.title,
+  );
   const languages = useBuilderPreviewStore((state) =>
     state.resumeData.languages.items.join(', '),
   );
-
-  const title = 'Languages';
 
   const hasLanguages = languages.length > 0;
 

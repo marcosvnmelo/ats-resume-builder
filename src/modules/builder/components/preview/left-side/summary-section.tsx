@@ -4,6 +4,9 @@ import { SectionContent } from '../shared/section-content';
 import { SectionTitle } from '../shared/section-title';
 
 export function SummarySection() {
+  const title = useBuilderPreviewStore(
+    (state) => state.resumeData.summary.title,
+  );
   const summary = useBuilderPreviewStore(
     (state) => state.resumeData.summary.text,
   );
@@ -14,7 +17,7 @@ export function SummarySection() {
 
   return (
     <div>
-      <SectionTitle>Summary</SectionTitle>
+      <SectionTitle>{title}</SectionTitle>
       <SectionContent className="wrap-break-word">{summary}</SectionContent>
     </div>
   );

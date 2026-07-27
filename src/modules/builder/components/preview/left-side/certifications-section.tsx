@@ -4,11 +4,12 @@ import { SectionContent } from '../shared/section-content';
 import { SectionTitle } from '../shared/section-title';
 
 export function CertificationsSection() {
+  const title = useBuilderPreviewStore(
+    (state) => state.resumeData.certifications.title,
+  );
   const certifications = useBuilderPreviewStore(
     (state) => state.resumeData.certifications.items,
   );
-
-  const title = 'Certifications';
 
   const hasCertifications = certifications.length > 0;
 

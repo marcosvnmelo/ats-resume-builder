@@ -9,7 +9,11 @@ export const WorkExperienceSection = withBuilderFieldGroup({
   render: function Render({ group }) {
     return (
       <ArraySectionLayout
-        legend="Work Experience"
+        legend={
+          <group.AppField name="title">
+            {(field) => <field.TitleField />}
+          </group.AppField>
+        }
         onAddItem={() =>
           group.pushFieldValue('items', {
             company: '',

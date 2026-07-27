@@ -9,7 +9,11 @@ export const ProjectsSection = withBuilderFieldGroup({
   render: function Render({ group }) {
     return (
       <ArraySectionLayout
-        legend="Projects"
+        legend={
+          <group.AppField name="title">
+            {(field) => <field.TitleField />}
+          </group.AppField>
+        }
         onAddItem={() =>
           group.pushFieldValue('items', {
             name: '',

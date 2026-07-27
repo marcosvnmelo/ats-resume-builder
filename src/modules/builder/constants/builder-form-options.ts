@@ -19,28 +19,35 @@ export const defaultValues: BuilderFormInput = {
     },
   },
   socialMedia: {
+    title: resumeDataSchemaV1.shape.socialMedia.shape.title.def.defaultValue,
     items: [],
   },
   summary: {
+    title: resumeDataSchemaV1.shape.summary.shape.title.def.defaultValue,
     text: '',
   },
   education: {
+    title: resumeDataSchemaV1.shape.education.shape.title.def.defaultValue,
     items: [],
   },
   workExperience: {
+    title: resumeDataSchemaV1.shape.workExperience.shape.title.def.defaultValue,
     items: [],
   },
   projects: {
+    title: resumeDataSchemaV1.shape.projects.shape.title.def.defaultValue,
     items: [],
   },
   skills: {
-    title: 'Technical Skills',
+    title: resumeDataSchemaV1.shape.skills.shape.title.def.defaultValue,
     items: [],
   },
   languages: {
+    title: resumeDataSchemaV1.shape.languages.shape.title.def.defaultValue,
     items: [],
   },
   certifications: {
+    title: resumeDataSchemaV1.shape.certifications.shape.title.def.defaultValue,
     items: [],
   },
 };

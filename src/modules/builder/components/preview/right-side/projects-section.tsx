@@ -7,13 +7,14 @@ import { SectionContent } from '../shared/section-content';
 import { SectionTitle } from '../shared/section-title';
 
 export function ProjectsSection() {
+  const title = useBuilderPreviewStore(
+    (state) => state.resumeData.projects.title,
+  );
   const projects = useBuilderPreviewStore(
     (state) => state.resumeData.projects.items,
   );
 
   const hasProjects = projects.length > 0;
-
-  const title = 'Projects';
 
   if (!hasProjects) return null;
 

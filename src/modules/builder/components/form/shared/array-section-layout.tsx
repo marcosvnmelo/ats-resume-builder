@@ -4,14 +4,18 @@ import { Button } from '@/components/ui/button';
 import { FieldLegend, FieldSet } from '@/components/ui/field';
 
 interface ArraySectionProps extends React.PropsWithChildren {
-  legend: string;
+  legend: React.ReactNode;
   onAddItem: () => void;
 }
 
 export function ArraySectionLayout(props: ArraySectionProps) {
   return (
     <FieldSet>
-      <FieldLegend>{props.legend}</FieldLegend>
+      {typeof props.legend === 'string' ? (
+        <FieldLegend>{props.legend}</FieldLegend>
+      ) : (
+        props.legend
+      )}
       {props.children}
       <AddButton onClick={props.onAddItem} />
     </FieldSet>

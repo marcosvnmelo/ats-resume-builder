@@ -1,13 +1,15 @@
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
-import { FieldGroup, FieldLegend, FieldSet } from '@/components/ui/field';
+import { FieldGroup, FieldSet } from '@/components/ui/field';
 
 export const SummarySection = withBuilderFieldGroup({
   defaultValues: defaultValues.summary,
   render: function Render({ group }) {
     return (
       <FieldSet>
-        <FieldLegend>Summary</FieldLegend>
+        <group.AppField name="title">
+          {(field) => <field.TitleField />}
+        </group.AppField>
 
         <FieldGroup>
           <group.AppField name="text">

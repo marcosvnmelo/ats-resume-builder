@@ -72,7 +72,8 @@ export const resumeDataSchemaV0 = z
     skills: {
       title: data.skills[0].title,
       items: data.skills[0].skills,
-    },
+      // HACK: This is a workaround to satisfy the type checker
+    } as { items: string[] },
     languages: {
       items: data.languages,
     },
@@ -95,28 +96,36 @@ export const resumeDataSchemaV1 = z.object({
     }),
   }),
   socialMedia: z.object({
+    title: z.string().default('Social Media'),
     items: resumeDataSchemaV0.def.in.shape.socialMedia,
   }),
   summary: z.object({
+    title: z.string().default('Summary'),
     text: resumeDataSchemaV0.def.in.shape.summary,
   }),
   education: z.object({
+    title: z.string().default('Education'),
     items: resumeDataSchemaV0.def.in.shape.education,
   }),
   workExperience: z.object({
+    title: z.string().default('Work Experience'),
     items: resumeDataSchemaV0.def.in.shape.workExperience,
   }),
   projects: z.object({
+    title: z.string().default('Projects'),
     items: resumeDataSchemaV0.def.in.shape.projects,
   }),
   skills: z.object({
-    title: resumeDataSchemaV0.def.in.shape.skills.def.items[0].shape.title,
+    title:
+      resumeDataSchemaV0.def.in.shape.skills.def.items[0].shape.title.default('Technical Skills'),
     items: resumeDataSchemaV0.def.in.shape.skills.def.items[0].shape.skills,
   }),
   languages: z.object({
+    title: z.string().default('Languages'),
     items: resumeDataSchemaV0.def.in.shape.languages,
   }),
   certifications: z.object({
+    title: z.string().default('Tests & Certifications'),
     items: resumeDataSchemaV0.def.in.shape.certifications,
   }),
 });

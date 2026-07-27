@@ -4,12 +4,11 @@ import { SectionContent } from '../shared/section-content';
 import { SectionTitle } from '../shared/section-title';
 
 export function SkillsSection() {
-  const skills = useBuilderPreviewStore((state) =>
-    state.resumeData.skills.items.join(', '),
-  );
-
   const title = useBuilderPreviewStore(
     (state) => state.resumeData.skills.title,
+  );
+  const skills = useBuilderPreviewStore((state) =>
+    state.resumeData.skills.items.join(', '),
   );
 
   const hasSkills = skills.length > 0;

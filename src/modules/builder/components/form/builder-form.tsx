@@ -1,3 +1,4 @@
+import type { UpdateMetaOptions } from '@tanstack/react-form';
 import React from 'react';
 
 import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
@@ -125,37 +126,29 @@ function setValuesFromFile(
   formApi: Pick<FormApi, 'setFieldValue'>,
   parsedData: ResumeData,
 ) {
-  const setFieldOptions = { dontRunListeners: true };
+  const options: UpdateMetaOptions = { dontRunListeners: true };
 
   formApi.setFieldValue(
     'personalInformation',
     parsedData.personalInformation,
-    setFieldOptions,
+    options,
   );
 
-  formApi.setFieldValue('socialMedia', parsedData.socialMedia, setFieldOptions);
+  formApi.setFieldValue('socialMedia', parsedData.socialMedia, options);
 
-  formApi.setFieldValue('summary', parsedData.summary, setFieldOptions);
+  formApi.setFieldValue('summary', parsedData.summary, options);
 
-  formApi.setFieldValue('education', parsedData.education, setFieldOptions);
+  formApi.setFieldValue('education', parsedData.education, options);
 
-  formApi.setFieldValue(
-    'workExperience',
-    parsedData.workExperience,
-    setFieldOptions,
-  );
+  formApi.setFieldValue('workExperience', parsedData.workExperience, options);
 
-  formApi.setFieldValue('projects', parsedData.projects, setFieldOptions);
+  formApi.setFieldValue('projects', parsedData.projects, options);
 
-  formApi.setFieldValue('skills', parsedData.skills, setFieldOptions);
+  formApi.setFieldValue('skills', parsedData.skills, options);
 
-  formApi.setFieldValue('languages', parsedData.languages, setFieldOptions);
+  formApi.setFieldValue('languages', parsedData.languages, options);
 
-  formApi.setFieldValue(
-    'certifications',
-    parsedData.certifications,
-    setFieldOptions,
-  );
+  formApi.setFieldValue('certifications', parsedData.certifications, options);
 }
 
 function forceUIUpdate(formApi: Pick<FormApi, 'validateAllFields'>) {

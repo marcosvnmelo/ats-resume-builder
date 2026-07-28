@@ -9,11 +9,7 @@ export const SocialMediaSection = withBuilderFieldGroup({
   render: function Render({ group }) {
     return (
       <ArraySectionLayout
-        legend={
-          <group.AppField name="title">
-            {(field) => <field.TitleField />}
-          </group.AppField>
-        }
+        legend="Social Medias"
         onAddItem={() =>
           group.pushFieldValue('items', { socialMedia: '', link: '' })
         }

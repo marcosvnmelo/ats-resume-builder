@@ -5,6 +5,7 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
+  FieldLegend,
   FieldSet,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
@@ -14,9 +15,7 @@ export const PersonalInformationSection = withBuilderFieldGroup({
   render: function Render({ group }) {
     return (
       <FieldSet>
-        <group.AppField name="title">
-          {(field) => <field.TitleField />}
-        </group.AppField>
+        <FieldLegend>Personal Information</FieldLegend>
 
         <FieldGroup className="grid md:grid-cols-2">
           <group.AppField name="data.name">

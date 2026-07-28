@@ -96,7 +96,7 @@ export const resumeDataSchemaV1 = z.object({
     }),
   }),
   socialMedia: z.object({
-    title: z.string().default('Social Media'),
+    title: z.string().default('Social Medias'),
     items: resumeDataSchemaV0.def.in.shape.socialMedia,
   }),
   summary: z.object({

@@ -36,7 +36,7 @@ function WorkExperience({ item }: WorkExperienceProps) {
   const hasAchievements = keyAchievements.length > 0;
 
   return (
-    <div>
+    <div className="print:break-inside-avoid">
       <div className="flex flex-row justify-between space-y-1">
         <SectionContent className="font-bold">{item.company}</SectionContent>
         <DateRange startYear={item.startYear} endYear={item.endYear} />

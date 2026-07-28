@@ -12,7 +12,7 @@ export function BuilderPrintButton() {
       aria-label="Download Resume"
       title="Download Resume"
       size="icon"
-      variant="outline"
+      variant="secondary"
       className="fixed right-10 bottom-5 size-auto p-1 print:hidden"
       onClick={print}
     >

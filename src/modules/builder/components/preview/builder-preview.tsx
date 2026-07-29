@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 
+import { BottomSide } from './bottom-side/bottom-side';
 import { Header } from './header/header';
 import { LeftSide } from './left-side/left-side';
 import { RightSide } from './right-side/right-side';
@@ -19,6 +20,7 @@ export function BuilderPreview() {
       <div className="grid grid-cols-3 gap-6">
         <LeftSide />
         <RightSide />
+        <BottomSide />
       </div>
     </div>
   );

@@ -130,10 +130,12 @@ export const resumeDataSchemaV1 = z.object({
   languages: z.object({
     title: z.string().default('Languages'),
     items: z.array(languagesItemV0),
+    showOnBottom: z.boolean().default(false),
   }),
   certifications: z.object({
     title: z.string().default('Tests & Certifications'),
     items: z.array(certificationsItemV0),
+    showOnBottom: z.boolean().default(false),
   }),
 });
 

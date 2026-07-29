@@ -45,10 +45,12 @@ export const defaultValues: BuilderFormInput = {
   languages: {
     title: resumeDataSchemaV1.shape.languages.shape.title.def.defaultValue,
     items: [],
+    showOnBottom: false,
   },
   certifications: {
     title: resumeDataSchemaV1.shape.certifications.shape.title.def.defaultValue,
     items: [],
+    showOnBottom: false,
   },
 };
 

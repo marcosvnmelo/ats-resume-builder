@@ -13,9 +13,9 @@ export function LeftSide() {
 
       <SkillsSection />
 
-      <LanguagesSection />
+      <LanguagesSection showOnBottom={false} />
 
-      <CertificationsSection />
+      <CertificationsSection showOnBottom={false} />
     </div>
   );
 }

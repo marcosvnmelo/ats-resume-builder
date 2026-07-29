@@ -13,8 +13,11 @@ export const builderFormSchema = resumeDataSchemaV1.omit({ v: true }).extend({
   workExperience: resumeDataSchemaV1.shape.workExperience.required({ title: true }),
   projects: resumeDataSchemaV1.shape.projects.required({ title: true }),
   skills: resumeDataSchemaV1.shape.skills.required({ title: true }),
-  languages: resumeDataSchemaV1.shape.languages.required({ title: true }),
-  certifications: resumeDataSchemaV1.shape.certifications.required({ title: true }),
+  languages: resumeDataSchemaV1.shape.languages.required({ title: true, showOnBottom: true }),
+  certifications: resumeDataSchemaV1.shape.certifications.required({
+    title: true,
+    showOnBottom: true,
+  }),
 });
 
 export type BuilderFormInput = z.input<typeof builderFormSchema>;

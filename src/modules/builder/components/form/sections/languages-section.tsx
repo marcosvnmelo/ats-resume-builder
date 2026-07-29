@@ -16,6 +16,10 @@ export const LanguagesSection = withBuilderFieldGroup({
         }
         onAddItem={() => group.pushFieldValue('items', '')}
       >
+        <group.AppField name="showOnBottom">
+          {(field) => <field.BooleanField label="Show on bottom" />}
+        </group.AppField>
+
         <group.Field name="items" mode="array">
           {(field) =>
             field.state.value.map((language, i) => (

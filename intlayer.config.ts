@@ -7,7 +7,7 @@ import { type IntlayerConfig, Locales } from 'intlayer';
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH],
+    locales: [Locales.ENGLISH, Locales.PORTUGUESE_BRAZIL],
     /**
      * Default locale used as a fallback if the requested locale is not found.
      */
@@ -22,7 +22,7 @@ const config: IntlayerConfig = {
      * - "search-params": Use search params to define the locale (e.g., /dashboard/?locale=en, /dashboard/?locale=fr)
      * Default: "prefix-no-default"
      */
-    mode: 'prefix-no-default',
+    mode: 'no-prefix',
 
     /**
      * Enables the Intlayer locale-routing proxy (middleware).
@@ -41,21 +41,6 @@ const config: IntlayerConfig = {
      * URL of your application for origin validation.
      */
     applicationURL: 'http://localhost:5173',
-  },
-  ai: {
-    /**
-     * AI provider to use.
-     * Options: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai'
-     */
-    provider: 'openai',
-    model: 'gpt-5-mini',
-    apiKey: process.env.OPENAI_API_KEY,
-    /**
-     * Additional context for the translations
-     *
-     * Can be use in addition of the dictionary `description` field
-     */
-    applicationContext: [''].join('\n'),
   },
   compiler: {
     enabled: false,

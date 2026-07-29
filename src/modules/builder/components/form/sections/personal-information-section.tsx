@@ -1,3 +1,5 @@
+import { useIntlayer } from 'react-intlayer';
+
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
 import {
@@ -13,9 +15,11 @@ import { Input } from '@/components/ui/input';
 export const PersonalInformationSection = withBuilderFieldGroup({
   defaultValues: defaultValues.personalInformation,
   render: function Render({ group }) {
+    const t = useIntlayer('personal-information-section');
+
     return (
       <FieldSet>
-        <FieldLegend>Personal Information</FieldLegend>
+        <FieldLegend>{t.title}</FieldLegend>
 
         <FieldGroup className="grid md:grid-cols-2">
           <group.AppField name="data.name">

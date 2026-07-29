@@ -9,6 +9,7 @@ function print() {
 export function BuilderPrintButton() {
   return (
     <Button
+      type="button"
       aria-label="Download Resume"
       title="Download Resume"
       size="icon"

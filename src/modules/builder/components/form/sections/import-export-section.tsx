@@ -47,6 +47,7 @@ export const ImportExportSection = withBuilderFieldGroup({
             </FieldLabel>
             <Button
               id="export-button"
+              type="button"
               size="icon-lg"
               onClick={downloadResumeData}
             >

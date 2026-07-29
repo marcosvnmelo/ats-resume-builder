@@ -1,6 +1,6 @@
-import { CertificationsSection } from './certifications-section';
+import { CertificationsSection } from '../shared/sections/certifications-section';
+import { LanguagesSection } from '../shared/sections/languages-section';
 import { EducationSection } from './education-section';
-import { LanguagesSection } from './languages-section';
 import { SkillsSection } from './skills-section';
 import { SummarySection } from './summary-section';
 

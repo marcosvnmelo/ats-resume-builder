@@ -1,7 +1,7 @@
 import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
 
-import { SectionContent } from '../shared/section-content';
-import { SectionTitle } from '../shared/section-title';
+import { SectionContent } from '../section-content';
+import { SectionTitle } from '../section-title';
 
 export function LanguagesSection() {
   const title = useBuilderPreviewStore(

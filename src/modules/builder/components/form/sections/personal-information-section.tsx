@@ -33,12 +33,9 @@ export const PersonalInformationSection = withBuilderFieldGroup({
             )}
           </group.AppField>
 
-          <group.AppField name="data.contactInformation">
+          <group.AppField name="data.phone">
             {(field) => (
-              <field.TextField
-                label="Contact Information"
-                placeholder="+1-555-0100"
-              />
+              <field.TextField label="Phone" placeholder="+1-555-0100" />
             )}
           </group.AppField>
 

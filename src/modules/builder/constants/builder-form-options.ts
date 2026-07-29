@@ -12,7 +12,7 @@ export const defaultValues: BuilderFormInput = {
     data: {
       name: '',
       position: '',
-      contactInformation: '',
+      phone: '',
       email: '',
       address: '',
       profilePicture: '',

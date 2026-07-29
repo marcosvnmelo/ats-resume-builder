@@ -63,7 +63,7 @@ export const resumeDataSchemaV0 = personalInformationV0
       data: {
         name: data.name,
         position: data.position,
-        contactInformation: data.contactInformation,
+        phone: data.contactInformation,
         email: data.email,
         address: data.address,
         profilePicture: data.profilePicture,
@@ -101,7 +101,9 @@ export const resumeDataSchemaV1 = z.object({
   v: z.literal(1),
   personalInformation: z.object({
     title: z.string().default('Personal Information'),
-    data: personalInformationV0,
+    data: personalInformationV0.omit({ contactInformation: true }).extend({
+      phone: personalInformationV0.shape.contactInformation,
+    }),
   }),
   socialMedia: z.object({
     title: z.string().default('Social Medias'),

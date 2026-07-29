@@ -22,6 +22,7 @@ export const WorkExperienceSection = withBuilderFieldGroup({
             keyAchievements: '',
             startYear: '',
             endYear: '',
+            showOnBottom: false,
           })
         }
       >

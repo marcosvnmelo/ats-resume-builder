@@ -74,6 +74,10 @@ export function WorkExperienceFields({
             <field.DateField label="End Year" fieldClassName={cn('w-full')} />
           )}
         </form.AppField>
+
+        <form.AppField name={`workExperience.items[${index}].showOnBottom`}>
+          {(field) => <field.BooleanField label="Show on bottom" />}
+        </form.AppField>
       </FieldGroup>
     </ArrayFieldsLayout>
   );

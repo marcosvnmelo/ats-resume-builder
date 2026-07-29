@@ -119,11 +119,16 @@ export const resumeDataSchemaV1 = z.object({
   }),
   workExperience: z.object({
     title: z.string().default('Work Experience'),
-    items: z.array(workExperienceItemV0),
+    items: z.array(
+      workExperienceItemV0.extend({
+        showOnBottom: z.boolean().default(false),
+      }),
+    ),
   }),
   projects: z.object({
     title: z.string().default('Projects'),
     items: z.array(projectsItemV0),
+    showOnBottom: z.boolean().default(false),
   }),
   skills: z.object({
     title: skillSectionV0.shape.title.default('Technical Skills'),

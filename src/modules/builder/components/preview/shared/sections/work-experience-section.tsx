@@ -4,8 +4,9 @@ import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-stor
 import { DateRange } from '../date-range';
 import { SectionContent } from '../section-content';
 import { SectionTitle } from '../section-title';
+import type { SharedPreviewSectionProps } from './types';
 
-export function WorkExperienceSection() {
+export function WorkExperienceSection(props: SharedPreviewSectionProps) {
   const title = useBuilderPreviewStore(
     (state) => state.resumeData.workExperience.title,
   );
@@ -19,10 +20,12 @@ export function WorkExperienceSection() {
 
   return (
     <div className="space-y-1">
-      <SectionTitle>{title}</SectionTitle>
-      {workExperiences.map((item, index) => (
-        <WorkExperience key={item.company + index} item={item} />
-      ))}
+      {!props.showOnBottom && <SectionTitle>{title}</SectionTitle>}
+      {workExperiences
+        .filter((item) => item.showOnBottom === props.showOnBottom)
+        .map((item, index) => (
+          <WorkExperience key={item.company + index} item={item} />
+        ))}
     </div>
   );
 }

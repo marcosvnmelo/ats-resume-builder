@@ -37,6 +37,7 @@ export const defaultValues: BuilderFormInput = {
   projects: {
     title: resumeDataSchemaV1.shape.projects.shape.title.def.defaultValue,
     items: [],
+    showOnBottom: false,
   },
   skills: {
     title: resumeDataSchemaV1.shape.skills.shape.title.def.defaultValue,

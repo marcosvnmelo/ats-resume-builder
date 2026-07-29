@@ -10,8 +10,14 @@ export const builderFormSchema = resumeDataSchemaV1.omit({ v: true }).extend({
   socialMedia: resumeDataSchemaV1.shape.socialMedia.required({ title: true }),
   summary: resumeDataSchemaV1.shape.summary.required({ title: true }),
   education: resumeDataSchemaV1.shape.education.required({ title: true }),
-  workExperience: resumeDataSchemaV1.shape.workExperience.required({ title: true }),
-  projects: resumeDataSchemaV1.shape.projects.required({ title: true }),
+  workExperience: resumeDataSchemaV1.shape.workExperience.required({ title: true }).extend({
+    items: z.array(
+      resumeDataSchemaV1.shape.workExperience.shape.items.def.element.required({
+        showOnBottom: true,
+      }),
+    ),
+  }),
+  projects: resumeDataSchemaV1.shape.projects.required({ title: true, showOnBottom: true }),
   skills: resumeDataSchemaV1.shape.skills.required({ title: true }),
   languages: resumeDataSchemaV1.shape.languages.required({ title: true, showOnBottom: true }),
   certifications: resumeDataSchemaV1.shape.certifications.required({

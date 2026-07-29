@@ -5,18 +5,24 @@ import { DateRange } from '../date-range';
 import { ExternalLink } from '../external-link';
 import { SectionContent } from '../section-content';
 import { SectionTitle } from '../section-title';
+import type { SharedPreviewSectionProps } from './types';
 
-export function ProjectsSection() {
+export function ProjectsSection(props: SharedPreviewSectionProps) {
   const title = useBuilderPreviewStore(
     (state) => state.resumeData.projects.title,
   );
   const projects = useBuilderPreviewStore(
     (state) => state.resumeData.projects.items,
   );
+  const canShow = useBuilderPreviewStore(
+    (state) => state.resumeData.projects.showOnBottom === props.showOnBottom,
+  );
 
   const hasProjects = projects.length > 0;
 
   if (!hasProjects) return null;
+
+  if (!canShow) return null;
 
   return (
     <div>

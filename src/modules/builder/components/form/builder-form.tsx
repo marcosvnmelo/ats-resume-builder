@@ -1,3 +1,5 @@
+// cspell:words dont
+
 import type { UpdateMetaOptions } from '@tanstack/react-form';
 import React from 'react';
 
@@ -32,6 +34,27 @@ export function BuilderForm() {
           const file = fieldApi.state.value;
 
           await importResumeDataFromFile(file, formApi);
+
+          updatePreview(formApi);
+          return;
+        }
+
+        const workExperienceShowOnBottomFieldRegex =
+          /^workExperience\.items\[(\d+)\]\.showOnBottom$/;
+        const isWorkExperienceShowOnBottomField =
+          workExperienceShowOnBottomFieldRegex.test(fieldApi.name);
+        if (isWorkExperienceShowOnBottomField) {
+          const updatedFieldIndex = Number(
+            workExperienceShowOnBottomFieldRegex.exec(fieldApi.name)?.[1],
+          );
+
+          const updatedFieldShowOnBottomValue: boolean = fieldApi.state.value;
+
+          applyShowOnBottomValueChangeSideEffects(
+            formApi,
+            updatedFieldShowOnBottomValue,
+            updatedFieldIndex,
+          );
 
           updatePreview(formApi);
           return;
@@ -150,6 +173,81 @@ function updatePreview(formApi: Pick<FormApi, 'state'>) {
     .parse(formApi.state.values);
 
   useBuilderPreviewStore.getState().setResumeData(resumeData);
+}
+
+function applyShowOnBottomValueChangeSideEffects(
+  formApi: Pick<FormApi, 'getFieldValue' | 'setFieldValue'>,
+  updatedFieldShowOnBottomValue: boolean,
+  updatedFieldIndex: number,
+) {
+  const updatedWorkExperiences = getWorkExperienceWithAppliedSideEffects(
+    formApi,
+    updatedFieldShowOnBottomValue,
+    updatedFieldIndex,
+  );
+
+  const isSomeWorkExperienceShowOnBottom = updatedWorkExperiences.some(
+    (workExperience) => workExperience.showOnBottom,
+  );
+
+  setValuesWithSideEffects(
+    formApi,
+    updatedWorkExperiences,
+    isSomeWorkExperienceShowOnBottom,
+  );
+}
+
+function getWorkExperienceWithAppliedSideEffects(
+  formApi: Pick<FormApi, 'getFieldValue'>,
+  updatedFieldShowOnBottomValue: boolean,
+  updatedFieldIndex: number,
+) {
+  const workExperiences = formApi.getFieldValue('workExperience.items');
+
+  return workExperiences.map((workExperience, index) => {
+    let showOnBottom: boolean;
+
+    if (updatedFieldShowOnBottomValue === false) {
+      if (index < updatedFieldIndex) {
+        showOnBottom = false;
+      } else if (index === updatedFieldIndex) {
+        showOnBottom = updatedFieldShowOnBottomValue;
+      } else {
+        showOnBottom = workExperience.showOnBottom;
+      }
+    } else {
+      if (index < updatedFieldIndex) {
+        showOnBottom = workExperience.showOnBottom;
+      } else if (index === updatedFieldIndex) {
+        showOnBottom = updatedFieldShowOnBottomValue;
+      } else {
+        showOnBottom = true;
+      }
+    }
+
+    return {
+      ...workExperience,
+      showOnBottom,
+    };
+  });
+}
+
+function setValuesWithSideEffects(
+  formApi: Pick<FormApi, 'setFieldValue'>,
+  updatedWorkExperiences: ResumeData['workExperience']['items'],
+  isSomeWorkExperienceShowOnBottom: boolean,
+) {
+  const options: UpdateMetaOptions = { dontRunListeners: true };
+
+  formApi.setFieldValue(
+    'workExperience.items',
+    updatedWorkExperiences,
+    options,
+  );
+
+  if (isSomeWorkExperienceShowOnBottom) {
+    formApi.setFieldValue('projects.showOnBottom', true, options);
+  }
 }
 
 interface SeparatedSectionsProps {

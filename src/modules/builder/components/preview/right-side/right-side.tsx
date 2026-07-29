@@ -4,8 +4,8 @@ import { WorkExperienceSection } from '../shared/sections/work-experience-sectio
 export function RightSide() {
   return (
     <div className="col-span-2 space-y-2">
-      <WorkExperienceSection />
-      <ProjectsSection />
+      <WorkExperienceSection showOnBottom={false} />
+      <ProjectsSection showOnBottom={false} />
     </div>
   );
 }

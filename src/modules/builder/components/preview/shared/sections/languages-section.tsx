@@ -1,14 +1,10 @@
-import type { ResumeData } from '#builder/schemas/resume-data.schema.ts';
 import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
 
 import { SectionContent } from '../section-content';
 import { SectionTitle } from '../section-title';
+import type { SharedPreviewSectionProps } from './types';
 
-interface LanguagesSectionProps {
-  showOnBottom: ResumeData['languages']['showOnBottom'];
-}
-
-export function LanguagesSection(props: LanguagesSectionProps) {
+export function LanguagesSection(props: SharedPreviewSectionProps) {
   const title = useBuilderPreviewStore(
     (state) => state.resumeData.languages.title,
   );

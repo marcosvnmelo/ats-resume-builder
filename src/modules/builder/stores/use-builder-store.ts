@@ -1,14 +1,16 @@
 import { create } from 'zustand';
 
+type SidebarView = 'builder' | 'options';
+
 interface State {
-  isFormVisible: boolean;
+  sidebarView: SidebarView;
 }
 
 interface Actions {
-  toggleFormVisibility: () => void;
+  changeSidebarView: (sidebarView: SidebarView) => void;
 }
 
 export const useBuilderStore = create<State & Actions>((set) => ({
-  isFormVisible: true,
-  toggleFormVisibility: () => set((state) => ({ isFormVisible: !state.isFormVisible })),
+  sidebarView: 'builder',
+  changeSidebarView: (sidebarView) => set({ sidebarView }),
 }));

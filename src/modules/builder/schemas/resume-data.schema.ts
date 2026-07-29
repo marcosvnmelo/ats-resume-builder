@@ -95,6 +95,8 @@ export const resumeDataSchemaV0 = personalInformationV0
     certifications: {
       items: data.certifications,
     },
+
+    options: {},
   }));
 
 export const resumeDataSchemaV1 = z.object({
@@ -143,6 +145,10 @@ export const resumeDataSchemaV1 = z.object({
     title: z.string().default('Tests & Certifications'),
     items: z.array(certificationsItemV0),
     showOnBottom: z.boolean().default(false),
+  }),
+
+  options: z.object({
+    locale: z.string().default('en'),
   }),
 });
 

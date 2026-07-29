@@ -1,7 +1,3 @@
-// import { Activity } from 'react';
-
-// import { useBuilderStore } from '#builder/stores/use-builder-store.ts';
-
 import { CardTitle } from '@/components/ui/card';
 import {
   Sidebar,

@@ -24,6 +24,8 @@ export const builderFormSchema = resumeDataSchemaV1.omit({ v: true }).extend({
     title: true,
     showOnBottom: true,
   }),
+
+  options: resumeDataSchemaV1.shape.options.required({ locale: true }),
 });
 
 export type BuilderFormInput = z.input<typeof builderFormSchema>;

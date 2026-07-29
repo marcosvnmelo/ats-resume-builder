@@ -53,6 +53,10 @@ export const defaultValues: BuilderFormInput = {
     items: [],
     showOnBottom: false,
   },
+
+  options: {
+    locale: 'en',
+  },
 };
 
 export const builderFormOptions = formOptions({

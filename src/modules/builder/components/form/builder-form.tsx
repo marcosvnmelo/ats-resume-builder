@@ -123,7 +123,7 @@ async function importResumeDataFromFile(
 
   setValuesFromFile(formApi, parsedData);
 
-  forceUIUpdate(formApi);
+  forceFormUIRenderAfterGroupUpdate(formApi);
 }
 
 async function parseFile(file: File) {
@@ -163,7 +163,9 @@ function setValuesFromFile(
   formApi.setFieldValue('certifications', parsedData.certifications, options);
 }
 
-function forceUIUpdate(formApi: Pick<FormApi, 'validateAllFields'>) {
+function forceFormUIRenderAfterGroupUpdate(
+  formApi: Pick<FormApi, 'validateAllFields'>,
+) {
   formApi.validateAllFields('change');
 }
 

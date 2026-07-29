@@ -1,5 +1,5 @@
-import { ProjectsSection } from './projects-section';
-import { WorkExperienceSection } from './work-experience-section';
+import { ProjectsSection } from '../shared/sections/projects-section';
+import { WorkExperienceSection } from '../shared/sections/work-experience-section';
 
 export function RightSide() {
   return (

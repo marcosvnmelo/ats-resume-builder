@@ -1,9 +1,9 @@
 import type { ResumeData } from '#builder/schemas/resume-data.schema.ts';
 import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
 
-import { DateRange } from '../shared/date-range';
-import { SectionContent } from '../shared/section-content';
-import { SectionTitle } from '../shared/section-title';
+import { DateRange } from '../date-range';
+import { SectionContent } from '../section-content';
+import { SectionTitle } from '../section-title';
 
 export function WorkExperienceSection() {
   const title = useBuilderPreviewStore(

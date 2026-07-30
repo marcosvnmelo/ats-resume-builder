@@ -109,6 +109,13 @@ export const resumeDataSchemaV0 = personalInformationV0
     options: {},
   }));
 
+function skillSectionV1(defaultTitle: string) {
+  return z.object({
+    title: skillSectionV0.shape.title.default(defaultTitle),
+    items: skillSectionV0.shape.skills,
+  });
+}
+
 export const resumeDataSchemaV1 = z.object({
   v: z.literal(1),
   personalInformation: z.object({
@@ -142,18 +149,9 @@ export const resumeDataSchemaV1 = z.object({
     items: z.array(projectsItemV0),
     showOnBottom: z.boolean().default(false),
   }),
-  technicalSkills: z.object({
-    title: skillSectionV0.shape.title.default('Technical Skills'),
-    items: skillSectionV0.shape.skills,
-  }),
-  softSkills: z.object({
-    title: skillSectionV0.shape.title.default('Soft Skills'),
-    items: skillSectionV0.shape.skills,
-  }),
-  additionalSkills: z.object({
-    title: skillSectionV0.shape.title.default('Additional Skills'),
-    items: skillSectionV0.shape.skills,
-  }),
+  technicalSkills: skillSectionV1('Technical Skills'),
+  softSkills: skillSectionV1('Soft Skills'),
+  additionalSkills: skillSectionV1('Additional Skills'),
   languages: z.object({
     title: z.string().default('Languages'),
     items: z.array(languagesItemV0),

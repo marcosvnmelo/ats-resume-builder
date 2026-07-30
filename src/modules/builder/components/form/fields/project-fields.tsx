@@ -1,3 +1,5 @@
+import { useIntlayer } from 'react-intlayer';
+
 import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
 import { useBuilderFormContext } from '#builder/hooks/use-builder-form.ts';
 import { FieldGroup } from '@/components/ui/field';
@@ -11,6 +13,8 @@ interface ProjectFieldsProps {
 }
 
 export function ProjectFields({ index, removeItem }: ProjectFieldsProps) {
+  const t = useIntlayer('project-fields');
+
   const form = useBuilderFormContext({
     ...builderFormOptions,
   });
@@ -21,8 +25,8 @@ export function ProjectFields({ index, removeItem }: ProjectFieldsProps) {
         <form.AppField name={`projects.items[${index}].name`}>
           {(field) => (
             <field.TextField
-              label="Project Name"
-              placeholder="ATS Resume Builder"
+              label={t.fields.name.label}
+              placeholder={t.fields.name.placeholder}
               fieldClassName={cn('col-span-2')}
             />
           )}
@@ -31,8 +35,8 @@ export function ProjectFields({ index, removeItem }: ProjectFieldsProps) {
         <form.AppField name={`projects.items[${index}].link`}>
           {(field) => (
             <field.TextField
-              label="Link"
-              placeholder="https://github.com/marcosvnmelo/ats-resume-builder"
+              label={t.fields.link.label}
+              placeholder={t.fields.link.placeholder}
               fieldClassName={cn('col-span-2')}
             />
           )}
@@ -41,8 +45,8 @@ export function ProjectFields({ index, removeItem }: ProjectFieldsProps) {
         <form.AppField name={`projects.items[${index}].description`}>
           {(field) => (
             <field.TextareaField
-              label="Description"
-              placeholder="ATS Resume Builder is a web application that allows users to create and manage their resumes."
+              label={t.fields.description.label}
+              placeholder={t.fields.description.placeholder}
               fieldClassName={cn('col-span-2 h-32')}
             />
           )}
@@ -51,10 +55,8 @@ export function ProjectFields({ index, removeItem }: ProjectFieldsProps) {
         <form.AppField name={`projects.items[${index}].keyAchievements`}>
           {(field) => (
             <field.TextareaField
-              label="Key Achievements"
-              placeholder={
-                'Allow users to create and manage their resumes.\nAllow users to import and export their resumes.'
-              }
+              label={t.fields.keyAchievements.label}
+              placeholder={t.fields.keyAchievements.placeholder}
               fieldClassName={cn('col-span-2')}
             />
           )}
@@ -62,13 +64,19 @@ export function ProjectFields({ index, removeItem }: ProjectFieldsProps) {
 
         <form.AppField name={`projects.items[${index}].startYear`}>
           {(field) => (
-            <field.DateField label="Start Year" fieldClassName={cn('w-full')} />
+            <field.DateField
+              label={t.fields.startYear.label}
+              fieldClassName={cn('w-full')}
+            />
           )}
         </form.AppField>
 
         <form.AppField name={`projects.items[${index}].endYear`}>
           {(field) => (
-            <field.DateField label="End Year" fieldClassName={cn('w-full')} />
+            <field.DateField
+              label={t.fields.endYear.label}
+              fieldClassName={cn('w-full')}
+            />
           )}
         </form.AppField>
       </FieldGroup>

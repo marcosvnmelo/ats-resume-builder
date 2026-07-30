@@ -142,7 +142,7 @@ export const resumeDataSchemaV1 = z.object({
     showOnBottom: z.boolean().default(false),
   }),
   certifications: z.object({
-    title: z.string().default('Tests & Certifications'),
+    title: z.string().default('Certifications'),
     items: z.array(certificationsItemV0),
     showOnBottom: z.boolean().default(false),
   }),

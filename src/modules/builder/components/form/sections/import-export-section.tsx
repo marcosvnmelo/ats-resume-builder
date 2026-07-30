@@ -1,4 +1,5 @@
 import { DownloadIcon, UploadIcon } from 'lucide-react';
+import { useIntlayer } from 'react-intlayer';
 
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
@@ -9,6 +10,8 @@ import { Input } from '@/components/ui/input';
 export const ImportExportSection = withBuilderFieldGroup({
   defaultValues: defaultValues.import,
   render: function Render({ group }) {
+    const t = useIntlayer('import-export-section');
+
     function downloadResumeData() {
       const resumeData = group.form.state.values;
       // TODO: download resume data as JSON
@@ -33,7 +36,7 @@ export const ImportExportSection = withBuilderFieldGroup({
                   accept=".json"
                 />
                 <FieldLabel htmlFor={field.name} className="text-xl">
-                  Import
+                  {t.import}
                   <span className={buttonVariants({ size: 'icon-lg' })}>
                     <UploadIcon className="pointer-events-none size-5" />
                   </span>
@@ -43,7 +46,7 @@ export const ImportExportSection = withBuilderFieldGroup({
           </group.Field>
           <Field orientation="horizontal">
             <FieldLabel className="text-xl" render={<span />}>
-              Export
+              {t.export}
             </FieldLabel>
             <Button
               id="export-button"

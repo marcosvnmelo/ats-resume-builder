@@ -1,3 +1,5 @@
+import { useIntlayer } from 'react-intlayer';
+
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
 
@@ -7,18 +9,23 @@ import { ArraySectionLayout } from '../shared/array-section-layout';
 export const ProjectsSection = withBuilderFieldGroup({
   defaultValues: defaultValues.projects,
   render: function Render({ group }) {
+    const t = useIntlayer('projects-section');
+
     return (
       <ArraySectionLayout
         legend={
           <>
             <group.AppField name="title">
               {(field) => (
-                <field.TitleField title={t.title} defaultValue={t.title} />
+                <field.TitleField
+                  title={t.title}
+                  defaultValue={t.title.toString()}
+                />
               )}
             </group.AppField>
 
             <group.AppField name="showOnBottom">
-              {(field) => <field.BooleanField label="Show on bottom" />}
+              {(field) => <field.BooleanField label={t.showOnBottom.label} />}
             </group.AppField>
           </>
         }

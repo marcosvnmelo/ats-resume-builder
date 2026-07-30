@@ -1,3 +1,5 @@
+import { useIntlayer } from 'react-intlayer';
+
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
 
@@ -7,17 +9,24 @@ import { ArraySingleFieldLayout } from '../shared/array-single-field-layout';
 export const CertificationsSection = withBuilderFieldGroup({
   defaultValues: defaultValues.languages,
   render: function Render({ group }) {
+    const t = useIntlayer('certifications-section');
+
     return (
       <ArraySectionLayout
         legend={
           <group.AppField name="title">
-            {(field) => <field.TitleField />}
+            {(field) => (
+              <field.TitleField
+                title={t.title}
+                defaultValue={t.defaultValue.toString()}
+              />
+            )}
           </group.AppField>
         }
         onAddItem={() => group.pushFieldValue('items', '')}
       >
         <group.AppField name="showOnBottom">
-          {(field) => <field.BooleanField label="Show on bottom" />}
+          {(field) => <field.BooleanField label={t.showOnBottom.label} />}
         </group.AppField>
 
         <group.Field name="items" mode="array">

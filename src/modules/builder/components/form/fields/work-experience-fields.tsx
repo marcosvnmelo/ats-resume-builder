@@ -1,3 +1,5 @@
+import { useIntlayer } from 'react-intlayer';
+
 import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
 import { useBuilderFormContext } from '#builder/hooks/use-builder-form.ts';
 import { FieldGroup } from '@/components/ui/field';
@@ -14,6 +16,8 @@ export function WorkExperienceFields({
   index,
   removeItem,
 }: WorkExperienceFieldsProps) {
+  const t = useIntlayer('work-experience-fields');
+
   const form = useBuilderFormContext({
     ...builderFormOptions,
   });
@@ -24,8 +28,8 @@ export function WorkExperienceFields({
         <form.AppField name={`workExperience.items[${index}].company`}>
           {(field) => (
             <field.TextField
-              label="Company"
-              placeholder="Torph TTC"
+              label={t.fields.company.label}
+              placeholder={t.fields.company.placeholder}
               fieldClassName={cn('col-span-2')}
             />
           )}
@@ -34,8 +38,8 @@ export function WorkExperienceFields({
         <form.AppField name={`workExperience.items[${index}].position`}>
           {(field) => (
             <field.TextField
-              label="Job Title"
-              placeholder="Developer"
+              label={t.fields.position.label}
+              placeholder={t.fields.position.placeholder}
               fieldClassName={cn('col-span-2')}
             />
           )}
@@ -44,8 +48,8 @@ export function WorkExperienceFields({
         <form.AppField name={`workExperience.items[${index}].description`}>
           {(field) => (
             <field.TextareaField
-              label="Description"
-              placeholder="Torph TTC is a global software company that offers user interface UI development tools and components for a range of developer applications across all platforms."
+              label={t.fields.description.label}
+              placeholder={t.fields.description.placeholder}
               fieldClassName={cn('col-span-2 h-32')}
             />
           )}
@@ -54,10 +58,8 @@ export function WorkExperienceFields({
         <form.AppField name={`workExperience.items[${index}].keyAchievements`}>
           {(field) => (
             <field.TextareaField
-              label="Key Achievements"
-              placeholder={
-                "Created and maintained 10 web applications for numerous national and foreign clients.\nEnsured that the user interfaces and user experience of the software applications developed by the team met at least 80% of users expectations.\nCreated and analyzed 500 unit test cases.\nDeveloped python scripts to automate image's noise-reduction process which helped improve research analysis time by 40%.\nEstablished and lead a team of 10 people; covering every key role in the early stages."
-              }
+              label={t.fields.keyAchievements.label}
+              placeholder={t.fields.keyAchievements.placeholder}
               fieldClassName={cn('col-span-2')}
             />
           )}
@@ -65,18 +67,26 @@ export function WorkExperienceFields({
 
         <form.AppField name={`workExperience.items[${index}].startYear`}>
           {(field) => (
-            <field.DateField label="Start Year" fieldClassName={cn('w-full')} />
+            <field.DateField
+              label={t.fields.startYear.label}
+              fieldClassName={cn('w-full')}
+            />
           )}
         </form.AppField>
 
         <form.AppField name={`workExperience.items[${index}].endYear`}>
           {(field) => (
-            <field.DateField label="End Year" fieldClassName={cn('w-full')} />
+            <field.DateField
+              label={t.fields.endYear.label}
+              fieldClassName={cn('w-full')}
+            />
           )}
         </form.AppField>
 
         <form.AppField name={`workExperience.items[${index}].showOnBottom`}>
-          {(field) => <field.BooleanField label="Show on bottom" />}
+          {(field) => (
+            <field.BooleanField label={t.fields.showOnBottom.label} />
+          )}
         </form.AppField>
       </FieldGroup>
     </ArrayFieldsLayout>

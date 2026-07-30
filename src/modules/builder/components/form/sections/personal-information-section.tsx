@@ -24,22 +24,28 @@ export const PersonalInformationSection = withBuilderFieldGroup({
         <FieldGroup className="grid md:grid-cols-2">
           <group.AppField name="data.name">
             {(field) => (
-              <field.TextField label="Full Name" placeholder="MARCUS HALL" />
+              <field.TextField
+                label={t.fields.name.label}
+                placeholder={t.fields.name.placeholder}
+              />
             )}
           </group.AppField>
 
           <group.AppField name="data.position">
             {(field) => (
               <field.TextField
-                label="Job Title"
-                placeholder="Fullstack Developer"
+                label={t.fields.position.label}
+                placeholder={t.fields.position.placeholder}
               />
             )}
           </group.AppField>
 
           <group.AppField name="data.phone">
             {(field) => (
-              <field.TextField label="Phone" placeholder="+1-555-0100" />
+              <field.TextField
+                label={t.fields.phone.label}
+                placeholder={t.fields.phone.placeholder}
+              />
             )}
           </group.AppField>
 
@@ -47,8 +53,8 @@ export const PersonalInformationSection = withBuilderFieldGroup({
             {(field) => (
               <field.TextField
                 type="email"
-                label="Email"
-                placeholder="beddylea@gmail.com"
+                label={t.fields.email.label}
+                placeholder={t.fields.email.placeholder}
               />
             )}
           </group.AppField>
@@ -56,8 +62,8 @@ export const PersonalInformationSection = withBuilderFieldGroup({
           <group.AppField name="data.address">
             {(field) => (
               <field.TextField
-                label="Address"
-                placeholder="San Francisco, CA"
+                label={t.fields.address.label}
+                placeholder={t.fields.address.placeholder}
               />
             )}
           </group.AppField>
@@ -69,7 +75,10 @@ export const PersonalInformationSection = withBuilderFieldGroup({
 
               return (
                 <Field data-invalid={isInvalid}>
-                  <FieldLabel htmlFor={field.name}>Profile Picture</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>
+                    {t.fields.profilePicture.label}
+                  </FieldLabel>
+
                   <Input
                     id={field.name}
                     name={field.name}
@@ -86,6 +95,7 @@ export const PersonalInformationSection = withBuilderFieldGroup({
                     }}
                     aria-invalid={isInvalid}
                   />
+
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </Field>
               );

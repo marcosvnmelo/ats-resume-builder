@@ -1,3 +1,5 @@
+import { useIntlayer } from 'react-intlayer';
+
 import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
 import { useBuilderFormContext } from '#builder/hooks/use-builder-form.ts';
 import { FieldGroup } from '@/components/ui/field';
@@ -11,17 +13,20 @@ interface EducationFieldProps {
 }
 
 export function EducationFields({ index, removeItem }: EducationFieldProps) {
+  const t = useIntlayer('education-fields');
+
   const form = useBuilderFormContext({
     ...builderFormOptions,
   });
+
   return (
     <ArrayFieldsLayout onRemoveItem={removeItem}>
       <FieldGroup className="grid grid-cols-2">
         <form.AppField name={`education.items[${index}].degree`}>
           {(field) => (
             <field.TextField
-              label="Degree"
-              placeholder="Bachelor of Computer Science"
+              label={t.fields.degree.label}
+              placeholder={t.fields.degree.placeholder}
               fieldClassName={cn('col-span-2')}
             />
           )}
@@ -30,8 +35,8 @@ export function EducationFields({ index, removeItem }: EducationFieldProps) {
         <form.AppField name={`education.items[${index}].school`}>
           {(field) => (
             <field.TextField
-              label="School"
-              placeholder="New York University"
+              label={t.fields.school.label}
+              placeholder={t.fields.school.placeholder}
               fieldClassName={cn('col-span-2')}
             />
           )}
@@ -39,13 +44,19 @@ export function EducationFields({ index, removeItem }: EducationFieldProps) {
 
         <form.AppField name={`education.items[${index}].startYear`}>
           {(field) => (
-            <field.DateField label="Start Year" fieldClassName={cn('w-full')} />
+            <field.DateField
+              label={t.fields.startYear.label}
+              fieldClassName={cn('w-full')}
+            />
           )}
         </form.AppField>
 
         <form.AppField name={`education.items[${index}].endYear`}>
           {(field) => (
-            <field.DateField label="End Year" fieldClassName={cn('w-full')} />
+            <field.DateField
+              label={t.fields.endYear.label}
+              fieldClassName={cn('w-full')}
+            />
           )}
         </form.AppField>
       </FieldGroup>

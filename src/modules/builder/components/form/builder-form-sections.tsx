@@ -8,7 +8,7 @@ import { LanguagesSection } from './sections/languages-section';
 import { PersonalInformationSection } from './sections/personal-information-section';
 import { ProjectsSection } from './sections/projects-section';
 import { SkillsSection } from './sections/skills-section';
-import { SocialMediaSection } from './sections/social-media-section-array';
+import { SocialMediaSection } from './sections/social-media-section';
 import { SummarySection } from './sections/summary-section';
 import { WorkExperienceSection } from './sections/work-experience-section';
 import { SeparatedSections } from './separated-sections';

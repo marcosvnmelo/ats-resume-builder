@@ -1,5 +1,5 @@
 import { localeMap } from 'intlayer';
-import { useLocale } from 'react-intlayer';
+import { useIntlayer, useLocale } from 'react-intlayer';
 
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
@@ -16,10 +16,11 @@ import {
 export const BuilderOptions = withBuilderFieldGroup({
   defaultValues: defaultValues.options,
   render: function Render({ group }) {
+    const t = useIntlayer('builder-options');
     const { locale: currentLocale, setLocale } = useLocale();
 
     const items = localeMap(({ locale }) => ({
-      label: locale,
+      label: t.fields.locale.options[locale as typeof currentLocale],
       value: locale,
     }));
 
@@ -34,7 +35,7 @@ export const BuilderOptions = withBuilderFieldGroup({
       <FieldSet>
         <FieldGroup>
           <Field>
-            <FieldLabel>Language</FieldLabel>
+            <FieldLabel>{t.fields.locale.label}</FieldLabel>
             <Select
               id="locale"
               items={items}

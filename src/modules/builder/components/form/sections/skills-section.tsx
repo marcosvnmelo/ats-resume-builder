@@ -1,3 +1,5 @@
+import { useIntlayer } from 'react-intlayer';
+
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
 
@@ -7,11 +9,18 @@ import { ArraySingleFieldLayout } from '../shared/array-single-field-layout';
 export const SkillsSection = withBuilderFieldGroup({
   defaultValues: defaultValues.skills,
   render: function Render({ group }) {
+    const t = useIntlayer('skills-section');
+
     return (
       <ArraySectionLayout
         legend={
           <group.AppField name="title">
-            {(field) => <field.TitleField />}
+            {(field) => (
+              <field.TitleField
+                title={t.title}
+                defaultValue={t.title.toString()}
+              />
+            )}
           </group.AppField>
         }
         onAddItem={() => group.pushFieldValue('items', '')}

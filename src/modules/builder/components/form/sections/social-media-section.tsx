@@ -1,3 +1,5 @@
+import { useIntlayer } from 'react-intlayer';
+
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
 
@@ -7,9 +9,11 @@ import { ArraySectionLayout } from '../shared/array-section-layout';
 export const SocialMediaSection = withBuilderFieldGroup({
   defaultValues: defaultValues.socialMedia,
   render: function Render({ group }) {
+    const t = useIntlayer('social-media-section');
+
     return (
       <ArraySectionLayout
-        legend="Social Medias"
+        legend={t.title}
         onAddItem={() =>
           group.pushFieldValue('items', { socialMedia: '', link: '' })
         }

@@ -3,12 +3,14 @@ import { create } from 'zustand';
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import type { ResumeData } from '#builder/schemas/resume-data.schema.ts';
 
+type UnversionedResumeData = Omit<ResumeData, 'v'>;
+
 interface State {
-  resumeData: ResumeData;
+  resumeData: UnversionedResumeData;
 }
 
 interface Actions {
-  setResumeData: (resumeData: Omit<ResumeData, 'v'>) => void;
+  setResumeData: (resumeData: UnversionedResumeData) => void;
 }
 
 export const useBuilderPreviewStore = create<State & Actions>((set) => ({
@@ -18,9 +20,6 @@ export const useBuilderPreviewStore = create<State & Actions>((set) => ({
   },
   setResumeData: (resumeData) =>
     set({
-      resumeData: {
-        v: 1,
-        ...resumeData,
-      },
+      resumeData,
     }),
 }));

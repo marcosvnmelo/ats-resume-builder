@@ -1,10 +1,16 @@
+import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
+
 interface DateRangeProps {
   startYear: string;
   endYear: string;
 }
 
 export function DateRange({ startYear, endYear }: DateRangeProps) {
-  const formattedDateRange = formatDateRange(startYear, endYear);
+  const locale = useBuilderPreviewStore(
+    (state) => state.resumeData.options.locale,
+  );
+
+  const formattedDateRange = formatDateRange(startYear, endYear, locale);
 
   return <p className="text-xs font-normal">{formattedDateRange}</p>;
 }

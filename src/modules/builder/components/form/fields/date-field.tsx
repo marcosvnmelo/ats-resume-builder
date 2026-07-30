@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
 
 import { useFieldContext } from '#builder/contexts/builder-form-context.ts';
 import { Button } from '@/components/ui/button';
@@ -17,7 +18,19 @@ interface DateFieldProps {
   fieldClassName?: string;
 }
 
+import type { __DeclaredLocalesRegistry } from 'intlayer';
+import type { DayPickerLocale } from 'react-day-picker';
+import { enUS, ptBR } from 'react-day-picker/locale';
+
+const locales: Record<keyof __DeclaredLocalesRegistry, DayPickerLocale> = {
+  'en': enUS,
+  'pt-BR': ptBR,
+};
+
 export function DateField(props: DateFieldProps) {
+  const t = useIntlayer('date-field');
+  const { locale } = useLocale();
+
   const field = useFieldContext<string>();
 
   const [open, setOpen] = useState(false);
@@ -59,13 +72,14 @@ export function DateField(props: DateFieldProps) {
               id={inputId}
               className="justify-start font-normal"
             >
-              {date ? date.toLocaleDateString() : 'Select date'}
+              {date ? date.toLocaleDateString(locale) : t.trigger}
             </Button>
           }
         />
         <PopoverContent className="w-auto overflow-hidden p-0" align="start">
           <Calendar
             mode="single"
+            locale={locales[locale]}
             selected={date}
             defaultMonth={date}
             captionLayout="dropdown"

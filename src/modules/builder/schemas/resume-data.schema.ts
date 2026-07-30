@@ -53,7 +53,7 @@ export const resumeDataSchemaV0 = personalInformationV0
     education: z.array(educationItemV0),
     workExperience: z.array(workExperienceItemV0),
     projects: z.array(projectsItemV0),
-    skills: z.tuple([skillSectionV0]),
+    skills: z.tuple([skillSectionV0, skillSectionV0, skillSectionV0]),
     languages: z.array(languagesItemV0),
     certifications: z.array(certificationsItemV0),
   })
@@ -84,9 +84,19 @@ export const resumeDataSchemaV0 = personalInformationV0
     projects: {
       items: data.projects,
     },
-    skills: {
+    technicalSkills: {
       title: data.skills[0].title,
       items: data.skills[0].skills,
+      // HACK: This is a workaround to satisfy the type checker
+    } as { items: string[] },
+    softSkills: {
+      title: data.skills[1].title,
+      items: data.skills[1].skills,
+      // HACK: This is a workaround to satisfy the type checker
+    } as { items: string[] },
+    additionalSkills: {
+      title: data.skills[2].title,
+      items: data.skills[2].skills,
       // HACK: This is a workaround to satisfy the type checker
     } as { items: string[] },
     languages: {
@@ -132,8 +142,16 @@ export const resumeDataSchemaV1 = z.object({
     items: z.array(projectsItemV0),
     showOnBottom: z.boolean().default(false),
   }),
-  skills: z.object({
+  technicalSkills: z.object({
     title: skillSectionV0.shape.title.default('Technical Skills'),
+    items: skillSectionV0.shape.skills,
+  }),
+  softSkills: z.object({
+    title: skillSectionV0.shape.title.default('Soft Skills'),
+    items: skillSectionV0.shape.skills,
+  }),
+  additionalSkills: z.object({
+    title: skillSectionV0.shape.title.default('Additional Skills'),
     items: skillSectionV0.shape.skills,
   }),
   languages: z.object({

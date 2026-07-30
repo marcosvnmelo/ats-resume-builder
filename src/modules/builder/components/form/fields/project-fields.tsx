@@ -28,7 +28,7 @@ export function ProjectFields({ index, removeItem }: ProjectFieldsProps) {
           )}
         </form.AppField>
 
-        <form.AppField name={`projects.items[${index}].name`}>
+        <form.AppField name={`projects.items[${index}].link`}>
           {(field) => (
             <field.TextField
               label="Link"

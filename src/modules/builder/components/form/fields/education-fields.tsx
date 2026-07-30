@@ -17,7 +17,7 @@ export function EducationFields({ index, removeItem }: EducationFieldProps) {
   return (
     <ArrayFieldsLayout onRemoveItem={removeItem}>
       <FieldGroup className="grid grid-cols-2">
-        <form.AppField name={`education.items[${index}].school`}>
+        <form.AppField name={`education.items[${index}].degree`}>
           {(field) => (
             <field.TextField
               label="Degree"

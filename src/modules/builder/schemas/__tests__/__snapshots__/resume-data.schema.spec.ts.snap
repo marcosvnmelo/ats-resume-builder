@@ -1,0 +1,158 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`resumeDataSchema > should parse a v0 resume 1`] = `
+{
+  "additionalSkills": {
+    "items": [
+      "Public Speaking",
+      "Writing",
+      "Research",
+    ],
+    "title": "Additional Skills",
+  },
+  "certifications": {
+    "items": [
+      "Certified Web Professional-Web Developer",
+      "Java Development Certified Professional",
+    ],
+    "showOnBottom": false,
+    "title": "Certifications",
+  },
+  "education": {
+    "items": [
+      {
+        "degree": "New York University",
+        "endYear": "2024-07-01",
+        "school": "Bachelor of Computer Science",
+        "startYear": "2020-08-20",
+      },
+    ],
+    "title": "Education",
+  },
+  "languages": {
+    "items": [
+      "English",
+      "Hindi",
+    ],
+    "showOnBottom": false,
+    "title": "Languages",
+  },
+  "options": {
+    "locale": "en",
+  },
+  "personalInformation": {
+    "data": {
+      "address": "San Francisco, CA",
+      "email": "beddylea@gmail.com",
+      "name": "MARCUS HALL",
+      "phone": "+1-555-0100",
+      "position": "Developer",
+      "profilePicture": "",
+    },
+    "title": "Personal Information",
+  },
+  "projects": {
+    "items": [
+      {
+        "description": "A cutting-edge resume builder that helps job seekers create a professional, ATS-friendly resume in minutes. Our platform uses the latest technology to analyze and optimize your resume for maximum visibility and success with applicant tracking systems",
+        "endYear": "",
+        "keyAchievements": "Maximum score on https://www.resumego.net/resume-checker/",
+        "link": "https://github.com/sauravhathi/atsresume",
+        "name": "ATSResume",
+        "startYear": "",
+      },
+    ],
+    "showOnBottom": false,
+    "title": "Projects",
+  },
+  "socialMedia": {
+    "items": [
+      {
+        "link": "github.com//bedivere-lea",
+        "socialMedia": "Github",
+      },
+      {
+        "link": "linkedin.com/in/bedivere-lea",
+        "socialMedia": "LinkedIn",
+      },
+      {
+        "link": "bedivere-lea.github.io",
+        "socialMedia": "Website",
+      },
+    ],
+    "title": "Social Medias",
+  },
+  "softSkills": {
+    "items": [
+      "Collaboration",
+      "Problem-solving",
+      "Communication",
+      "Time management",
+      "Result-oriented",
+    ],
+    "title": "Soft Skills",
+  },
+  "summary": {
+    "text": "Resourceful Developer with 11 years of experience in designing and developing user interfaces, testing and training employees. Skilled at utilizing a wide variety of tools and programs to provide effective applications.",
+    "title": "Summary",
+  },
+  "technicalSkills": {
+    "items": [
+      "JavaScript",
+      "Python",
+      "Web Services",
+      "C++",
+      "HTML5",
+      "CSS",
+      "SQL",
+      "User Interface",
+      "Creativity",
+    ],
+    "title": "Technical Skills",
+  },
+  "v": 1,
+  "workExperience": {
+    "items": [
+      {
+        "company": "Torph TTC",
+        "description": "Torph TTC is a global software company that offers user interface UI development tools and components for a range of developer applications across all platforms.",
+        "endYear": "2023-02-21",
+        "keyAchievements": "Created and maintained 10 web applications for numerous national and foreign clients.
+Ensured that the user interfaces and user experience of the software applications developed by the team met at least 80% of users expectations.
+Created and analyzed 500 unit test cases.
+Developed python scripts to automate image's noise-reduction process which helped improve research analysis time by 40%.
+Established and lead a team of 10 people; covering every key role in the early stages.",
+        "position": "Developer",
+        "showOnBottom": false,
+        "startYear": "2023-02-16",
+      },
+      {
+        "company": "Reilty Group",
+        "description": "Reilty Group is an industry-leading provider of online gambling software and solutions.",
+        "endYear": "2023-03-09",
+        "keyAchievements": "Increased by 35% the reach of users to the platform, over the installation of the web platform in mobile devices.
+Delivered 30 web solutions.
+Replaced 1 full-time web developer under part-time employment achieving a productivity gain of over 60% as measured by working hours.
+Worked with more than 4 different teams at different points of time and provided end-to-end solutions for clients.",
+        "position": "Front End Web Developer",
+        "showOnBottom": false,
+        "startYear": "2023-02-22",
+      },
+      {
+        "company": "HellX",
+        "description": "Heller is a Software Editor specialized in logistics management.",
+        "endYear": "2023-03-09",
+        "keyAchievements": "Developed several automation systems - saved over $50,000 annually.
+Joined the team as #10 employee as a developer working directly with the biggest customers.
+Involved in coding as per the requirement, delivered well ahead of time which saved project cost by 20%.
+Reduced database size by nearly 50% and improved its performance by 20%.
+Delivery time of good reduced by 50%.",
+        "position": "Python Developer",
+        "showOnBottom": false,
+        "startYear": "2023-02-22",
+      },
+    ],
+    "title": "Work Experience",
+  },
+}
+`;

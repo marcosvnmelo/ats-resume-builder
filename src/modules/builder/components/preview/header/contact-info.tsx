@@ -28,7 +28,7 @@ export function ContactInfo() {
     <div className="mb-1 flex flex-row gap-1 text-sm font-normal">
       {hasPhone && (
         <a
-          href={`tel:${phone}`}
+          href={`tel:${phone.replace(/[^+0-9]/g, '')}`}
           target="_blank"
           className={linkClassName}
           aria-label="Phone Number"

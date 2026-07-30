@@ -10,9 +10,17 @@ export const ProjectsSection = withBuilderFieldGroup({
     return (
       <ArraySectionLayout
         legend={
-          <group.AppField name="title">
-            {(field) => <field.TitleField />}
-          </group.AppField>
+          <>
+            <group.AppField name="title">
+              {(field) => (
+                <field.TitleField title={t.title} defaultValue={t.title} />
+              )}
+            </group.AppField>
+
+            <group.AppField name="showOnBottom">
+              {(field) => <field.BooleanField label="Show on bottom" />}
+            </group.AppField>
+          </>
         }
         onAddItem={() =>
           group.pushFieldValue('items', {

@@ -115,7 +115,9 @@ function setValuesFromFile(formApi: Pick<FormApi, 'setFieldValue'>, parsedData: 
 
   formApi.setFieldValue('projects', parsedData.projects, options);
 
-  formApi.setFieldValue('skills', parsedData.skills, options);
+  formApi.setFieldValue('technicalSkills', parsedData.technicalSkills, options);
+  formApi.setFieldValue('softSkills', parsedData.softSkills, options);
+  formApi.setFieldValue('additionalSkills', parsedData.additionalSkills, options);
 
   formApi.setFieldValue('languages', parsedData.languages, options);
 

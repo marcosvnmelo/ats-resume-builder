@@ -109,6 +109,10 @@ export const resumeDataSchemaV0 = personalInformationV0
     options: {},
   }));
 
+export const skillTypeV1 = z.enum(['technical', 'soft', 'additional']);
+
+export type SkillType = z.infer<typeof skillTypeV1>;
+
 function skillSectionV1(defaultTitle: string) {
   return z.object({
     title: skillSectionV0.shape.title.default(defaultTitle),

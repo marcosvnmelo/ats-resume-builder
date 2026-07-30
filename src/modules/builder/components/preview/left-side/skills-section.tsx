@@ -1,14 +1,21 @@
+import type { SkillType } from '#builder/schemas/resume-data.schema.ts';
 import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
 
 import { SectionContent } from '../shared/section-content';
 import { SectionTitle } from '../shared/section-title';
 
-export function SkillsSection() {
+interface SkillsSectionProps {
+  skillType: SkillType;
+}
+
+export function SkillsSection(props: SkillsSectionProps) {
+  const skillKey = `${props.skillType}Skills` as const;
+
   const title = useBuilderPreviewStore(
-    (state) => state.resumeData.skills.title,
+    (state) => state.resumeData[skillKey].title,
   );
   const skills = useBuilderPreviewStore((state) =>
-    state.resumeData.skills.items.join(', '),
+    state.resumeData[skillKey].items.join(', '),
   );
 
   const hasSkills = skills.length > 0;
@@ -16,7 +23,7 @@ export function SkillsSection() {
   if (!hasSkills) return null;
 
   return (
-    <div>
+    <div className="print:break-inside-avoid">
       <SectionTitle>{title}</SectionTitle>
       <SectionContent className="text-xs">{skills}</SectionContent>
     </div>

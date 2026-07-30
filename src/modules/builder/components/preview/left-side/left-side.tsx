@@ -11,7 +11,9 @@ export function LeftSide() {
 
       <EducationSection />
 
-      <SkillsSection />
+      <SkillsSection skillType="technical" />
+      <SkillsSection skillType="soft" />
+      <SkillsSection skillType="additional" />
 
       <LanguagesSection showOnBottom={false} />
 

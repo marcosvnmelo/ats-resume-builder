@@ -18,7 +18,9 @@ export const builderFormSchema = resumeDataSchemaV1.omit({ v: true }).extend({
     ),
   }),
   projects: resumeDataSchemaV1.shape.projects.required({ title: true, showOnBottom: true }),
-  skills: resumeDataSchemaV1.shape.skills.required({ title: true }),
+  technicalSkills: resumeDataSchemaV1.shape.technicalSkills.required({ title: true }),
+  softSkills: resumeDataSchemaV1.shape.softSkills.required({ title: true }),
+  additionalSkills: resumeDataSchemaV1.shape.additionalSkills.required({ title: true }),
   languages: resumeDataSchemaV1.shape.languages.required({ title: true, showOnBottom: true }),
   certifications: resumeDataSchemaV1.shape.certifications.required({
     title: true,

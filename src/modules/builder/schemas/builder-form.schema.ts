@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-import { resumeDataSchemaV1 } from './resume-data.schema';
+import { resumeDataSchemaV1, type SkillType } from './resume-data.schema';
 
 export const builderFormSchema = resumeDataSchemaV1.omit({ v: true }).extend({
   import: z.object({
@@ -18,9 +18,11 @@ export const builderFormSchema = resumeDataSchemaV1.omit({ v: true }).extend({
     ),
   }),
   projects: resumeDataSchemaV1.shape.projects.required({ title: true, showOnBottom: true }),
-  technicalSkills: resumeDataSchemaV1.shape.technicalSkills.required({ title: true }),
-  softSkills: resumeDataSchemaV1.shape.softSkills.required({ title: true }),
-  additionalSkills: resumeDataSchemaV1.shape.additionalSkills.required({ title: true }),
+  skills: z.object({
+    technical: resumeDataSchemaV1.shape.skills.shape.technical.required({ title: true }),
+    soft: resumeDataSchemaV1.shape.skills.shape.soft.required({ title: true }),
+    additional: resumeDataSchemaV1.shape.skills.shape.additional.required({ title: true }),
+  } satisfies Record<SkillType, unknown>),
   languages: resumeDataSchemaV1.shape.languages.required({ title: true, showOnBottom: true }),
   certifications: resumeDataSchemaV1.shape.certifications.required({
     title: true,

@@ -39,17 +39,19 @@ export const defaultValues: BuilderFormInput = {
     items: [],
     showOnBottom: false,
   },
-  technicalSkills: {
-    title: resumeDataSchemaV1.shape.technicalSkills.shape.title.def.defaultValue,
-    items: [],
-  },
-  additionalSkills: {
-    title: resumeDataSchemaV1.shape.additionalSkills.shape.title.def.defaultValue,
-    items: [],
-  },
-  softSkills: {
-    title: resumeDataSchemaV1.shape.softSkills.shape.title.def.defaultValue,
-    items: [],
+  skills: {
+    technical: {
+      title: resumeDataSchemaV1.shape.skills.shape.technical.shape.title.def.defaultValue,
+      items: [],
+    },
+    additional: {
+      title: resumeDataSchemaV1.shape.skills.shape.additional.shape.title.def.defaultValue,
+      items: [],
+    },
+    soft: {
+      title: resumeDataSchemaV1.shape.skills.shape.soft.shape.title.def.defaultValue,
+      items: [],
+    },
   },
   languages: {
     title: resumeDataSchemaV1.shape.languages.shape.title.def.defaultValue,

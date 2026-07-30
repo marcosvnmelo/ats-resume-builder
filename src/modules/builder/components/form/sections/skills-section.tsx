@@ -7,7 +7,7 @@ import type { SkillType } from '#builder/schemas/resume-data.schema.ts';
 import { ArraySectionLayout } from '../shared/array-section-layout';
 import { ArraySingleFieldLayout } from '../shared/array-single-field-layout';
 
-type DefaultValues = (typeof defaultValues)[`${SkillType}Skills`];
+type DefaultValues = (typeof defaultValues.skills)[SkillType];
 
 export const SkillsSection = withBuilderFieldGroup({
   defaultValues: {} as DefaultValues,
@@ -15,8 +15,7 @@ export const SkillsSection = withBuilderFieldGroup({
     const t = useIntlayer('skills-section');
 
     const skillType = String(group.fieldsMap).slice(
-      0,
-      'Skills'.length * -1,
+      'skills.'.length,
     ) as SkillType;
 
     return (

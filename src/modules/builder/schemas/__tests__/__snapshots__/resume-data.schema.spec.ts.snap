@@ -2,14 +2,6 @@
 
 exports[`resumeDataSchema > should parse a v0 resume 1`] = `
 {
-  "additionalSkills": {
-    "items": [
-      "Public Speaking",
-      "Writing",
-      "Research",
-    ],
-    "title": "Additional Skills",
-  },
   "certifications": {
     "items": [
       "Certified Web Professional-Web Developer",
@@ -65,6 +57,40 @@ exports[`resumeDataSchema > should parse a v0 resume 1`] = `
     "showOnBottom": false,
     "title": "Projects",
   },
+  "skills": {
+    "additional": {
+      "items": [
+        "Public Speaking",
+        "Writing",
+        "Research",
+      ],
+      "title": "Additional Skills",
+    },
+    "soft": {
+      "items": [
+        "Collaboration",
+        "Problem-solving",
+        "Communication",
+        "Time management",
+        "Result-oriented",
+      ],
+      "title": "Soft Skills",
+    },
+    "technical": {
+      "items": [
+        "JavaScript",
+        "Python",
+        "Web Services",
+        "C++",
+        "HTML5",
+        "CSS",
+        "SQL",
+        "User Interface",
+        "Creativity",
+      ],
+      "title": "Technical Skills",
+    },
+  },
   "socialMedia": {
     "items": [
       {
@@ -82,33 +108,9 @@ exports[`resumeDataSchema > should parse a v0 resume 1`] = `
     ],
     "title": "Social Medias",
   },
-  "softSkills": {
-    "items": [
-      "Collaboration",
-      "Problem-solving",
-      "Communication",
-      "Time management",
-      "Result-oriented",
-    ],
-    "title": "Soft Skills",
-  },
   "summary": {
     "text": "Resourceful Developer with 11 years of experience in designing and developing user interfaces, testing and training employees. Skilled at utilizing a wide variety of tools and programs to provide effective applications.",
     "title": "Summary",
-  },
-  "technicalSkills": {
-    "items": [
-      "JavaScript",
-      "Python",
-      "Web Services",
-      "C++",
-      "HTML5",
-      "CSS",
-      "SQL",
-      "User Interface",
-      "Creativity",
-    ],
-    "title": "Technical Skills",
   },
   "v": 1,
   "workExperience": {

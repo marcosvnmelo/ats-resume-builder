@@ -84,21 +84,23 @@ export const resumeDataSchemaV0 = personalInformationV0
     projects: {
       items: data.projects,
     },
-    technicalSkills: {
-      title: data.skills[0].title,
-      items: data.skills[0].skills,
-      // HACK: This is a workaround to satisfy the type checker
-    } as { items: string[] },
-    softSkills: {
-      title: data.skills[1].title,
-      items: data.skills[1].skills,
-      // HACK: This is a workaround to satisfy the type checker
-    } as { items: string[] },
-    additionalSkills: {
-      title: data.skills[2].title,
-      items: data.skills[2].skills,
-      // HACK: This is a workaround to satisfy the type checker
-    } as { items: string[] },
+    skills: {
+      technical: {
+        title: data.skills[0].title,
+        items: data.skills[0].skills,
+        // HACK: This is a workaround to satisfy the type checker
+      } as { items: string[] },
+      soft: {
+        title: data.skills[1].title,
+        items: data.skills[1].skills,
+        // HACK: This is a workaround to satisfy the type checker
+      } as { items: string[] },
+      additional: {
+        title: data.skills[2].title,
+        items: data.skills[2].skills,
+        // HACK: This is a workaround to satisfy the type checker
+      } as { items: string[] },
+    },
     languages: {
       items: data.languages,
     },
@@ -153,9 +155,11 @@ export const resumeDataSchemaV1 = z.object({
     items: z.array(projectsItemV0),
     showOnBottom: z.boolean().default(false),
   }),
-  technicalSkills: skillSectionV1('Technical Skills'),
-  softSkills: skillSectionV1('Soft Skills'),
-  additionalSkills: skillSectionV1('Additional Skills'),
+  skills: z.object({
+    technical: skillSectionV1('Technical Skills'),
+    soft: skillSectionV1('Soft Skills'),
+    additional: skillSectionV1('Additional Skills'),
+  } satisfies Record<SkillType, unknown>),
   languages: z.object({
     title: z.string().default('Languages'),
     items: z.array(languagesItemV0),

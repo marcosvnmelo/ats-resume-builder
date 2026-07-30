@@ -9,13 +9,11 @@ interface SkillsSectionProps {
 }
 
 export function SkillsSection(props: SkillsSectionProps) {
-  const skillKey = `${props.skillType}Skills` as const;
-
   const title = useBuilderPreviewStore(
-    (state) => state.resumeData[skillKey].title,
+    (state) => state.resumeData.skills[props.skillType].title,
   );
   const skills = useBuilderPreviewStore((state) =>
-    state.resumeData[skillKey].items.join(', '),
+    state.resumeData.skills[props.skillType].items.join(', '),
   );
 
   const hasSkills = skills.length > 0;

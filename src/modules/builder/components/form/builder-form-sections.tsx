@@ -32,9 +32,9 @@ export const BuilderFormSections = withBuilderForm({
 
         <ProjectsSection form={form} fields="projects" />
 
-        <SkillsSection form={form} fields="technicalSkills" />
-        <SkillsSection form={form} fields="softSkills" />
-        <SkillsSection form={form} fields="additionalSkills" />
+        <SkillsSection form={form} fields="skills.technical" />
+        <SkillsSection form={form} fields="skills.soft" />
+        <SkillsSection form={form} fields="skills.additional" />
 
         <LanguagesSection form={form} fields="languages" />
 

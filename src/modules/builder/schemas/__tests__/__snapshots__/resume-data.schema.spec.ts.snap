@@ -30,7 +30,9 @@ exports[`resumeDataSchema > should parse a v0 resume 1`] = `
     "title": "Languages",
   },
   "options": {
+    "dateRangeMonthFormat": "short",
     "locale": "en",
+    "resumeTitleTemplate": "{{user_name}}-Resume-by-{{project_url}}",
   },
   "personalInformation": {
     "data": {

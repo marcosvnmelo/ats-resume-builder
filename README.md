@@ -1,34 +1,54 @@
-# React + TypeScript + Vite
+# ATS Resume Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A lightweight React + TypeScript resume builder focused on generating ATS-friendly resume content with a modern form-driven editor and live preview.
 
-Currently, two official plugins are available:
+This project is a custom resume builder built with Vite, React, TypeScript, Tailwind CSS, and Zustand. It includes structured resume sections, form validation, and a responsive preview to help you create and refine a resume that is easier for Applicant Tracking Systems to parse.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Form-based resume creation for personal details, work experience, education, skills, certifications, and more
+- Live resume preview with printable layout support
+- ATS-friendly data structure and field validation
+- Modern React stack with Vite, React 19, TypeScript, and Tailwind CSS
+- Inspired by a practical ATS resume builder implementation
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Getting Started
 
-Note: This will impact Vite dev & build performances.
+Install dependencies:
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+pnpm install
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Run the development server:
+
+```bash
+pnpm dev
+```
+
+Build for production:
+
+```bash
+pnpm build
+```
+
+Preview the production build locally:
+
+```bash
+pnpm preview
+```
+
+## Project Structure
+
+- `src/App.tsx` — application entry point
+- `src/modules/builder/` — resume builder UI, preview, schema, and state management
+- `src/components/ui/` — reusable UI primitives and shared components
+- `src/lib/` — provider wrappers and utility helpers
+
+## Credits
+
+This project was inspired by [sauravhathi/atsresume](https://github.com/sauravhathi/atsresume). Thank you for the design and functionality inspiration.
+
+## License
+
+MIT

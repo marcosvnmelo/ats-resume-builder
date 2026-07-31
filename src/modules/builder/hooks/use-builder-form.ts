@@ -15,6 +15,7 @@ import { fieldContext, formContext } from '#builder/contexts/builder-form-contex
 import { builderFormSchema, type BuilderFormInput } from '#builder/schemas/builder-form.schema.ts';
 import { resumeDataSchema, type ResumeData } from '#builder/schemas/resume-data.schema.ts';
 import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
+import { toTitleDashCase } from '@/lib/utils';
 
 export const {
   useAppForm,
@@ -89,7 +90,7 @@ interface FieldUpdateSideEffect {
 }
 
 class ImportFileFieldUpdateSideEffect<
-  TForm extends Pick<FormApi, 'getFieldValue' | 'setFieldValue' | 'validateAllFields'>,
+  TForm extends Pick<FormApi, 'getFieldValue' | 'setFieldValue' | 'validateAllFields' | 'state'>,
 > implements FieldUpdateSideEffect {
   private fieldName: string;
   private fieldValue: File | undefined;
@@ -125,6 +126,8 @@ class ImportFileFieldUpdateSideEffect<
     this.forceFormUIRenderAfterGroupUpdate();
 
     this.triggerLocaleUpdate();
+
+    this.triggerNameUpdate();
   }
 
   private async parseFile(file: File) {
@@ -136,12 +139,10 @@ class ImportFileFieldUpdateSideEffect<
   }
 
   private setValuesFromFile(parsedData: ResumeData) {
-    const options: UpdateMetaOptions = { dontRunListeners: true };
-
     Object.keys(parsedData).forEach((key) => {
       const dataKey = key as keyof ResumeData;
       if (dataKey !== 'v') {
-        this.formApi.setFieldValue(dataKey, parsedData[dataKey], options);
+        this.formApi.setFieldValue(dataKey, parsedData[dataKey]);
       }
     });
   }
@@ -154,6 +155,13 @@ class ImportFileFieldUpdateSideEffect<
     const locale = this.formApi.getFieldValue('options.locale');
 
     this.setLocaleCallback(locale);
+  }
+
+  private triggerNameUpdate() {
+    this.formApi.setFieldValue(
+      'personalInformation.data.name',
+      this.formApi.state.values.personalInformation.data.name,
+    );
   }
 }
 
@@ -269,7 +277,7 @@ class ResumeTitleFieldUpdateSideEffect<
   }
 
   async run() {
-    const userName = this.formApi.getFieldValue('personalInformation.data.name');
+    const userName = toTitleDashCase(this.formApi.getFieldValue('personalInformation.data.name'));
     const projectUrl = import.meta.env.VITE_PROJECT_URL;
     const resumeTitleTemplate = this.formApi.getFieldValue('options.resumeTitleTemplate');
 

@@ -4,6 +4,7 @@ import { createFormHook, type UpdateMetaOptions } from '@tanstack/react-form';
 
 import { BooleanField } from '#builder/components/form/fields/boolean-field.tsx';
 import { DateField } from '#builder/components/form/fields/date-field.tsx';
+import { SelectField } from '#builder/components/form/fields/select-field.tsx';
 import { TextField } from '#builder/components/form/fields/text-field.tsx';
 import { TextareaField } from '#builder/components/form/fields/textarea-field.tsx';
 import { TitleField } from '#builder/components/form/fields/title-field.tsx';
@@ -22,6 +23,7 @@ export const {
   fieldComponents: {
     BooleanField,
     DateField,
+    SelectField,
     TextField,
     TextareaField,
     TitleField,

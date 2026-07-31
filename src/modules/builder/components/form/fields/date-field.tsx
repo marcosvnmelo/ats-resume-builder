@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useIntlayer, useLocale } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 
 import { useFieldContext } from '#builder/contexts/builder-form-context.ts';
 import { Button } from '@/components/ui/button';
@@ -18,20 +18,29 @@ interface DateFieldProps {
   fieldClassName?: string;
 }
 
+import { useSelector } from '@tanstack/react-form';
 import type { __DeclaredLocalesRegistry } from 'intlayer';
 import type { DayPickerLocale } from 'react-day-picker';
 import { enUS, ptBR } from 'react-day-picker/locale';
 
-const locales: Record<keyof __DeclaredLocalesRegistry, DayPickerLocale> = {
+import type { BuilderFormInput } from '#builder/schemas/builder-form.schema.ts';
+
+type DeclaredLocale = keyof __DeclaredLocalesRegistry;
+
+const locales: Record<DeclaredLocale, DayPickerLocale> = {
   'en': enUS,
   'pt-BR': ptBR,
 };
 
 export function DateField(props: DateFieldProps) {
   const t = useIntlayer('date-field');
-  const { locale } = useLocale();
 
   const field = useFieldContext<string>();
+
+  const locale = useSelector<{ values: BuilderFormInput }, DeclaredLocale>(
+    field.form.store,
+    (state) => state.values.options.locale as DeclaredLocale,
+  );
 
   const [open, setOpen] = useState(false);
 

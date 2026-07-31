@@ -1,6 +1,7 @@
 // cspell:words dont
 
 import { createFormHook, type UpdateMetaOptions } from '@tanstack/react-form';
+import type { DeepKeys } from '@tanstack/react-form';
 
 import { BooleanField } from '#builder/components/form/fields/boolean-field.tsx';
 import { DateField } from '#builder/components/form/fields/date-field.tsx';
@@ -10,7 +11,7 @@ import { TextareaField } from '#builder/components/form/fields/textarea-field.ts
 import { TitleField } from '#builder/components/form/fields/title-field.tsx';
 import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
 import { fieldContext, formContext } from '#builder/contexts/builder-form-context.ts';
-import { builderFormSchema } from '#builder/schemas/builder-form.schema.ts';
+import { builderFormSchema, type BuilderFormInput } from '#builder/schemas/builder-form.schema.ts';
 import { resumeDataSchema, type ResumeData } from '#builder/schemas/resume-data.schema.ts';
 import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
 
@@ -45,6 +46,7 @@ export function useBuilderForm() {
             fieldApi.state.value,
             formApi,
           ),
+          new ResumeTitleFieldUpdateSideEffect(fieldApi.name, formApi),
         ];
 
         for (const fieldUpdateSideEffect of fieldUpdateSideEffects) {
@@ -74,7 +76,7 @@ class ImportFileFieldUpdateSideEffect implements FieldUpdateSideEffect {
   private fieldName: string;
   private fieldValue: File | undefined;
 
-  private static expectedFieldName = 'import.file';
+  private static expectedFieldName = 'import.file' satisfies DeepKeys<BuilderFormInput>;
 
   private formApi: Pick<FormApi, 'setFieldValue' | 'validateAllFields'>;
 
@@ -224,6 +226,40 @@ class SetPreviewStoreFieldValueUpdateSideEffect implements FieldUpdateSideEffect
         SetPreviewStoreFieldValueUpdateSideEffect.updateFormOptions,
       );
     }
+  }
+}
+
+class ResumeTitleFieldUpdateSideEffect<
+  TForm extends Pick<FormApi, 'getFieldValue'> = FormApi,
+> implements FieldUpdateSideEffect {
+  private fieldName: string;
+
+  private static expectedFieldNames: string[] = [
+    'personalInformation.data.name',
+    'options.resumeTitleTemplate',
+  ] satisfies DeepKeys<BuilderFormInput>[];
+
+  private formApi: TForm;
+
+  constructor(fieldName: string, formApi: TForm) {
+    this.fieldName = fieldName;
+    this.formApi = formApi;
+  }
+
+  isExpectedField() {
+    return ResumeTitleFieldUpdateSideEffect.expectedFieldNames.includes(this.fieldName);
+  }
+
+  async run() {
+    const userName = this.formApi.getFieldValue('personalInformation.data.name');
+    const projectUrl = import.meta.env.VITE_PROJECT_URL;
+    const resumeTitleTemplate = this.formApi.getFieldValue('options.resumeTitleTemplate');
+
+    const resumeTitle = resumeTitleTemplate
+      .replace('{{user_name}}', userName)
+      .replace('{{project_url}}', projectUrl);
+
+    window.document.title = resumeTitle;
   }
 }
 

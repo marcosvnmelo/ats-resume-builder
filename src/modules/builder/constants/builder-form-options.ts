@@ -65,6 +65,7 @@ export const defaultValues: BuilderFormInput = {
   },
 
   options: {
+    resumeTitleTemplate: resumeDataSchemaV1.shape.options.shape.resumeTitleTemplate.def.defaultValue,
     locale: resumeDataSchemaV1.shape.options.shape.locale.def.defaultValue,
     dateRangeMonthFormat:
       resumeDataSchemaV1.shape.options.shape.dateRangeMonthFormat.def.defaultValue,

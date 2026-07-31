@@ -28,6 +28,18 @@ export const BuilderOptions = withBuilderFieldGroup({
     return (
       <FieldSet>
         <FieldGroup>
+          <group.AppField name="resumeTitleTemplate">
+            {(field) => (
+              <field.TitleField
+                label={t.fields.resumeTitleTemplate.label}
+                title={t.fields.resumeTitleTemplate.defaultValue}
+                defaultValue={t.fields.resumeTitleTemplate.defaultValue.toString()}
+                description={t.fields.resumeTitleTemplate.description}
+                isEditing
+              />
+            )}
+          </group.AppField>
+
           <group.AppField name="locale">
             {(field) => (
               <field.SelectField

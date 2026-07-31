@@ -4,6 +4,21 @@ const componentContent = {
   key: 'builder-options',
   content: {
     fields: {
+      resumeTitleTemplate: {
+        label: t({
+          'en': 'Resume title',
+          'pt-BR': 'Título do currículo',
+        }),
+        defaultValue: t({
+          'en': '{{user_name}}-Resume-by-{{project_url}}',
+          'pt-BR': '{{user_name}}-Curriculo-por-{{project_url}}',
+        }),
+        description: t({
+          'en': "The resume's tile that will be used on the pdf file. You can use the following variables: {{user_name}} and {{project_url}}.",
+          'pt-BR':
+            'O título do currículo que será usado no arquivo pdf. Você pode usar as seguintes variáveis: {{user_name}} e {{project_url}}.',
+        }),
+      },
       locale: {
         label: t({
           'en': 'Language',

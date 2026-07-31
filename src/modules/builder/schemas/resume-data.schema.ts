@@ -172,6 +172,7 @@ export const resumeDataSchemaV1 = z.object({
   }),
 
   options: z.object({
+    resumeTitleTemplate: z.string().default('{{user_name}}-Resume-by-{{project_url}}'),
     locale: z.string().default('en'),
     dateRangeMonthFormat: z.enum(['short', '2-digit']).default('short'),
   }),

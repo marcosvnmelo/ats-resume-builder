@@ -36,5 +36,5 @@
     "strict": true,
     "esModuleInterop": true
   },
-  "include": ["src", "./.intlayer/**/*.ts"]
+  "include": ["src", "./.intlayer/**/*.ts", "./vite-env.d.ts"]
 }

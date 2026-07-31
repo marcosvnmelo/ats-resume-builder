@@ -3,19 +3,32 @@ import { Activity, useState } from 'react';
 
 import { useFieldContext } from '#builder/contexts/builder-form-context.ts';
 import { Button } from '@/components/ui/button';
-import { Field, FieldError, FieldLegend } from '@/components/ui/field';
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+  FieldLegend,
+} from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 
 interface TitleFieldProps {
   id?: string;
   title: string;
+  label?: string;
   defaultValue: string;
+  description?: string;
+
+  isEditing?: boolean;
+  setIsEditing?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function TitleField(props: TitleFieldProps) {
   const field = useFieldContext<string>();
 
-  const [isEditing, setIsEditing] = useState(false);
+  const isEditingState = useState(false);
+  const isEditing = props.isEditing ?? isEditingState[0];
+  const setIsEditing = props.setIsEditing ?? isEditingState[1];
 
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
@@ -38,7 +51,11 @@ export function TitleField(props: TitleFieldProps) {
       </Activity>
 
       <Activity mode={isEditing ? 'visible' : 'hidden'}>
-        <Field data-invalid={isInvalid} orientation="horizontal">
+        <Field data-invalid={isInvalid}>
+          {props.label && (
+            <FieldLabel htmlFor={inputId}>{props.label}</FieldLabel>
+          )}
+
           <div className="flex gap-2">
             <Input
               id={inputId}
@@ -68,6 +85,10 @@ export function TitleField(props: TitleFieldProps) {
               <IxHardReset />
             </Button>
           </div>
+
+          {props.description && (
+            <FieldDescription>{props.description}</FieldDescription>
+          )}
 
           {isInvalid && <FieldError errors={field.state.meta.errors} />}
         </Field>

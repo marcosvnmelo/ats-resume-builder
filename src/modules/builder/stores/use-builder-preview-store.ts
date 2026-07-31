@@ -6,7 +6,7 @@ import type { ResumeData } from '#builder/schemas/resume-data.schema.ts';
 type UnversionedResumeData = Omit<ResumeData, 'v'>;
 
 interface State {
-  resumeData: UnversionedResumeData;
+  resumeData: ResumeData;
 }
 
 interface Actions {
@@ -15,11 +15,14 @@ interface Actions {
 
 export const useBuilderPreviewStore = create<State & Actions>((set) => ({
   resumeData: {
-    v: 1,
+    v: 1 as const,
     ...defaultValues,
   },
   setResumeData: (resumeData) =>
     set({
-      resumeData,
+      resumeData: {
+        v: 1,
+        ...resumeData,
+      },
     }),
 }));

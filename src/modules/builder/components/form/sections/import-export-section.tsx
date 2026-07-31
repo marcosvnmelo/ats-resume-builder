@@ -3,6 +3,7 @@ import { useIntlayer } from 'react-intlayer';
 
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
+import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Field, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
@@ -13,9 +14,16 @@ export const ImportExportSection = withBuilderFieldGroup({
     const t = useIntlayer('import-export-section');
 
     function downloadResumeData() {
-      const resumeData = group.form.state.values;
-      // TODO: download resume data as JSON
-      console.log(resumeData);
+      const resumeData = useBuilderPreviewStore.getState().resumeData;
+      const jsonData = JSON.stringify(resumeData, null, 2);
+
+      const blob = new Blob([jsonData], { type: 'application/json' });
+
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = window.document.title + '.json';
+
+      link.click();
     }
 
     return (

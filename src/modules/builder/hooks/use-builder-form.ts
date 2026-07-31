@@ -244,6 +244,11 @@ class ResumeTitleFieldUpdateSideEffect<
     const projectUrl = import.meta.env.VITE_PROJECT_URL;
     const resumeTitleTemplate = this.formApi.getFieldValue('options.resumeTitleTemplate');
 
+    if (userName.length === 0) {
+      window.document.title = 'ats-resume-builder';
+      return;
+    }
+
     const resumeTitle = resumeTitleTemplate
       .replace('{{user_name}}', userName)
       .replace('{{project_url}}', projectUrl);

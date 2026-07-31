@@ -17,10 +17,10 @@ import { BuilderPreview } from './preview/builder-preview';
 
 export function Builder() {
   return (
-    <SidebarProvider className="[--card-spacing:--spacing(6)] **:[--sidebar-width:28rem]">
+    <SidebarProvider className="font-inter [--card-spacing:--spacing(6)] **:[--sidebar-width:28rem]">
       <Sidebar
         className="print:hidden"
-        mobileClassName={cn('[--card-spacing:--spacing(6)]')}
+        mobileClassName={cn('font-inter [--card-spacing:--spacing(6)]')}
       >
         <SidebarHeader className="items-center">
           <CardTitle>ATS Resume Builder</CardTitle>

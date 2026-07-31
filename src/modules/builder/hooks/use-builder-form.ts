@@ -115,23 +115,12 @@ class ImportFileFieldUpdateSideEffect implements FieldUpdateSideEffect {
   private setValuesFromFile(parsedData: ResumeData) {
     const options: UpdateMetaOptions = { dontRunListeners: true };
 
-    this.formApi.setFieldValue('personalInformation', parsedData.personalInformation, options);
-
-    this.formApi.setFieldValue('socialMedia', parsedData.socialMedia, options);
-
-    this.formApi.setFieldValue('summary', parsedData.summary, options);
-
-    this.formApi.setFieldValue('education', parsedData.education, options);
-
-    this.formApi.setFieldValue('workExperience', parsedData.workExperience, options);
-
-    this.formApi.setFieldValue('projects', parsedData.projects, options);
-
-    this.formApi.setFieldValue('skills', parsedData.skills, options);
-
-    this.formApi.setFieldValue('languages', parsedData.languages, options);
-
-    this.formApi.setFieldValue('certifications', parsedData.certifications, options);
+    Object.keys(parsedData).forEach((key) => {
+      const dataKey = key as keyof ResumeData;
+      if (dataKey !== 'v') {
+    this.formApi.setFieldValue(dataKey, parsedData[dataKey], options);
+}
+    });
   }
 
   private forceFormUIRenderAfterGroupUpdate() {

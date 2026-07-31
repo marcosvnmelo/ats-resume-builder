@@ -173,6 +173,7 @@ export const resumeDataSchemaV1 = z.object({
 
   options: z.object({
     locale: z.string().default('en'),
+    dateRangeMonthFormat: z.enum(['short', '2-digit']).default('short'),
   }),
 });
 

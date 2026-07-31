@@ -20,6 +20,22 @@ const componentContent = {
           }),
         },
       },
+      dateRangeMonthFormat: {
+        label: t({
+          'en': 'Dates month format',
+          'pt-BR': 'Formato do mês nas datas',
+        }),
+        options: {
+          'short': t({
+            'en': 'Short',
+            'pt-BR': 'Curto',
+          }),
+          '2-digit': t({
+            'en': '2 digit',
+            'pt-BR': '2 dígitos',
+          }),
+        },
+      },
     },
   },
 } satisfies Dictionary;

@@ -65,7 +65,9 @@ export const defaultValues: BuilderFormInput = {
   },
 
   options: {
-    locale: 'en',
+    locale: resumeDataSchemaV1.shape.options.shape.locale.def.defaultValue,
+    dateRangeMonthFormat:
+      resumeDataSchemaV1.shape.options.shape.dateRangeMonthFormat.def.defaultValue,
   },
 };
 

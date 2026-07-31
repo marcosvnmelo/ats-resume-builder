@@ -1,62 +1,50 @@
+import type { __DeclaredLocalesRegistry } from 'intlayer';
 import { localeMap } from 'intlayer';
-import { useIntlayer, useLocale } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
 import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
-import { Field, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { resumeDataSchemaV1 } from '#builder/schemas/resume-data.schema.ts';
+import { FieldGroup, FieldSet } from '@/components/ui/field';
 
 export const BuilderOptions = withBuilderFieldGroup({
   defaultValues: defaultValues.options,
   render: function Render({ group }) {
     const t = useIntlayer('builder-options');
-    const { locale: currentLocale, setLocale } = useLocale();
 
-    const items = localeMap(({ locale }) => ({
-      label: t.fields.locale.options[locale as typeof currentLocale],
+    const localeItems = localeMap(({ locale }) => ({
+      label: t.fields.locale.options[locale as keyof __DeclaredLocalesRegistry],
       value: locale,
     }));
 
-    function onLocaleChange(_value: typeof currentLocale | null) {
-      const value = _value ?? 'en';
-
-      setLocale(value);
-      group.setFieldValue('locale', value);
-    }
+    const monthFormatItems =
+      resumeDataSchemaV1.shape.options.shape.dateRangeMonthFormat.def.innerType.options.map(
+        (monthFormat) => ({
+          label: t.fields.dateRangeMonthFormat.options[monthFormat],
+          value: monthFormat,
+        }),
+      );
 
     return (
       <FieldSet>
         <FieldGroup>
-          <Field>
-            <FieldLabel>{t.fields.locale.label}</FieldLabel>
-            <Select
-              id="locale"
-              items={items}
-              defaultValue={currentLocale}
-              required
-              onValueChange={onLocaleChange}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent alignItemWithTrigger={true}>
-                <SelectGroup>
-                  {items.map((item) => (
-                    <SelectItem key={item.value} value={item.value}>
-                      {item.label}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </Field>
+          <group.AppField name="locale">
+            {(field) => (
+              <field.SelectField
+                label={t.fields.locale.label}
+                items={localeItems}
+              />
+            )}
+          </group.AppField>
+
+          <group.AppField name="dateRangeMonthFormat">
+            {(field) => (
+              <field.SelectField
+                label={t.fields.dateRangeMonthFormat.label}
+                items={monthFormatItems}
+              />
+            )}
+          </group.AppField>
         </FieldGroup>
       </FieldSet>
     );

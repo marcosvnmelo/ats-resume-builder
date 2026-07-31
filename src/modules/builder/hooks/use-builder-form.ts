@@ -2,6 +2,7 @@
 
 import { createFormHook, type UpdateMetaOptions } from '@tanstack/react-form';
 import type { DeepKeys } from '@tanstack/react-form';
+import { localeInStorage, useLocale } from 'react-intlayer';
 
 import { BooleanField } from '#builder/components/form/fields/boolean-field.tsx';
 import { DateField } from '#builder/components/form/fields/date-field.tsx';
@@ -35,18 +36,33 @@ export const {
 });
 
 export function useBuilderForm() {
+  const localeData = useLocale();
+
   return useAppForm({
     ...builderFormOptions,
     listeners: {
+      onMount({ formApi }) {
+        formApi.setFieldValue('options.locale', localeInStorage);
+      },
       async onChange({ formApi, fieldApi }) {
         const fieldUpdateSideEffects: FieldUpdateSideEffect[] = [
-          new ImportFileFieldUpdateSideEffect(fieldApi.name, fieldApi.state.value, formApi),
+          new ImportFileFieldUpdateSideEffect(
+            fieldApi.name,
+            fieldApi.state.value,
+            formApi,
+            localeData.setLocale,
+          ),
           new SetPreviewStoreFieldValueUpdateSideEffect(
             fieldApi.name,
             fieldApi.state.value,
             formApi,
           ),
           new ResumeTitleFieldUpdateSideEffect(fieldApi.name, formApi),
+          new LocaleFieldUpdateSideEffect(
+            fieldApi.name,
+            fieldApi.state.value,
+            localeData.setLocale,
+          ),
         ];
 
         for (const fieldUpdateSideEffect of fieldUpdateSideEffects) {
@@ -72,22 +88,27 @@ interface FieldUpdateSideEffect {
   run(): Promise<void>;
 }
 
-class ImportFileFieldUpdateSideEffect implements FieldUpdateSideEffect {
+class ImportFileFieldUpdateSideEffect<
+  TForm extends Pick<FormApi, 'getFieldValue' | 'setFieldValue' | 'validateAllFields'>,
+> implements FieldUpdateSideEffect {
   private fieldName: string;
   private fieldValue: File | undefined;
+  private setLocaleCallback: (locale: string) => void;
 
   private static expectedFieldName = 'import.file' satisfies DeepKeys<BuilderFormInput>;
 
-  private formApi: Pick<FormApi, 'setFieldValue' | 'validateAllFields'>;
+  private formApi: TForm;
 
   constructor(
     fieldName: string,
     fieldValue: File | undefined,
-    formApi: Pick<FormApi, 'setFieldValue' | 'validateAllFields'>,
+    formApi: TForm,
+    setLocaleCallback: (locale: string) => void,
   ) {
     this.fieldName = fieldName;
     this.fieldValue = fieldValue;
     this.formApi = formApi;
+    this.setLocaleCallback = setLocaleCallback;
   }
 
   isExpectedField() {
@@ -102,6 +123,8 @@ class ImportFileFieldUpdateSideEffect implements FieldUpdateSideEffect {
     this.setValuesFromFile(parsedData);
 
     this.forceFormUIRenderAfterGroupUpdate();
+
+    this.triggerLocaleUpdate();
   }
 
   private async parseFile(file: File) {
@@ -118,13 +141,19 @@ class ImportFileFieldUpdateSideEffect implements FieldUpdateSideEffect {
     Object.keys(parsedData).forEach((key) => {
       const dataKey = key as keyof ResumeData;
       if (dataKey !== 'v') {
-    this.formApi.setFieldValue(dataKey, parsedData[dataKey], options);
-}
+        this.formApi.setFieldValue(dataKey, parsedData[dataKey], options);
+      }
     });
   }
 
   private forceFormUIRenderAfterGroupUpdate() {
     this.formApi.validateAllFields('change');
+  }
+
+  private triggerLocaleUpdate() {
+    const locale = this.formApi.getFieldValue('options.locale');
+
+    this.setLocaleCallback(locale);
   }
 }
 
@@ -254,6 +283,28 @@ class ResumeTitleFieldUpdateSideEffect<
       .replace('{{project_url}}', projectUrl);
 
     window.document.title = resumeTitle;
+  }
+}
+
+class LocaleFieldUpdateSideEffect implements FieldUpdateSideEffect {
+  private fieldName: string;
+  private fieldValue: string;
+  private setLocaleCallback: (locale: string) => void;
+
+  private static expectedFieldName = 'options.locale' satisfies DeepKeys<BuilderFormInput>;
+
+  constructor(fieldName: string, fieldValue: string, setLocaleCallback: (locale: string) => void) {
+    this.fieldName = fieldName;
+    this.fieldValue = fieldValue;
+    this.setLocaleCallback = setLocaleCallback;
+  }
+
+  isExpectedField() {
+    return LocaleFieldUpdateSideEffect.expectedFieldName === this.fieldName;
+  }
+
+  async run() {
+    this.setLocaleCallback(this.fieldValue);
   }
 }
 

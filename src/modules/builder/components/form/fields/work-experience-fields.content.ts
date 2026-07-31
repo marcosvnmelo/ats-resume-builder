@@ -1,4 +1,6 @@
-import { nest, t, type Dictionary } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
+
+import sharedContent from './shared.content.ts';
 
 const componentContent = {
   key: 'work-experience-fields',
@@ -46,9 +48,9 @@ const componentContent = {
             'Criou e manteve 10 aplicativos web para vários clientes nacionais e estrangeiros.\nEnsure que as interfaces de usuário e experiência do usuário dos aplicativos desenvolvidos pela equipe atendeu ao menos 80% das expectativas dos usuários.\nCriou e analisou 500 casos de teste unitário.\nDesenvolvido scripts python para automatizar o processo de redução de ruído da imagem, o que ajudou a melhorar o tempo de análise de pesquisa em 40%.\nEstabeleceu e lidera um time de 10 pessoas; cobrindo todas as funções-chave no início da etapa inicial.',
         }),
       },
-      startYear: nest('shared-fields', 'fields.startYear'),
-      endYear: nest('shared-fields', 'fields.endYear'),
-      showOnBottom: nest('shared-fields', 'fields.showOnBottom'),
+      startYear: sharedContent.content.fields.startYear,
+      endYear: sharedContent.content.fields.endYear,
+      showOnBottom: sharedContent.content.fields.showOnBottom,
     },
   },
 } satisfies Dictionary;

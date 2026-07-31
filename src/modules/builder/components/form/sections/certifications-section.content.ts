@@ -1,4 +1,6 @@
-import { nest, t, type Dictionary } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
+
+import sharedContent from '../fields/shared.content.ts';
 
 const componentContent = {
   key: 'certifications-section',
@@ -11,7 +13,7 @@ const componentContent = {
       'en': 'Certifications',
       'pt-BR': 'Certificações',
     }),
-    showOnBottom: nest('shared-fields', 'fields.showOnBottom'),
+    showOnBottom: sharedContent.content.fields.showOnBottom,
   },
 } satisfies Dictionary;
 

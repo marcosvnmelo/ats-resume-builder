@@ -12,11 +12,17 @@ type DefaultValues = (typeof defaultValues.skills)[SkillType];
 export const SkillsSection = withBuilderFieldGroup({
   defaultValues: {} as DefaultValues,
   render: function Render({ group }) {
-    const t = useIntlayer('skills-section');
+    const { technical, additional, soft } = useIntlayer('skills-section');
 
     const skillType = String(group.fieldsMap).slice(
       'skills.'.length,
     ) as SkillType;
+
+    const t = {
+      technical,
+      additional,
+      soft,
+    };
 
     return (
       <ArraySectionLayout

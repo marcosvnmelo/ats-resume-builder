@@ -1,4 +1,6 @@
-import { nest, t, type Dictionary } from 'intlayer';
+import { t, type Dictionary } from 'intlayer';
+
+import sharedContent from './shared.content.ts';
 
 const componentContent = {
   key: 'project-fields',
@@ -46,8 +48,8 @@ const componentContent = {
             'Permite que os usuários criem e gerenciem seus currículos.\nPermite que os usuários importem e exportem seus currículos.',
         }),
       },
-      startYear: nest('shared-fields', 'fields.startYear'),
-      endYear: nest('shared-fields', 'fields.endYear'),
+      startYear: sharedContent.content.fields.startYear,
+      endYear: sharedContent.content.fields.endYear,
     },
   },
 } satisfies Dictionary;

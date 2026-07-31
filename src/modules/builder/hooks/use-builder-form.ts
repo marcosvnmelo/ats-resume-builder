@@ -36,36 +36,20 @@ export function useBuilderForm() {
     ...builderFormOptions,
     listeners: {
       async onChange({ formApi, fieldApi }) {
-        const isImportFileField = fieldApi.name === 'import.file';
-        if (isImportFileField) {
-          const file = fieldApi.state.value;
-
-          await importResumeDataFromFile(file, formApi);
-
-          updatePreview(formApi);
-          return;
-        }
-
-        const workExperienceShowOnBottomFieldRegex =
-          /^workExperience\.items\[(\d+)\]\.showOnBottom$/;
-        const isWorkExperienceShowOnBottomField = workExperienceShowOnBottomFieldRegex.test(
-          fieldApi.name,
-        );
-        if (isWorkExperienceShowOnBottomField) {
-          const updatedFieldIndex = Number(
-            workExperienceShowOnBottomFieldRegex.exec(fieldApi.name)?.[1],
-          );
-
-          const updatedFieldShowOnBottomValue: boolean = fieldApi.state.value;
-
-          applyShowOnBottomValueChangeSideEffects(
+        const fieldUpdateSideEffects: FieldUpdateSideEffect[] = [
+          new ImportFileFieldUpdateSideEffect(fieldApi.name, fieldApi.state.value, formApi),
+          new SetPreviewStoreFieldValueUpdateSideEffect(
+            fieldApi.name,
+            fieldApi.state.value,
             formApi,
-            updatedFieldShowOnBottomValue,
-            updatedFieldIndex,
-          );
+          ),
+        ];
 
-          updatePreview(formApi);
-          return;
+        for (const fieldUpdateSideEffect of fieldUpdateSideEffects) {
+          if (fieldUpdateSideEffect.isExpectedField()) {
+            await fieldUpdateSideEffect.run();
+            break;
+          }
         }
 
         if (formApi.state.isValid) {
@@ -79,122 +63,170 @@ export function useBuilderForm() {
 
 type FormApi = ReturnType<typeof useBuilderForm>;
 
-async function importResumeDataFromFile(
-  file: File | undefined,
-  formApi: Pick<FormApi, 'setFieldValue' | 'validateAllFields'>,
-) {
-  if (!file) return;
-
-  const parsedData = await parseFile(file);
-
-  setValuesFromFile(formApi, parsedData);
-
-  forceFormUIRenderAfterGroupUpdate(formApi);
+interface FieldUpdateSideEffect {
+  isExpectedField(): boolean;
+  run(): Promise<void>;
 }
 
-async function parseFile(file: File) {
-  const fileContent = await file.text();
+class ImportFileFieldUpdateSideEffect implements FieldUpdateSideEffect {
+  private fieldName: string;
+  private fieldValue: File | undefined;
 
-  const parsedJson = JSON.parse(fileContent);
+  private static expectedFieldName = 'import.file';
 
-  return resumeDataSchema.parse(parsedJson);
+  private formApi: Pick<FormApi, 'setFieldValue' | 'validateAllFields'>;
+
+  constructor(
+    fieldName: string,
+    fieldValue: File | undefined,
+    formApi: Pick<FormApi, 'setFieldValue' | 'validateAllFields'>,
+  ) {
+    this.fieldName = fieldName;
+    this.fieldValue = fieldValue;
+    this.formApi = formApi;
+  }
+
+  isExpectedField() {
+    return this.fieldName === ImportFileFieldUpdateSideEffect.expectedFieldName;
+  }
+
+  async run() {
+    if (!this.fieldValue) return;
+
+    const parsedData = await this.parseFile(this.fieldValue);
+
+    this.setValuesFromFile(parsedData);
+
+    this.forceFormUIRenderAfterGroupUpdate();
+  }
+
+  private async parseFile(file: File) {
+    const fileContent = await file.text();
+
+    const parsedJson = JSON.parse(fileContent);
+
+    return resumeDataSchema.parse(parsedJson);
+  }
+
+  private setValuesFromFile(parsedData: ResumeData) {
+    const options: UpdateMetaOptions = { dontRunListeners: true };
+
+    this.formApi.setFieldValue('personalInformation', parsedData.personalInformation, options);
+
+    this.formApi.setFieldValue('socialMedia', parsedData.socialMedia, options);
+
+    this.formApi.setFieldValue('summary', parsedData.summary, options);
+
+    this.formApi.setFieldValue('education', parsedData.education, options);
+
+    this.formApi.setFieldValue('workExperience', parsedData.workExperience, options);
+
+    this.formApi.setFieldValue('projects', parsedData.projects, options);
+
+    this.formApi.setFieldValue('skills', parsedData.skills, options);
+
+    this.formApi.setFieldValue('languages', parsedData.languages, options);
+
+    this.formApi.setFieldValue('certifications', parsedData.certifications, options);
+  }
+
+  private forceFormUIRenderAfterGroupUpdate() {
+    this.formApi.validateAllFields('change');
+  }
 }
 
-function setValuesFromFile(formApi: Pick<FormApi, 'setFieldValue'>, parsedData: ResumeData) {
-  const options: UpdateMetaOptions = { dontRunListeners: true };
+class SetPreviewStoreFieldValueUpdateSideEffect implements FieldUpdateSideEffect {
+  private fieldName: string;
+  private fieldValue: boolean;
+  private fieldIndex: number;
 
-  formApi.setFieldValue('personalInformation', parsedData.personalInformation, options);
+  private static expectedFieldNameRegex = /^workExperience\.items\[(\d+)\]\.showOnBottom$/;
 
-  formApi.setFieldValue('socialMedia', parsedData.socialMedia, options);
+  private formApi: Pick<FormApi, 'getFieldValue' | 'setFieldValue'>;
 
-  formApi.setFieldValue('summary', parsedData.summary, options);
+  private static updateFormOptions: UpdateMetaOptions = { dontRunListeners: true };
 
-  formApi.setFieldValue('education', parsedData.education, options);
+  constructor(
+    fieldName: string,
+    fieldValue: boolean,
+    formApi: Pick<FormApi, 'getFieldValue' | 'setFieldValue'>,
+  ) {
+    this.fieldName = fieldName;
+    this.fieldValue = fieldValue;
+    this.fieldIndex = Number(
+      SetPreviewStoreFieldValueUpdateSideEffect.expectedFieldNameRegex.exec(fieldName)?.[1],
+    );
+    this.formApi = formApi;
+  }
 
-  formApi.setFieldValue('workExperience', parsedData.workExperience, options);
+  isExpectedField() {
+    return SetPreviewStoreFieldValueUpdateSideEffect.expectedFieldNameRegex.test(this.fieldName);
+  }
 
-  formApi.setFieldValue('projects', parsedData.projects, options);
+  async run() {
+    const updatedWorkExperiences = this.getWorkExperienceWithAppliedSideEffects();
 
-  formApi.setFieldValue('skills', parsedData.skills, options);
+    this.updateWorkExperiences(updatedWorkExperiences);
 
-  formApi.setFieldValue('languages', parsedData.languages, options);
+    this.updateProjects(updatedWorkExperiences);
+  }
 
-  formApi.setFieldValue('certifications', parsedData.certifications, options);
-}
+  private getWorkExperienceWithAppliedSideEffects() {
+    const workExperiences = this.formApi.getFieldValue('workExperience.items');
 
-function forceFormUIRenderAfterGroupUpdate(formApi: Pick<FormApi, 'validateAllFields'>) {
-  formApi.validateAllFields('change');
+    return workExperiences.map((workExperience, index) => {
+      let showOnBottom: boolean;
+
+      if (this.fieldValue === false) {
+        if (index < this.fieldIndex) {
+          showOnBottom = false;
+        } else if (index === this.fieldIndex) {
+          showOnBottom = this.fieldValue;
+        } else {
+          showOnBottom = workExperience.showOnBottom;
+        }
+      } else {
+        if (index < this.fieldIndex) {
+          showOnBottom = workExperience.showOnBottom;
+        } else if (index === this.fieldIndex) {
+          showOnBottom = this.fieldValue;
+        } else {
+          showOnBottom = true;
+        }
+      }
+
+      return {
+        ...workExperience,
+        showOnBottom,
+      };
+    });
+  }
+
+  private updateWorkExperiences(updatedWorkExperiences: ResumeData['workExperience']['items']) {
+    this.formApi.setFieldValue(
+      'workExperience.items',
+      updatedWorkExperiences,
+      SetPreviewStoreFieldValueUpdateSideEffect.updateFormOptions,
+    );
+  }
+
+  private updateProjects(updatedWorkExperiences: ResumeData['workExperience']['items']) {
+    const isSomeWorkExperienceShowOnBottom = updatedWorkExperiences.some(
+      (workExperience) => workExperience.showOnBottom,
+    );
+
+    if (isSomeWorkExperienceShowOnBottom) {
+      this.formApi.setFieldValue(
+        'projects.showOnBottom',
+        true,
+        SetPreviewStoreFieldValueUpdateSideEffect.updateFormOptions,
+      );
+    }
+  }
 }
 
 function updatePreview(formApi: Pick<FormApi, 'state'>) {
   const resumeData = builderFormSchema.omit({ import: true }).parse(formApi.state.values);
 
   useBuilderPreviewStore.getState().setResumeData(resumeData);
-}
-
-function applyShowOnBottomValueChangeSideEffects(
-  formApi: Pick<FormApi, 'getFieldValue' | 'setFieldValue'>,
-  updatedFieldShowOnBottomValue: boolean,
-  updatedFieldIndex: number,
-) {
-  const updatedWorkExperiences = getWorkExperienceWithAppliedSideEffects(
-    formApi,
-    updatedFieldShowOnBottomValue,
-    updatedFieldIndex,
-  );
-
-  const isSomeWorkExperienceShowOnBottom = updatedWorkExperiences.some(
-    (workExperience) => workExperience.showOnBottom,
-  );
-
-  setValuesWithSideEffects(formApi, updatedWorkExperiences, isSomeWorkExperienceShowOnBottom);
-}
-
-function getWorkExperienceWithAppliedSideEffects(
-  formApi: Pick<FormApi, 'getFieldValue'>,
-  updatedFieldShowOnBottomValue: boolean,
-  updatedFieldIndex: number,
-) {
-  const workExperiences = formApi.getFieldValue('workExperience.items');
-
-  return workExperiences.map((workExperience, index) => {
-    let showOnBottom: boolean;
-
-    if (updatedFieldShowOnBottomValue === false) {
-      if (index < updatedFieldIndex) {
-        showOnBottom = false;
-      } else if (index === updatedFieldIndex) {
-        showOnBottom = updatedFieldShowOnBottomValue;
-      } else {
-        showOnBottom = workExperience.showOnBottom;
-      }
-    } else {
-      if (index < updatedFieldIndex) {
-        showOnBottom = workExperience.showOnBottom;
-      } else if (index === updatedFieldIndex) {
-        showOnBottom = updatedFieldShowOnBottomValue;
-      } else {
-        showOnBottom = true;
-      }
-    }
-
-    return {
-      ...workExperience,
-      showOnBottom,
-    };
-  });
-}
-
-function setValuesWithSideEffects(
-  formApi: Pick<FormApi, 'setFieldValue'>,
-  updatedWorkExperiences: ResumeData['workExperience']['items'],
-  isSomeWorkExperienceShowOnBottom: boolean,
-) {
-  const options: UpdateMetaOptions = { dontRunListeners: true };
-
-  formApi.setFieldValue('workExperience.items', updatedWorkExperiences, options);
-
-  if (isSomeWorkExperienceShowOnBottom) {
-    formApi.setFieldValue('projects.showOnBottom', true, options);
-  }
 }

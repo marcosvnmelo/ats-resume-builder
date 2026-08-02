@@ -3,10 +3,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { BuilderFormInput } from '#builder/schemas/builder-form.schema.ts';
 import { resumeDataSchema, type ResumeData } from '#builder/schemas/resume-data.schema.ts';
+import v1ResumeData from '#tests/constants/json-resumes/v1-resume.json';
 
 import { ImportFileFieldUpdateSideEffect } from '../import-file-field';
 import type { FormApi } from '../types';
-import v1ResumeData from './v1-resume.json';
 
 const v1ResumeDataString = JSON.stringify(v1ResumeData);
 const parsedV1ResumeData = resumeDataSchema.parse(v1ResumeData);

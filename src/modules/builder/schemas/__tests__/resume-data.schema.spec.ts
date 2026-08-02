@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
+import v0ResumeData from '#tests/constants/json-resumes/v0-resume.json';
+
 import { resumeDataSchema } from '../resume-data.schema';
-import v0ResumeData from './v0-resume.json';
 
 describe('resumeDataSchema', () => {
   it('should parse a v0 resume', () => {

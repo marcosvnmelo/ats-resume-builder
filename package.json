@@ -8,7 +8,8 @@
     "url": "https://github.com/marcosvnmelo/ats-resume-builder"
   },
   "imports": {
-    "#builder/*": "./src/modules/builder/*"
+    "#builder/*": "./src/modules/builder/*",
+    "#tests/*": "./src/modules/tests/*"
   },
   "scripts": {
     "dev": "vite",

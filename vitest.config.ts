@@ -21,6 +21,12 @@ export default mergeConfig(
         provider: playwright(),
         instances: [{ browser: 'chromium' }],
       },
+      coverage: {
+        enabled: true,
+        include: ['src/**/*.{ts,tsx}'],
+      },
+      reporters: ['default', 'html'],
+      ui: true,
       // Safely externalize heavy Node-only tooling from trying to boot in Chromium
       server: {
         deps: {

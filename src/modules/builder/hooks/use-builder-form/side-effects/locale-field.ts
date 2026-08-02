@@ -17,11 +17,13 @@ export class LocaleFieldUpdateSideEffect implements FieldUpdateSideEffect {
     this.setLocaleCallback = setLocaleCallback;
   }
 
-  isExpectedField() {
-    return LocaleFieldUpdateSideEffect.expectedFieldName === this.fieldName;
+  async run() {
+    if (!this.isExpectedField()) return;
+
+    this.setLocaleCallback(this.fieldValue);
   }
 
-  async run() {
-    this.setLocaleCallback(this.fieldValue);
+  private isExpectedField() {
+    return LocaleFieldUpdateSideEffect.expectedFieldName === this.fieldName;
   }
 }

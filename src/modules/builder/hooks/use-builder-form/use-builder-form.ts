@@ -70,10 +70,7 @@ export function useBuilderForm() {
         ];
 
         for (const fieldUpdateSideEffect of fieldUpdateSideEffects) {
-          if (fieldUpdateSideEffect.isExpectedField()) {
-            await fieldUpdateSideEffect.run();
-            break;
-          }
+          await fieldUpdateSideEffect.run();
         }
 
         if (formApi.state.isValid) {

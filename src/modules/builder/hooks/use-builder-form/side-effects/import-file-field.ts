@@ -5,21 +5,23 @@ import { resumeDataSchema, type ResumeData } from '#builder/schemas/resume-data.
 
 import type { FieldUpdateSideEffect, FormApi } from './types';
 
-export class ImportFileFieldUpdateSideEffect<
-  TForm extends Pick<FormApi, 'getFieldValue' | 'setFieldValue' | 'validateAllFields' | 'state'>,
-> implements FieldUpdateSideEffect {
+type PartialFormApi = Pick<
+  FormApi,
+  'getFieldValue' | 'setFieldValue' | 'validateAllFields' | 'state'
+>;
+
+export class ImportFileFieldUpdateSideEffect implements FieldUpdateSideEffect {
   private fieldName: string;
   private fieldValue: File | undefined;
+  private formApi: PartialFormApi;
   private setLocaleCallback: (locale: string) => void;
 
   private static expectedFieldName = 'import.file' satisfies DeepKeys<BuilderFormInput>;
 
-  private formApi: TForm;
-
   constructor(
     fieldName: string,
     fieldValue: File | undefined,
-    formApi: TForm,
+    formApi: PartialFormApi,
     setLocaleCallback: (locale: string) => void,
   ) {
     this.fieldName = fieldName;
@@ -28,12 +30,9 @@ export class ImportFileFieldUpdateSideEffect<
     this.setLocaleCallback = setLocaleCallback;
   }
 
-  isExpectedField() {
-    return this.fieldName === ImportFileFieldUpdateSideEffect.expectedFieldName;
-  }
-
   async run() {
-    if (!this.fieldValue) return;
+    if (!this.isExpectedField()) return;
+    if (!this.isValueValid(this.fieldValue)) return;
 
     const parsedData = await this.parseFile(this.fieldValue);
 
@@ -44,6 +43,14 @@ export class ImportFileFieldUpdateSideEffect<
     this.triggerLocaleUpdate();
 
     this.triggerNameUpdate();
+  }
+
+  private isExpectedField() {
+    return this.fieldName === ImportFileFieldUpdateSideEffect.expectedFieldName;
+  }
+
+  private isValueValid(value: File | undefined): value is File {
+    return value instanceof File;
   }
 
   private async parseFile(file: File) {

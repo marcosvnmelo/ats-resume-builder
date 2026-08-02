@@ -4,22 +4,18 @@ import type { ResumeData } from '#builder/schemas/resume-data.schema.ts';
 
 import type { FieldUpdateSideEffect, FormApi } from './types';
 
+type PartialFormApi = Pick<FormApi, 'getFieldValue' | 'setFieldValue'>;
+
 export class SetPreviewStoreFieldValueUpdateSideEffect implements FieldUpdateSideEffect {
   private fieldName: string;
   private fieldValue: boolean;
   private fieldIndex: number;
+  private formApi: PartialFormApi;
 
   private static expectedFieldNameRegex = /^workExperience\.items\[(\d+)\]\.showOnBottom$/;
-
-  private formApi: Pick<FormApi, 'getFieldValue' | 'setFieldValue'>;
-
   private static updateFormOptions: UpdateMetaOptions = { dontRunListeners: true };
 
-  constructor(
-    fieldName: string,
-    fieldValue: boolean,
-    formApi: Pick<FormApi, 'getFieldValue' | 'setFieldValue'>,
-  ) {
+  constructor(fieldName: string, fieldValue: boolean, formApi: PartialFormApi) {
     this.fieldName = fieldName;
     this.fieldValue = fieldValue;
     this.fieldIndex = Number(
@@ -28,16 +24,18 @@ export class SetPreviewStoreFieldValueUpdateSideEffect implements FieldUpdateSid
     this.formApi = formApi;
   }
 
-  isExpectedField() {
-    return SetPreviewStoreFieldValueUpdateSideEffect.expectedFieldNameRegex.test(this.fieldName);
-  }
-
   async run() {
+    if (!this.isExpectedField()) return;
+
     const updatedWorkExperiences = this.getWorkExperienceWithAppliedSideEffects();
 
     this.updateWorkExperiences(updatedWorkExperiences);
 
     this.updateProjects(updatedWorkExperiences);
+  }
+
+  private isExpectedField() {
+    return SetPreviewStoreFieldValueUpdateSideEffect.expectedFieldNameRegex.test(this.fieldName);
   }
 
   private getWorkExperienceWithAppliedSideEffects() {

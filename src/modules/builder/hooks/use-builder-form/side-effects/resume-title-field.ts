@@ -5,28 +5,25 @@ import { toTitleDashCase } from '@/lib/utils';
 
 import type { FieldUpdateSideEffect, FormApi } from './types';
 
-export class ResumeTitleFieldUpdateSideEffect<
-  TForm extends Pick<FormApi, 'getFieldValue'> = FormApi,
-> implements FieldUpdateSideEffect {
+type PartialFormApi = Pick<FormApi, 'getFieldValue'>;
+
+export class ResumeTitleFieldUpdateSideEffect implements FieldUpdateSideEffect {
   private fieldName: string;
+  private formApi: PartialFormApi;
 
   private static expectedFieldNames: string[] = [
     'personalInformation.data.name',
     'options.resumeTitleTemplate',
   ] satisfies DeepKeys<BuilderFormInput>[];
 
-  private formApi: TForm;
-
-  constructor(fieldName: string, formApi: TForm) {
+  constructor(fieldName: string, formApi: PartialFormApi) {
     this.fieldName = fieldName;
     this.formApi = formApi;
   }
 
-  isExpectedField() {
-    return ResumeTitleFieldUpdateSideEffect.expectedFieldNames.includes(this.fieldName);
-  }
-
   async run() {
+    if (!this.isExpectedField()) return;
+
     const userName = toTitleDashCase(this.formApi.getFieldValue('personalInformation.data.name'));
     const projectUrl = import.meta.env.VITE_PROJECT_URL;
     const resumeTitleTemplate = this.formApi.getFieldValue('options.resumeTitleTemplate');
@@ -41,5 +38,9 @@ export class ResumeTitleFieldUpdateSideEffect<
       .replace('{{project_url}}', projectUrl);
 
     window.document.title = resumeTitle;
+  }
+
+  private isExpectedField() {
+    return ResumeTitleFieldUpdateSideEffect.expectedFieldNames.includes(this.fieldName);
   }
 }

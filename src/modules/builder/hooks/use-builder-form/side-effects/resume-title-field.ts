@@ -9,6 +9,7 @@ type PartialFormApi = Pick<FormApi, 'getFieldValue'>;
 
 export class ResumeTitleFieldUpdateSideEffect implements FieldUpdateSideEffect {
   private fieldName: string;
+  private defaultTitle: string;
   private projectUrl: string;
   private formApi: PartialFormApi;
   setTitleCallback: (title: string) => void;
@@ -20,10 +21,12 @@ export class ResumeTitleFieldUpdateSideEffect implements FieldUpdateSideEffect {
 
   constructor(
     fieldName: string,
+    defaultTitle: string,
     formApi: PartialFormApi,
     setTitleCallback: (title: string) => void,
   ) {
     this.fieldName = fieldName;
+    this.defaultTitle = defaultTitle;
     this.projectUrl = import.meta.env.VITE_PROJECT_URL;
     this.formApi = formApi;
     this.setTitleCallback = setTitleCallback;
@@ -32,22 +35,35 @@ export class ResumeTitleFieldUpdateSideEffect implements FieldUpdateSideEffect {
   async run() {
     if (!this.isExpectedField()) return;
 
-    const userName = toTitleDashCase(this.formApi.getFieldValue('personalInformation.data.name'));
-    const resumeTitleTemplate = this.formApi.getFieldValue('options.resumeTitleTemplate');
-
-    if (userName.length === 0) {
-      this.setTitleCallback('ats-resume-builder');
-      return;
-    }
-
-    const resumeTitle = resumeTitleTemplate
-      .replace('{{user_name}}', userName)
-      .replace('{{project_url}}', this.projectUrl);
+    const resumeTitle = this.buildResumeTitle();
 
     this.setTitleCallback(resumeTitle);
   }
 
   private isExpectedField() {
     return ResumeTitleFieldUpdateSideEffect.expectedFieldNames.includes(this.fieldName);
+  }
+
+  private buildResumeTitle() {
+    const userName = this.getTitleDashCasedUserName();
+
+    const isUserNameEmpty = userName.length === 0;
+    if (isUserNameEmpty) {
+      return this.defaultTitle;
+    }
+
+    const resumeTitleTemplate = this.getResumeTitleTemplate();
+
+    return resumeTitleTemplate
+      .replace('{{user_name}}', userName)
+      .replace('{{project_url}}', this.projectUrl);
+  }
+
+  private getTitleDashCasedUserName() {
+    return toTitleDashCase(this.formApi.getFieldValue('personalInformation.data.name'));
+  }
+
+  private getResumeTitleTemplate() {
+    return this.formApi.getFieldValue('options.resumeTitleTemplate');
   }
 }

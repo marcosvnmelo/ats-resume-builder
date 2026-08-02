@@ -61,9 +61,14 @@ export function useBuilderForm() {
             fieldApi.state.value,
             formApi,
           ),
-          new ResumeTitleFieldUpdateSideEffect(fieldApi.name, formApi, (title) => {
-            window.document.title = title;
-          }),
+          new ResumeTitleFieldUpdateSideEffect(
+            fieldApi.name,
+            'ats-resume-builder',
+            formApi,
+            (title) => {
+              window.document.title = title;
+            },
+          ),
           new LocaleFieldUpdateSideEffect(
             fieldApi.name,
             fieldApi.state.value,

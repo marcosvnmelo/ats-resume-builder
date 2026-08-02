@@ -29,7 +29,7 @@ export class SetPreviewStoreFieldValueUpdateSideEffect implements FieldUpdateSid
 
     const updatedWorkExperiences = this.getWorkExperienceWithAppliedSideEffects();
 
-    this.updateWorkExperiences(updatedWorkExperiences);
+    this.setWorkExperiences(updatedWorkExperiences);
 
     this.updateProjects(updatedWorkExperiences);
   }
@@ -69,7 +69,7 @@ export class SetPreviewStoreFieldValueUpdateSideEffect implements FieldUpdateSid
     });
   }
 
-  private updateWorkExperiences(updatedWorkExperiences: ResumeData['workExperience']['items']) {
+  private setWorkExperiences(updatedWorkExperiences: ResumeData['workExperience']['items']) {
     this.formApi.setFieldValue(
       'workExperience.items',
       updatedWorkExperiences,

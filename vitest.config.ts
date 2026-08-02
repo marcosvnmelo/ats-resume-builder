@@ -43,6 +43,7 @@ export default mergeConfig(
       coverage: {
         enabled: true,
         include: ['src/**/*.{ts,tsx}'],
+        exclude: ['src/**/*.content.ts'],
         reporter: ['html'],
       },
       reporters: ['default', 'html'],

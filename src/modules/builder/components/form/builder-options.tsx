@@ -3,7 +3,7 @@ import { localeMap } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
-import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
+import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form/use-builder-form.ts';
 import { resumeDataSchemaV1 } from '#builder/schemas/resume-data.schema.ts';
 import { FieldGroup, FieldSet } from '@/components/ui/field';
 

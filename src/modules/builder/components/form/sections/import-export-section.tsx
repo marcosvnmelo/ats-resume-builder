@@ -2,7 +2,7 @@ import { DownloadIcon, UploadIcon } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
 
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
-import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
+import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form/use-builder-form.ts';
 import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Field, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';

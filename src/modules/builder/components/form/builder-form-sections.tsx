@@ -1,5 +1,5 @@
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
-import { withBuilderForm } from '#builder/hooks/use-builder-form.ts';
+import { withBuilderForm } from '#builder/hooks/use-builder-form/use-builder-form.ts';
 
 import { CertificationsSection } from './sections/certifications-section';
 import { EducationSection } from './sections/education-section';

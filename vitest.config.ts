@@ -15,12 +15,31 @@ export default mergeConfig(
       }),
     ],
     test: {
-      browser: {
-        enabled: true,
-        headless: true,
-        provider: playwright(),
-        instances: [{ browser: 'chromium' }],
-      },
+      projects: [
+        {
+          extends: true,
+          test: {
+            name: { label: 'node', color: 'green' },
+            include: ['src/**/*.node.spec.{ts,tsx}'],
+            browser: {
+              enabled: false,
+            },
+          },
+        },
+        {
+          extends: true,
+          test: {
+            name: { label: 'browser', color: 'blue' },
+            include: ['src/**/*.browser.spec.{ts,tsx}'],
+            browser: {
+              enabled: true,
+              headless: true,
+              provider: playwright(),
+              instances: [{ browser: 'chromium' }],
+            },
+          },
+        },
+      ],
       coverage: {
         enabled: true,
         include: ['src/**/*.{ts,tsx}'],

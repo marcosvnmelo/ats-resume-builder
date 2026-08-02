@@ -9,35 +9,42 @@ type PartialFormApi = Pick<FormApi, 'getFieldValue'>;
 
 export class ResumeTitleFieldUpdateSideEffect implements FieldUpdateSideEffect {
   private fieldName: string;
+  private projectUrl: string;
   private formApi: PartialFormApi;
+  setTitleCallback: (title: string) => void;
 
   private static expectedFieldNames: string[] = [
     'personalInformation.data.name',
     'options.resumeTitleTemplate',
   ] satisfies DeepKeys<BuilderFormInput>[];
 
-  constructor(fieldName: string, formApi: PartialFormApi) {
+  constructor(
+    fieldName: string,
+    formApi: PartialFormApi,
+    setTitleCallback: (title: string) => void,
+  ) {
     this.fieldName = fieldName;
+    this.projectUrl = import.meta.env.VITE_PROJECT_URL;
     this.formApi = formApi;
+    this.setTitleCallback = setTitleCallback;
   }
 
   async run() {
     if (!this.isExpectedField()) return;
 
     const userName = toTitleDashCase(this.formApi.getFieldValue('personalInformation.data.name'));
-    const projectUrl = import.meta.env.VITE_PROJECT_URL;
     const resumeTitleTemplate = this.formApi.getFieldValue('options.resumeTitleTemplate');
 
     if (userName.length === 0) {
-      window.document.title = 'ats-resume-builder';
+      this.setTitleCallback('ats-resume-builder');
       return;
     }
 
     const resumeTitle = resumeTitleTemplate
       .replace('{{user_name}}', userName)
-      .replace('{{project_url}}', projectUrl);
+      .replace('{{project_url}}', this.projectUrl);
 
-    window.document.title = resumeTitle;
+    this.setTitleCallback(resumeTitle);
   }
 
   private isExpectedField() {

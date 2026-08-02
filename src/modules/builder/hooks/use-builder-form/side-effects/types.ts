@@ -1,3 +1,5 @@
+/* v8 ignore file */
+
 import type { useBuilderForm } from '../use-builder-form';
 
 export interface FieldUpdateSideEffect {

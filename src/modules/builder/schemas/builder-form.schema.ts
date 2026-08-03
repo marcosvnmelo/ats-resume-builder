@@ -6,7 +6,11 @@ export const builderFormSchema = resumeDataSchemaV1.omit({ v: true }).extend({
   import: z.object({
     file: z.file().mime('application/json').nullable(),
   }),
-  personalInformation: resumeDataSchemaV1.shape.personalInformation.required(),
+  personalInformation: resumeDataSchemaV1.shape.personalInformation.required().extend({
+    data: resumeDataSchemaV1.shape.personalInformation.shape.data.required().extend({
+      email: z.literal('').or(resumeDataSchemaV1.shape.personalInformation.shape.data.shape.email),
+    }),
+  }),
 
   socialMedia: resumeDataSchemaV1.shape.socialMedia.required(),
 

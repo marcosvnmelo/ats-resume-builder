@@ -25,37 +25,30 @@ describe('useBuilderForm', () => {
       <MockBuilder renderImportExportSection renderRawStateValues />,
     );
 
-    await uploadResumeData(locator);
-
+    const formDataSpanLocator = locator.getByTestId('state.values');
     const parsedResumeData = resumeDataSchema.parse(v1ResumeData);
 
-    const formDataSpanLocator = locator.getByTestId('state.values');
+    await uploadResumeDataToFileInput(locator, v0ResumeData);
 
     await expect.element(formDataSpanLocator).toBeVisible();
 
-    const spanText = formDataSpanLocator.element().textContent;
+    const parsedSpanData = await parseElementContent(formDataSpanLocator);
 
-    const parsedSpanText = JSON.parse(spanText);
-
-    expect(parsedSpanText).toMatchObject(parsedResumeData);
+    expect(parsedSpanData).toMatchObject(parsedResumeData);
   });
 
   it('should update the preview store when the form is updated', async () => {
     const { locator } = await render(
-      <MockBuilder renderImportExportSection renderPreview />,
+      <MockBuilder renderPersonalInformationSection renderPreview />,
     );
 
-    const previewTitleLocator = locator.getByTestId(
-      'builder-preview.header.name',
-    );
+    const userName = v0ResumeData.name;
 
-    await expect.element(previewTitleLocator).toHaveTextContent('');
+    await assetPreviewTitleContent(locator, '');
 
-    await uploadResumeData(locator);
+    await fillNameInput(locator, userName);
 
-    await expect
-      .element(previewTitleLocator)
-      .toHaveTextContent(v0ResumeData.name);
+    await assetPreviewTitleContent(locator, userName);
   });
 
   it('should update the page tile when side effect is triggered', async () => {
@@ -63,15 +56,11 @@ describe('useBuilderForm', () => {
       <MockBuilder renderPersonalInformationSection />,
     );
 
-    const inputName =
-      'personalInformation.data.name' satisfies DeepKeys<BuilderFormInput>;
-    const nameInputLocator = locator.getByTestId(`input-${inputName}`);
-
     const userName = 'MARCOS MELO';
     const titleDashCasedUserName = toTitleDashCase(userName);
     const initialTitle = window.document.title;
 
-    await userEvent.fill(nameInputLocator, userName);
+    await fillNameInput(locator, userName);
 
     await vi.waitUntil(() => window.document.title !== initialTitle);
     await expect
@@ -122,13 +111,35 @@ function RawStateValues() {
   return <span data-testid="state.values">{resumeDataString}</span>;
 }
 
-async function uploadResumeData(rootLocator: Locator) {
+async function uploadResumeDataToFileInput(rootLocator: Locator, data: object) {
   const inputName = 'import.file' satisfies DeepKeys<BuilderFormInput>;
   const fileInputLocator = rootLocator.getByTestId(`input-${inputName}`);
 
-  const file = new File([JSON.stringify(v0ResumeData)], 'resume.json', {
+  const file = new File([JSON.stringify(data)], 'resume.json', {
     type: 'application/json',
   });
 
   await userEvent.upload(fileInputLocator, file);
+}
+
+async function fillNameInput(rootLocator: Locator, userName: string) {
+  const inputName =
+    'personalInformation.data.name' satisfies DeepKeys<BuilderFormInput>;
+  const nameInputLocator = rootLocator.getByTestId(`input-${inputName}`);
+
+  await userEvent.fill(nameInputLocator, userName);
+}
+
+async function assetPreviewTitleContent(rootLocator: Locator, content: string) {
+  const previewTitleLocator = rootLocator.getByTestId(
+    'builder-preview.header.name',
+  );
+
+  await expect.element(previewTitleLocator).toHaveTextContent(content);
+}
+
+async function parseElementContent(locator: Locator): Promise<object> {
+  const elementText = locator.element().textContent;
+
+  return JSON.parse(elementText);
 }

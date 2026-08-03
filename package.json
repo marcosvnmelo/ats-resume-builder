@@ -59,6 +59,7 @@
     "@vitest/coverage-v8": "^4.1.10",
     "@vitest/ui": "^4.1.10",
     "babel-plugin-react-compiler": "1.0.0",
+    "babel-plugin-react-remove-properties": "0.3.1",
     "oxfmt": "0.61.0",
     "oxlint": "1.76.0",
     "typescript": "~7.0.2",

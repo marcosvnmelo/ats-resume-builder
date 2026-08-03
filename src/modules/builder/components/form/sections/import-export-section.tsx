@@ -2,7 +2,8 @@ import { DownloadIcon, UploadIcon } from 'lucide-react';
 import { useIntlayer } from 'react-intlayer';
 
 import { defaultValues } from '#builder/constants/builder-form-options.ts';
-import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form.ts';
+import { withBuilderFieldGroup } from '#builder/hooks/use-builder-form/use-builder-form.ts';
+import { resumeExportDataSchema } from '#builder/schemas/resume-data.schema.ts';
 import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Field, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
@@ -15,7 +16,9 @@ export const ImportExportSection = withBuilderFieldGroup({
 
     function downloadResumeData() {
       const resumeData = useBuilderPreviewStore.getState().resumeData;
-      const jsonData = JSON.stringify(resumeData, null, 2);
+      const resumeExportData = resumeExportDataSchema.parse(resumeData);
+
+      const jsonData = JSON.stringify(resumeExportData, null, 2);
 
       const blob = new Blob([jsonData], { type: 'application/json' });
 
@@ -35,6 +38,7 @@ export const ImportExportSection = withBuilderFieldGroup({
                 <Input
                   id={field.name}
                   name={field.name}
+                  data-testid={`input-${field.name}`}
                   type="file"
                   className="hidden"
                   onBlur={field.handleBlur}

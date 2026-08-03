@@ -29,5 +29,10 @@ export function SocialMediaIcon({
 
   if (!Icon) return null;
 
-  return <Icon className={className} />;
+  return (
+    <Icon
+      className={className}
+      data-testid={`social-media-icon.${socialMedia}`}
+    />
+  );
 }

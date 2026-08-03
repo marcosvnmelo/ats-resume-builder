@@ -2,7 +2,7 @@
 
 import { Activity } from 'react';
 
-import { useBuilderForm } from '#builder/hooks/use-builder-form.ts';
+import { useBuilderForm } from '#builder/hooks/use-builder-form/use-builder-form.ts';
 import { useBuilderStore } from '#builder/stores/use-builder-store.ts';
 
 import { BuilderFormSections } from './builder-form-sections';

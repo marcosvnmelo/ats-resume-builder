@@ -15,12 +15,38 @@ export default mergeConfig(
       }),
     ],
     test: {
-      browser: {
+      projects: [
+        {
+          extends: true,
+          test: {
+            name: { label: 'node', color: 'green' },
+            include: ['src/**/*.node.spec.{ts,tsx}'],
+            browser: {
+              enabled: false,
+            },
+          },
+        },
+        {
+          extends: true,
+          test: {
+            name: { label: 'browser', color: 'blue' },
+            include: ['src/**/*.browser.spec.{ts,tsx}'],
+            browser: {
+              enabled: true,
+              headless: true,
+              provider: playwright(),
+              instances: [{ browser: 'chromium' }],
+            },
+          },
+        },
+      ],
+      coverage: {
         enabled: true,
-        headless: true,
-        provider: playwright(),
-        instances: [{ browser: 'chromium' }],
+        include: ['src/**/*.{ts,tsx}'],
+        exclude: ['src/**/*.content.ts'],
+        reporter: process.env.GITHUB_ACTIONS ? ['github-actions', 'html'] : ['html'],
       },
+      reporters: ['default', 'html'],
       // Safely externalize heavy Node-only tooling from trying to boot in Chromium
       server: {
         deps: {

@@ -1,0 +1,167 @@
+{
+  "v": 1,
+  "personalInformation": {
+    "title": "Personal Information",
+    "data": {
+      "name": "MARCUS HALL",
+      "position": "Developer",
+      "email": "beddylea@gmail.com",
+      "address": "San Francisco, CA",
+      "profilePicture": "",
+      "phone": "+1-555-0100"
+    }
+  },
+  "socialMedia": {
+    "title": "Social Medias",
+    "items": [
+      {
+        "socialMedia": "Github",
+        "link": "github.com//bedivere-lea"
+      },
+      {
+        "socialMedia": "LinkedIn",
+        "link": "linkedin.com/in/bedivere-lea"
+      },
+      {
+        "socialMedia": "Website",
+        "link": "bedivere-lea.github.io"
+      }
+    ]
+  },
+  "summary": {
+    "title": "Summary",
+    "text": "Resourceful Developer with 11 years of experience in designing and developing user interfaces, testing and training employees. Skilled at utilizing a wide variety of tools and programs to provide effective applications."
+  },
+  "education": {
+    "title": "Education",
+    "items": [
+      {
+        "school": "Bachelor of Computer Science",
+        "degree": "New York University",
+        "startYear": "2020-08-20",
+        "endYear": "2024-07-01"
+      }
+    ]
+  },
+  "workExperience": {
+    "title": "Work Experience",
+    "items": [
+      {
+        "company": "Torph TTC",
+        "position": "Developer",
+        "description": "Torph TTC is a global software company that offers user interface UI development tools and components for a range of developer applications across all platforms.",
+        "keyAchievements": "Created and maintained 10 web applications for numerous national and foreign clients.\nEnsured that the user interfaces and user experience of the software applications developed by the team met at least 80% of users expectations.\nCreated and analyzed 500 unit test cases.\nDeveloped python scripts to automate image's noise-reduction process which helped improve research analysis time by 40%.\nEstablished and lead a team of 10 people; covering every key role in the early stages.",
+        "keyAchievementsList": [
+          "• Created and maintained 10 web applications for numerous national and foreign clients.",
+          "• Ensured that the user interfaces and user experience of the software applications developed by the team met at least 80% of users expectations.",
+          "• Created and analyzed 500 unit test cases.",
+          "• Developed python scripts to automate image's noise-reduction process which helped improve research analysis time by 40%.",
+          "• Established and lead a team of 10 people; covering every key role in the early stages."
+        ],
+        "startYear": "2023-02-16",
+        "endYear": "2023-02-21",
+        "showOnBottom": false
+      },
+      {
+        "company": "Reilty Group",
+        "position": "Front End Web Developer",
+        "description": "Reilty Group is an industry-leading provider of online gambling software and solutions.",
+        "keyAchievements": "Increased by 35% the reach of users to the platform, over the installation of the web platform in mobile devices.\nDelivered 30 web solutions.\nReplaced 1 full-time web developer under part-time employment achieving a productivity gain of over 60% as measured by working hours.\nWorked with more than 4 different teams at different points of time and provided end-to-end solutions for clients.",
+        "keyAchievementsList": [
+          "• Increased by 35% the reach of users to the platform, over the installation of the web platform in mobile devices.",
+          "• Delivered 30 web solutions.",
+          "• Replaced 1 full-time web developer under part-time employment achieving a productivity gain of over 60% as measured by working hours.",
+          "• Worked with more than 4 different teams at different points of time and provided end-to-end solutions for clients."
+        ],
+        "startYear": "2023-02-22",
+        "endYear": "2023-03-09",
+        "showOnBottom": false
+      },
+      {
+        "company": "HellX",
+        "position": "Python Developer",
+        "description": "Heller is a Software Editor specialized in logistics management.",
+        "keyAchievements": "Developed several automation systems - saved over $50,000 annually.\nJoined the team as #10 employee as a developer working directly with the biggest customers.\nInvolved in coding as per the requirement, delivered well ahead of time which saved project cost by 20%.\nReduced database size by nearly 50% and improved its performance by 20%.\nDelivery time of good reduced by 50%.",
+        "keyAchievementsList": [
+          "• Developed several automation systems - saved over $50,000 annually.",
+          "• Joined the team as #10 employee as a developer working directly with the biggest customers.",
+          "• Involved in coding as per the requirement, delivered well ahead of time which saved project cost by 20%.",
+          "• Reduced database size by nearly 50% and improved its performance by 20%.",
+          "• Delivery time of good reduced by 50%."
+        ],
+        "startYear": "2023-02-22",
+        "endYear": "2023-03-09",
+        "showOnBottom": false
+      }
+    ]
+  },
+  "projects": {
+    "title": "Projects",
+    "items": [
+      {
+        "name": "ATSResume",
+        "link": "https://github.com/sauravhathi/atsresume",
+        "description": "A cutting-edge resume builder that helps job seekers create a professional, ATS-friendly resume in minutes. Our platform uses the latest technology to analyze and optimize your resume for maximum visibility and success with applicant tracking systems",
+        "keyAchievements": "Maximum score on https://www.resumego.net/resume-checker/",
+        "startYear": "",
+        "endYear": ""
+      }
+    ],
+    "showOnBottom": false
+  },
+  "skills": {
+    "technical": {
+      "title": "Technical Skills",
+      "items": [
+        "JavaScript",
+        "Python",
+        "Web Services",
+        "C++",
+        "HTML5",
+        "CSS",
+        "SQL",
+        "User Interface",
+        "Creativity"
+      ]
+    },
+    "soft": {
+      "title": "Soft Skills",
+      "items": [
+        "Collaboration",
+        "Problem-solving",
+        "Communication",
+        "Time management",
+        "Result-oriented"
+      ]
+    },
+    "additional": {
+      "title": "Additional Skills",
+      "items": [
+        "Public Speaking",
+        "Writing",
+        "Research"
+      ]
+    }
+  },
+  "languages": {
+    "title": "Languages",
+    "items": [
+      "English",
+      "Hindi"
+    ],
+    "showOnBottom": false
+  },
+  "certifications": {
+    "title": "Certifications",
+    "items": [
+      "Certified Web Professional-Web Developer",
+      "Java Development Certified Professional"
+    ],
+    "showOnBottom": false
+  },
+  "options": {
+    "resumeTitleTemplate": "{{user_name}}-Resume-by-{{project_url}}",
+    "locale": "en",
+    "dateRangeMonthFormat": "short"
+  }
+}

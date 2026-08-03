@@ -1,7 +1,7 @@
 import { useIntlayer } from 'react-intlayer';
 
 import { builderFormOptions } from '#builder/constants/builder-form-options.ts';
-import { useBuilderFormContext } from '#builder/hooks/use-builder-form.ts';
+import { useBuilderFormContext } from '#builder/hooks/use-builder-form/use-builder-form.ts';
 import { FieldGroup } from '@/components/ui/field';
 import { cn } from '@/lib/utils';
 

@@ -16,7 +16,12 @@ export default defineConfig({
   plugins: [
     devtools(),
     react(),
-    babel({ presets: [reactCompilerPreset()] }),
+    babel({
+      presets: [reactCompilerPreset()],
+      plugins: !process.env.VITEST
+        ? [['babel-plugin-react-remove-properties', { properties: ['data-testid', 'data-test'] }]]
+        : [],
+    }),
     tailwindcss(),
     intlayer(),
   ],

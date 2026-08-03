@@ -82,6 +82,8 @@ export function useBuilderForm() {
 
         if (formApi.state.isValid) {
           updatePreview(formApi);
+        } else {
+          formApi.validateAllFields('change');
         }
       },
       onChangeDebounceMs: 500,

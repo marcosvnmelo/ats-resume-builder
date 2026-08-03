@@ -183,3 +183,22 @@ export const resumeDataSchema = z
   .pipe(resumeDataSchemaV1);
 
 export type ResumeData = z.infer<typeof resumeDataSchema>;
+
+export const resumeExportDataSchema = resumeDataSchema.transform((data) => ({
+  ...data,
+  workExperience: {
+    ...data.workExperience,
+    items: data.workExperience.items.map((we) => ({
+      company: we.company,
+      position: we.position,
+      description: we.description,
+      keyAchievements: we.keyAchievements,
+      keyAchievementsList: we.keyAchievements.split('\n').map((ka) => '• ' + ka.trim()),
+      startYear: we.startYear,
+      endYear: we.endYear,
+      showOnBottom: we.showOnBottom,
+    })),
+  },
+}));
+
+export type ResumeExportData = z.infer<typeof resumeExportDataSchema>;

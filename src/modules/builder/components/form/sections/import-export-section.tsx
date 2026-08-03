@@ -38,6 +38,7 @@ export const ImportExportSection = withBuilderFieldGroup({
                 <Input
                   id={field.name}
                   name={field.name}
+                  data-testid={`input-${field.name}`}
                   type="file"
                   className="hidden"
                   onBlur={field.handleBlur}

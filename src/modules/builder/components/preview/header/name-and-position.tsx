@@ -11,7 +11,12 @@ export function NameAndPosition() {
 
   return (
     <>
-      <h1 className="text-xl font-bold">{name}</h1>
+      <h1
+        className="text-xl font-bold"
+        data-testid="builder-preview.header.name"
+      >
+        {name}
+      </h1>
       <p className="text-base font-medium">{position}</p>
     </>
   );

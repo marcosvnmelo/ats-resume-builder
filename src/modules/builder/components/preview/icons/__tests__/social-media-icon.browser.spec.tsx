@@ -1,20 +1,7 @@
 import { it, expect, describe } from 'vitest';
 import { render } from 'vitest-browser-react';
-import { locators, type Locator } from 'vitest/browser';
 
 import { SocialMediaIcon } from '../social-media-icon';
-
-declare module 'vitest/browser' {
-  interface LocatorSelectors {
-    getByTag(tag: string): Locator;
-  }
-}
-
-locators.extend({
-  getByTag(tag: string) {
-    return `${tag}`;
-  },
-});
 
 describe('SocialMediaIcon', () => {
   it.for([
@@ -31,6 +18,8 @@ describe('SocialMediaIcon', () => {
       <SocialMediaIcon socialMedia={socialMedia} />,
     );
 
-    await expect.element(locator.getByTag('svg')).toBeVisible();
+    await expect
+      .element(locator.getByTestId(`social-media-icon.${socialMedia}`))
+      .toBeVisible();
   });
 });

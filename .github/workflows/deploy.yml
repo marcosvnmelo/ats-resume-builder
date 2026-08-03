@@ -53,7 +53,7 @@ jobs:
           key: playwright-${{ steps.playwright-version.outputs.version }}
 
       - name: Install Playwright Dependencies
-        run: pnpm exec playwright install chromium --with-deps
+        run: pnpm dlx playwright install chromium --with-deps
 
       - name: Run Vitest tests
         run: pnpm exec vitest run

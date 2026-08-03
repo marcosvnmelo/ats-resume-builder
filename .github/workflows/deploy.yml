@@ -55,7 +55,7 @@ jobs:
         run: |
           echo "### 📊 Vitest Test Results" >> $GITHUB_STEP_SUMMARY
           echo "Click the link below to open the interactive test results builder:" >> $GITHUB_STEP_SUMMARY
-          echo "[🚀 View Interactive Vitest Report](https://vitest.dev{{ steps.upload-report.outputs.artifact-url }})" >> $GITHUB_STEP_SUMMARY
+          echo "[🚀 View Interactive Vitest Report](https://viewer.vitest.dev/?url=${{ steps.upload-report.outputs.artifact-url }})" >> $GITHUB_STEP_SUMMARY
 
   deploy:
     environment:

@@ -1,15 +1,17 @@
 import type { DeepKeys } from '@tanstack/react-form';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
 import { userEvent, type Locator } from 'vitest/browser';
 
 import { ImportExportSection } from '#builder/components/form/sections/import-export-section.tsx';
+import { PersonalInformationSection } from '#builder/components/form/sections/personal-information-section.tsx';
 import { BuilderPreview } from '#builder/components/preview/builder-preview.tsx';
 import type { BuilderFormInput } from '#builder/schemas/builder-form.schema.ts';
 import { resumeDataSchema } from '#builder/schemas/resume-data.schema.ts';
 import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
 import v0ResumeData from '#tests/constants/json-resumes/v0-resume.json';
 import v1ResumeData from '#tests/constants/json-resumes/v1-resume.json';
+import { toTitleDashCase } from '@/lib/utils';
 
 import { useBuilderForm } from '../use-builder-form';
 
@@ -19,7 +21,9 @@ describe('useBuilderForm', () => {
   });
 
   it('should update the form when importing a file', async () => {
-    const { locator } = await render(<MockBuilder renderRawStateValues />);
+    const { locator } = await render(
+      <MockBuilder renderImportExportSection renderRawStateValues />,
+    );
 
     await uploadResumeData(locator);
 
@@ -37,7 +41,9 @@ describe('useBuilderForm', () => {
   });
 
   it('should update the preview store when the form is updated', async () => {
-    const { locator } = await render(<MockBuilder renderPreview />);
+    const { locator } = await render(
+      <MockBuilder renderImportExportSection renderPreview />,
+    );
 
     const previewTitleLocator = locator.getByTestId(
       'builder-preview.header.name',
@@ -51,6 +57,27 @@ describe('useBuilderForm', () => {
       .element(previewTitleLocator)
       .toHaveTextContent(v0ResumeData.name);
   });
+
+  it('should update the page tile when side effect is triggered', async () => {
+    const { locator } = await render(
+      <MockBuilder renderPersonalInformationSection />,
+    );
+
+    const inputName =
+      'personalInformation.data.name' satisfies DeepKeys<BuilderFormInput>;
+    const nameInputLocator = locator.getByTestId(`input-${inputName}`);
+
+    const userName = 'MARCOS MELO';
+    const titleDashCasedUserName = toTitleDashCase(userName);
+    const initialTitle = window.document.title;
+
+    await userEvent.fill(nameInputLocator, userName);
+
+    await vi.waitUntil(() => window.document.title !== initialTitle);
+    await expect
+      .poll(() => window.document.title)
+      .toContain(titleDashCasedUserName);
+  });
 });
 
 function resetBuilderPreviewStore() {
@@ -61,8 +88,10 @@ function resetBuilderPreviewStore() {
 }
 
 interface MockBuilderProps {
-  renderPreview?: boolean;
+  renderImportExportSection?: boolean;
+  renderPersonalInformationSection?: boolean;
   renderRawStateValues?: boolean;
+  renderPreview?: boolean;
 }
 
 function MockBuilder(props: MockBuilderProps) {
@@ -70,7 +99,12 @@ function MockBuilder(props: MockBuilderProps) {
 
   return (
     <form.AppForm>
-      <ImportExportSection form={form} fields="import" />
+      {props.renderImportExportSection && (
+        <ImportExportSection form={form} fields="import" />
+      )}
+      {props.renderPersonalInformationSection && (
+        <PersonalInformationSection form={form} fields="personalInformation" />
+      )}
 
       {props.renderRawStateValues && <RawStateValues />}
 

@@ -24,6 +24,7 @@ export function TextField(props: TextFieldProps) {
       <Input
         id={inputId}
         name={field.name}
+        data-testid={`input-${field.name}`}
         type={props.type ?? 'text'}
         placeholder={props.placeholder}
         value={field.state.value}

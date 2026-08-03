@@ -44,7 +44,7 @@ export default mergeConfig(
         enabled: true,
         include: ['src/**/*.{ts,tsx}'],
         exclude: ['src/**/*.content.ts'],
-        reporter: ['html'],
+        reporter: process.env.GITHUB_ACTIONS ? ['github-actions', 'html'] : ['html'],
       },
       reporters: ['default', 'html'],
       // Safely externalize heavy Node-only tooling from trying to boot in Chromium

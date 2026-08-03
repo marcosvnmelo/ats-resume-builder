@@ -47,7 +47,6 @@ export default mergeConfig(
         reporter: ['html'],
       },
       reporters: ['default', 'html'],
-      ui: true,
       // Safely externalize heavy Node-only tooling from trying to boot in Chromium
       server: {
         deps: {

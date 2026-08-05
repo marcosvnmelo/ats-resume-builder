@@ -1,3 +1,6 @@
+import type { __DeclaredLocalesRegistry } from 'intlayer';
+import { getIntlayer } from 'react-intlayer';
+
 import type { ResumeData } from '#builder/schemas/resume-data.schema.ts';
 import { useBuilderPreviewStore } from '#builder/stores/use-builder-preview-store.ts';
 
@@ -38,7 +41,9 @@ function formatDateRange(
 
   const formattedStartYear = formatDate(startYear, formatOptions);
 
-  let formattedEndYear = 'Present';
+  type DeclaredLocale = keyof __DeclaredLocalesRegistry;
+  const t = getIntlayer('date-range', formatOptions.locale as DeclaredLocale);
+  let formattedEndYear: string = t.present.value;
 
   if (endYear.length > 0) {
     formattedEndYear = formatDate(endYear, formatOptions);
